@@ -628,7 +628,6 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
           case 8: break;
           case 3: 
             { System.out.println("Encontre una variable Lexema: " + yytext());
-                 return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));
             } 
             // fall through
           case 9: break;

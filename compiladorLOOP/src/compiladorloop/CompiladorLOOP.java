@@ -2,6 +2,7 @@ package compiladorloop;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,8 @@ public class CompiladorLOOP {
             //Instancia de analizador sintáctico
             AnalizadorSintactico as = new AnalizadorSintactico(analizador);
             as.parse();
+             
+            
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CompiladorLOOP.class.getName()).log(Level.SEVERE, null, ex);
