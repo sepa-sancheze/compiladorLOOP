@@ -10,44 +10,86 @@ import createdClasses.token;
 
 %line
 %column
+    
+    /*%  PALABRAS RESERVADAS  */
+    clase = "Clase"
+    propiedades = "Propiedades"
+    metodos = "Metodos"
+    tipo_propiedades_metodos = "Publicas"|"Publicos"|"Privadas"|"Privados"|"Protegidos"|"Protegidas"
+
+    /*%  PALABRAS RESERVADAS TIPOS DATO Y FUNCIONES */
+
+    tipo_datos_variables = "entero"|"cadena"|"real"|"booleano"
+    tipo_datos_funciones = "entero"|"cadena"|"real"|"booleano"|"nulo"
+
+    /*%  PALABRAS RESERVADAS DE IFS */
+    if = "si|Si"
+    entonces = "entonces|Entonces"
+    sino = "sino|Sino"
+
+    /*%  PALABRAS RESERVADAS LECTURA Y ESCRITURA */
+    leer = "Leer|leer"
+    escribir = "Escribir|escribir"
+    /*%  PALABRAS RESERVADAS CICLO, FUNCIONES, ETC */
+    devolver = "devolver"
+    constructor = "Constructor"|"constructor"
+    destructor = "Destructor"|"destructor"
+    principal = "principal"|"Principal"
+    instanciar = "instanciar"
+    desde = "desde"|"Desde"
+    mientras = "mientras"|"Mientras"
+    incrementar = "incrementar"|"Incrementar"
+    decrementar = "decrementar"|"Decrementar"
+    hacer = "hacer"|"Hacer"
+    extiende = "extiende"|"Extiende"
+    incluir = "incluir"|"Incluir"
+    
+    /*%   REGLAS EXTRAS */
+    numeros = [0-9]+
+    findelinea = \n|\r|\rn
+    ignorar = {findelinea} | [\t\f]
+    mas = "+"
+    menos = "-"
+    finInstruccion = ";"
+    variables = [a-z]+{reglas_variablesextra}
+    reglas_variablesextra = [[a-z]|[0-9]|[A-Z]]*|[[a-z]|[0-9]|[A-Z]]* "_" [[a-z]|[0-9]|[A-Z]]+
+    excepciones_variables = [a-z]+[[a-z]|[0-9]|[A-Z]]* "_"  | [A-Z]+ {variables}
 
 
-numeros = [0-9]+
-findelinea = \n|\r|\rn
-ignorar = {findelinea} | [\t\f]
-mas = "+"
-menos = "-"
-finInstruccion = ";"
-variables = [a-z]+{reglas_variablesextra}
-reglas_variablesextra = [[a-z]|[0-9]|[A-Z]]*|[[a-z]|[0-9]|[A-Z]]* "_" [[a-z]|[0-9]|[A-Z]]+
-excepciones_variables = [a-z]+[[a-z]|[0-9]|[A-Z]]* "_"  | [A-Z]+ {variables}
 %%
 
-{numeros}       { return new Symbol(sym.NUMERO, new token("Numero",yytext()));}
+    {numeros}       
+        {   return new Symbol(sym.NUMERO, new token("Numero",yytext()));}
 
-{mas}           { return new Symbol(sym.MAS, yytext()); }
+    {mas}           
+        {   return new Symbol(sym.MAS, yytext()); }
 
-{menos}         { return new Symbol(sym.MENOS, yytext()); }
+    {menos}        
+        {   return new Symbol(sym.MENOS, yytext()); }
 
 
-{excepciones_variables}       {}
+    {excepciones_variables}       
+        {
 
-{variables}
-                {System.out.println("Encontre una variable Lexema: " + yytext());
-                 return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));
-                 
-                 }
+        }
 
-{finInstruccion}
-                { return new Symbol(sym.FI, yytext()); }
+    {variables}
+        {   System.out.println("Encontre una variable Lexema: " + yytext());
+            return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));             
+        }
 
-{ignorar}       {
+    {finInstruccion}
+        {   return new Symbol(sym.FI, yytext()); 
+        }
 
-                }
+    {ignorar}     
+        {
 
-.               {  
-                    
-                }
+        }
+
+    .   {  
+                        
+        }
 
 
 

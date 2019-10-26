@@ -36,9 +36,13 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\0\1\0\1\13\1\0\1\2\35\0\1\4\1\0\1\5"+
-    "\2\0\12\1\1\0\1\6\5\0\32\10\4\0\1\12\1\0\15\7"+
-    "\1\3\14\7\1\0\1\11\10\0\1\13\u1fa2\0\1\13\1\13\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\11\0\1\0\1\0\1\13\1\0\1\6\35\0\1\7\1\0\1\10"+
+    "\2\0\12\5\1\0\1\11\5\0\2\1\1\1\1\1\1\1\2\1"+
+    "\1\1\1\1\2\1\1\1\1\1\2\1\1\1\2\1\1\1\7\1"+
+    "\4\0\1\12\1\0\1\2\1\2\1\2\1\2\1\2\1\2\1\2"+
+    "\1\2\1\2\2\2\1\2\1\2\1\3\1\2\1\2\1\2\1\2"+
+    "\1\2\1\2\1\2\1\2\1\2\1\2\2\2\1\0\1\4\10\0"+
+    "\1\13\u1fa2\0\1\13\1\13\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -51,8 +55,8 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\1\1\3\1\4\1\5\1\6"+
-    "\3\1\1\0\1\3\1\0\1\1";
+    "\1\0\2\1\1\2\1\3\1\1\1\4\1\5\1\6"+
+    "\1\0\2\1\1\0\1\2\1\1";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[15];
@@ -80,8 +84,8 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\14\0\30\0\44\0\60\0\14\0\14\0\14"+
-    "\0\74\0\110\0\124\0\74\0\110\0\140\0\140";
+    "\0\0\0\14\0\30\0\44\0\60\0\74\0\14\0\14"+
+    "\0\14\0\30\0\110\0\124\0\140\0\124\0\140";
 
   private static int [] zzUnpackRowMap() {
     int [] result = new int[15];
@@ -107,12 +111,10 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\5"+
-    "\1\11\2\2\16\0\1\3\15\0\1\2\11\0\1\5"+
-    "\1\0\1\5\3\0\3\5\1\12\4\0\1\13\3\0"+
-    "\1\13\1\14\4\0\1\15\1\0\1\15\3\0\3\15"+
-    "\3\0\1\13\1\0\1\13\3\0\3\13\1\16\2\0"+
-    "\1\17\1\0\1\17\3\0\3\17\2\0";
+    "\1\2\1\3\2\4\1\2\1\5\1\6\1\7\1\10"+
+    "\1\11\1\2\16\0\1\12\2\13\11\0\5\4\4\0"+
+    "\1\14\6\0\1\5\11\0\1\2\11\0\5\13\4\0"+
+    "\1\15\2\0\5\16\7\0\5\17\6\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[108];
@@ -153,8 +155,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\3\1\3\11\3\1\1\0\1\1\1\0"+
-    "\1\1";
+    "\1\0\1\11\4\1\3\11\1\0\2\1\1\0\2\1";
 
   private static int [] zzUnpackAttribute() {
     int [] result = new int[15];
@@ -253,7 +254,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 92) {
+    while (i < 162) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -622,13 +623,13 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             // fall through
           case 7: break;
           case 2: 
-            { return new Symbol(sym.NUMERO, new token("Numero",yytext()));
+            { System.out.println("Encontre una variable Lexema: " + yytext());
+            return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));
             } 
             // fall through
           case 8: break;
           case 3: 
-            { System.out.println("Encontre una variable Lexema: " + yytext());
-                 return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));
+            { return new Symbol(sym.NUMERO, new token("Numero",yytext()));
             } 
             // fall through
           case 9: break;
