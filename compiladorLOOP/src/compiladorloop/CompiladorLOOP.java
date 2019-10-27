@@ -13,9 +13,8 @@ public class CompiladorLOOP {
             String nombreArchivo = "src/inputs/input.txt";
             AnalizadorLexico analizador = new AnalizadorLexico(new FileReader(nombreArchivo));
             analizador.next_token();
-            
             analizador.tokens.forEach((token) -> {
-                System.out.println(token.getTipo());
+                System.out.println(token.getTipo() + " -> " + token.getLexema());
             });
             //Instancia de analizador sintáctico
 //            AnalizadorSintactico as = new AnalizadorSintactico(analizador);

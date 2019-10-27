@@ -1,2 +1,5 @@
 5 25 hola
 feliz lopez
+Clase
+"Jua" verdadero falso Metodos falso Clase sd
+    sdf
