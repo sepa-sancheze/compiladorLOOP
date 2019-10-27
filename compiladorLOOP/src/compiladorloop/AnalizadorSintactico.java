@@ -8,6 +8,7 @@ package compiladorloop;
 import java_cup.runtime.*;
 import createdClasses.arbol;
 import createdClasses.token;
+import createdClasses.Nodo;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -33,9 +34,9 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\007\000\002\002\004\000\002\002\004\000\002\002" +
-    "\003\000\002\003\004\000\002\004\005\000\002\004\005" +
-    "\000\002\004\003" });
+    "\000\010\000\002\002\004\000\002\002\004\000\002\002" +
+    "\003\000\002\003\004\000\002\003\004\000\002\004\005" +
+    "\000\002\004\005\000\002\004\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -43,14 +44,15 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\014\000\004\007\004\001\002\000\010\004\ufffb\005" +
-    "\ufffb\006\ufffb\001\002\000\010\004\013\005\014\006\012" +
-    "\001\002\000\006\002\uffff\007\004\001\002\000\004\002" +
-    "\010\001\002\000\004\002\001\001\002\000\004\002\000" +
-    "\001\002\000\006\002\ufffe\007\ufffe\001\002\000\004\007" +
-    "\004\001\002\000\004\007\004\001\002\000\010\004\ufffc" +
-    "\005\ufffc\006\ufffc\001\002\000\010\004\ufffd\005\014\006" +
-    "\ufffd\001\002" });
+    "\000\016\000\006\007\010\010\004\001\002\000\010\004" +
+    "\ufffa\005\ufffa\006\ufffa\001\002\000\010\004\015\005\016" +
+    "\006\014\001\002\000\010\002\uffff\007\010\010\004\001" +
+    "\002\000\004\002\012\001\002\000\004\006\011\001\002" +
+    "\000\010\002\ufffd\007\ufffd\010\ufffd\001\002\000\004\002" +
+    "\001\001\002\000\004\002\000\001\002\000\010\002\ufffe" +
+    "\007\ufffe\010\ufffe\001\002\000\004\010\004\001\002\000" +
+    "\004\010\004\001\002\000\010\004\ufffb\005\ufffb\006\ufffb" +
+    "\001\002\000\010\004\ufffc\005\016\006\ufffc\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -58,12 +60,12 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\014\000\010\002\006\003\005\004\004\001\001\000" +
-    "\002\001\001\000\002\001\001\000\010\002\010\003\005" +
+    "\000\016\000\010\002\006\003\005\004\004\001\001\000" +
+    "\002\001\001\000\002\001\001\000\010\002\012\003\005" +
     "\004\004\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\004\015\001\001" +
-    "\000\004\004\014\001\001\000\002\001\001\000\002\001" +
-    "\001" });
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\004\017\001\001\000\004\004\016\001" +
+    "\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -186,7 +188,16 @@ class CUP$AnalizadorSintactico$actions {
           return CUP$AnalizadorSintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // OP ::= OP MAS OP 
+          case 4: // I ::= VARIABLE FI 
+            {
+              token RESULT =null;
+		 System.out.println("VAR VALIDA");
+              CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("I",1, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
+            }
+          return CUP$AnalizadorSintactico$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 5: // OP ::= OP MAS OP 
             {
               token RESULT =null;
 		 System.out.println("OP -> OP + OP"); 
@@ -195,7 +206,7 @@ class CUP$AnalizadorSintactico$actions {
           return CUP$AnalizadorSintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // OP ::= OP MENOS OP 
+          case 6: // OP ::= OP MENOS OP 
             {
               token RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
@@ -216,7 +227,7 @@ class CUP$AnalizadorSintactico$actions {
           return CUP$AnalizadorSintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // OP ::= NUMERO 
+          case 7: // OP ::= NUMERO 
             {
               token RESULT =null;
 		int nleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;

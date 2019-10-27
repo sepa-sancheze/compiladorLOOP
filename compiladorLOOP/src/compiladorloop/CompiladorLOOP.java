@@ -12,16 +12,18 @@ public class CompiladorLOOP {
             //Instancia de analizador léxico
             String nombreArchivo = "src/inputs/input.txt";
             AnalizadorLexico analizador = new AnalizadorLexico(new FileReader(nombreArchivo));
+            analizador.next_token();
+            analizador.tokens.forEach((token) -> {
+                System.out.println(token.getTipo() + " -> " + token.getLexema());
+            });
             //Instancia de analizador sintáctico
-            AnalizadorSintactico as = new AnalizadorSintactico(analizador);
-            as.parse();
-            
+//            AnalizadorSintactico as = new AnalizadorSintactico(analizador);
+//            as.parse();   
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CompiladorLOOP.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CompiladorLOOP.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Primer");
     }
     
 }
