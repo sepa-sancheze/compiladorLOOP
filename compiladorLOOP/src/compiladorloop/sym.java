@@ -8,18 +8,20 @@ package compiladorloop;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int NUMERO = 5;
+  public static final int NUMERO = 6;
   public static final int FI = 4;
   public static final int MAS = 2;
   public static final int error = 1;
   public static final int MENOS = 3;
   public static final int EOF = 0;
+  public static final int VARIABLE = 5;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "MAS",
   "MENOS",
   "FI",
+  "VARIABLE",
   "NUMERO"
   };
 }

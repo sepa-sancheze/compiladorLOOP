@@ -3,7 +3,7 @@ package compiladorloop;
 import java_cup.runtime.*;
 import createdClasses.arbol;
 import createdClasses.token;
-
+import createdClasses.Nodo;
 //Agregar variables
 parser code {:
     public arbol tree;
@@ -20,7 +20,7 @@ init with{:
     this.tree = new arbol();
 :}
 
-terminal MAS, MENOS, FI;            //Símbolos terminales
+terminal MAS, MENOS, FI,VARIABLE;            //Símbolos terminales
 terminal token NUMERO;
 non terminal token S, I, OP;                         //Símbolos no terminaless
 precedence left MAS;                    //Precedencia para símbolos terminales
@@ -33,7 +33,9 @@ start with S;
 S ::=    I S            {: System.out.println("S -> I S"); :}
         |I              {: System.out.println("S -> I"); :};
 
-I ::= OP FI             {: System.out.println("I -> OP FI"); :};
+I ::= OP FI             {: System.out.println("I -> OP FI"); :}
+      |VARIABLE FI      {: System.out.println("VAR VALIDA");:};
+
 
 OP ::=    OP MAS OP     {: System.out.println("OP -> OP + OP"); :}
         | OP:i MENOS OP:d   {: 
@@ -47,3 +49,7 @@ OP ::=    OP MAS OP     {: System.out.println("OP -> OP + OP"); :}
                             System.out.println("OP -> NUM"); 
                             RESULT = n;
                         :};
+
+
+
+
