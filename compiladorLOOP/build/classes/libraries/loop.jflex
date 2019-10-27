@@ -53,13 +53,232 @@ import java.util.ArrayList;
     /*%   REGLAS EXTRAS */
     findelinea = \n|\r|\rn
     ignorar = {findelinea}
-    finInstruccion = ";"
     tabulacion = ["\ "]{4}
     variables = [a-z]+{reglas_variablesextra}
     reglas_variablesextra = [[a-z]|[0-9]|[A-Z]]*|[[a-z]|[0-9]|[A-Z]]* "_" [[a-z]|[0-9]|[A-Z]]+
     excepciones_variables = [a-z]+[[a-z]|[0-9]|[A-Z]]* "_"  | [A-Z]+ {variables}
+    /*%   SIGNOS  */
+    finInstruccion = ";"
+    parentesis1 = "("
+    parentesis2 = ")"
+    coma = ","
+    suma = "+"
+    resta = "-"
+    multiplicacion = "*"
+    division = "/"
+    modulo = "%"
+    exponenciacion = "ˆ"
+    igual = "="
+    incremento = "++"
+    decremento = "--"
+    and = "AND"
+    or = "OR"
+    mayorQue = ">"
+    menorQue = "<"
+    igualQue = "=="
+    distintoQue = "!="
+    dosPuntos = ":"
+    corchete1 = "["
+    corchete2 = "]"
+    llave1 = "{"
+    llave2 = "}"
+    /*%   FUNCIONES ESPECIALES  */
+    cadenaEntero = "cadenaAEntero"
+    cadenaReal = "cadenaAReal"
+    cadenaBooleano = "cadenaABoleano"
+    seno = "seno"
+    coseno = "coseno"
+    tangente = "tangente"
+    logaritmo = "logaritmo"
+    raiz = "raiz"
 
 %%
+
+    {raiz}
+        {   
+            tokens.add(new token("RAIZ", yytext()));
+            //return new Symbol(sym.RAIZ, new token("RAIZ", yytext()));             
+        }
+
+    {logaritmo}
+        {   
+            tokens.add(new token("LOGARITMO", yytext()));
+            //return new Symbol(sym.LOGARITMO, new token("LOGARITMO", yytext()));             
+        }
+
+    {tangente}
+        {   
+            tokens.add(new token("TANGENTE", yytext()));
+            //return new Symbol(sym.TANGENTE, new token("TANGENTE", yytext()));             
+        }
+
+    {coseno}
+        {   
+            tokens.add(new token("COSENO", yytext()));
+            //return new Symbol(sym.COSENO, new token("COSENO", yytext()));             
+        }
+
+    {seno}
+        {   
+            tokens.add(new token("SENO", yytext()));
+            //return new Symbol(sym.SENO, new token("SENO", yytext()));             
+        }
+
+    {cadenaBooleano}
+        {   
+            tokens.add(new token("CADENA_A_BOOLEANO", yytext()));
+            //return new Symbol(sym.CADENA_A_BOOLEANO, new token("CADENA_A_BOOLEANO", yytext()));             
+        }
+
+    {cadenaReal}
+        {   
+            tokens.add(new token("CADENA_A_REAL", yytext()));
+            //return new Symbol(sym.CADENA_A_REAL, new token("CADENA_A_REAL", yytext()));             
+        }
+
+    {cadenaEntero}
+        {   
+            tokens.add(new token("CADENA_A_ENTERO", yytext()));
+            //return new Symbol(sym.CADENA_A_ENTERO, new token("CADENA_A_ENTERO", yytext()));             
+        }
+
+    {llave2}
+        {   
+            tokens.add(new token("LLAVE2", yytext()));
+            //return new Symbol(sym.LLAVE2, new token("LLAVE2", yytext()));             
+        }
+
+    {llave1}
+        {   
+            tokens.add(new token("LLAVE1", yytext()));
+            //return new Symbol(sym.LLAVE1, new token("LLAVE1", yytext()));             
+        }
+
+    {corchete2}
+        {   
+            tokens.add(new token("CORCHETE2", yytext()));
+            //return new Symbol(sym.CORCHETE2, new token("CORCHETE2", yytext()));             
+        }
+
+    {corchete1}
+        {   
+            tokens.add(new token("CORCHETE1", yytext()));
+            //return new Symbol(sym.CORCHETE1, new token("CORCHETE1", yytext()));             
+        }
+
+    {dosPuntos}
+        {   
+            tokens.add(new token("DOS_PUNTOS", yytext()));
+            //return new Symbol(sym.DOS_PUNTOS, new token("DOS_PUNTOS", yytext()));             
+        }
+
+    {distintoQue}
+        {   
+            tokens.add(new token("DISTINTO_QUE", yytext()));
+            //return new Symbol(sym.DISTINTO_QUE, new token("DISTINTO_QUE", yytext()));             
+        }
+
+    {igualQue}
+        {   
+            tokens.add(new token("IGUAL_QUE", yytext()));
+            //return new Symbol(sym.IGUAL_QUE, new token("IGUAL_QUE", yytext()));             
+        }
+
+    {menorQue}
+        {   
+            tokens.add(new token("MENOR_QUE", yytext()));
+            //return new Symbol(sym.MENOR_QUE, new token("MENOR_QUE", yytext()));             
+        }
+
+    {mayorQue}
+        {   
+            tokens.add(new token("MAYOR_QUE", yytext()));
+            //return new Symbol(sym.MAYOR_QUE, new token("MAYOR_QUE", yytext()));             
+        }
+
+    {or}
+        {   
+            tokens.add(new token("OR", yytext()));
+            //return new Symbol(sym.OR, new token("OR", yytext()));             
+        }
+
+    {and}
+        {   
+            tokens.add(new token("AND", yytext()));
+            //return new Symbol(sym.AND, new token("AND", yytext()));             
+        }
+
+    {decremento}
+        {   
+            tokens.add(new token("DECREMENTO", yytext()));
+            //return new Symbol(sym.DECREMENTO, new token("DECREMENTO", yytext()));             
+        }
+
+    {incremento}
+        {   
+            tokens.add(new token("INCREMENTO", yytext()));
+            //return new Symbol(sym.INCREMENTO, new token("INCREMENTO", yytext()));             
+        }
+
+    {igual}
+        {   
+            tokens.add(new token("IGUAL", yytext()));
+            //return new Symbol(sym.IGUAL, new token("IGUAL", yytext()));             
+        }
+
+    {exponenciacion}
+        {   
+            tokens.add(new token("EXPONENCIACION", yytext()));
+            //return new Symbol(sym.EXPONENCIACION, new token("EXPONENCIACION", yytext()));             
+        }
+
+    {modulo}
+        {   
+            tokens.add(new token("MODULO", yytext()));
+            //return new Symbol(sym.MODULO, new token("MODULO", yytext()));             
+        }
+
+    {division}
+        {   
+            tokens.add(new token("DIVISION", yytext()));
+            //return new Symbol(sym.DIVISION, new token("DIVISION", yytext()));             
+        }
+
+    {multiplicacion}
+        {   
+            tokens.add(new token("MULTIPLICACION", yytext()));
+            //return new Symbol(sym.MULTIPLICACION, new token("MULTIPLICACION", yytext()));             
+        }
+
+    {resta}
+        {   
+            tokens.add(new token("RESTA", yytext()));
+            //return new Symbol(sym.RESTA, new token("RESTA", yytext()));             
+        }
+
+    {suma}
+        {   
+            tokens.add(new token("SUMA", yytext()));
+            //return new Symbol(sym.SUMA, new token("SUMA", yytext()));             
+        }
+
+    {coma}
+        {   
+            tokens.add(new token("COMA", yytext()));
+            //return new Symbol(sym.COMA, new token("COMA", yytext()));             
+        }
+
+    {parentesis2}
+        {   
+            tokens.add(new token("PARENTESIS2", yytext()));
+            //return new Symbol(sym.PARENTESIS2, new token("PARENTESIS2", yytext()));             
+        }
+
+    {parentesis1}
+        {   
+            tokens.add(new token("PARENTESIS1", yytext()));
+            //return new Symbol(sym.PARENTESIS1, new token("PARENTESIS1", yytext()));             
+        }
 
     {tabulacion}
         {   
