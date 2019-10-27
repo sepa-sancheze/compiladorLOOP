@@ -2,14 +2,29 @@ package compiladorloop;
 
 import java_cup.runtime.*;
 import createdClasses.token;
+import java.util.ArrayList;
 
 %%
 
 %cup
+
 %class AnalizadorLexico
 
+%integer
 %line
 %column
+
+%{
+    public ArrayList<token> tokens;
+    
+    public boolean getEOF(){
+        return this.zzAtEOF;
+    }
+%}
+
+%init{
+    this.tokens = new ArrayList<>();
+%init}
     
     /*%  PALABRAS RESERVADAS  */
     clase = "Clase"
@@ -23,13 +38,13 @@ import createdClasses.token;
     tipo_datos_funciones = "entero"|"cadena"|"real"|"booleano"|"nulo"
 
     /*%  PALABRAS RESERVADAS DE IFS */
-    if = "si|Si"
-    entonces = "entonces|Entonces"
-    sino = "sino|Sino"
+    if = "si"|"Si"
+    entonces = "entonces"|"Entonces"
+    sino = "sino"|"Sino"
 
     /*%  PALABRAS RESERVADAS LECTURA Y ESCRITURA */
-    leer = "Leer|leer"
-    escribir = "Escribir|escribir"
+    leer = "Leer"|"leer"
+    escribir = "Escribir"|"escribir"
     /*%  PALABRAS RESERVADAS CICLO, FUNCIONES, ETC */
     devolver = "devolver"
     constructor = "Constructor"|"constructor"
@@ -59,13 +74,22 @@ import createdClasses.token;
 %%
 
     {numeros}       
-        {   return new Symbol(sym.NUMERO, new token("Numero",yytext()));}
+        {   
+            tokens.add(new token("Número", yytext()));
+            //return new Symbol(sym.NUMERO, new token("Numero",yytext()));
+        }
 
     {mas}           
-        {   return new Symbol(sym.MAS, yytext()); }
+        {   
+            tokens.add(new token("SignoMas", yytext()));
+            //return new Symbol(sym.MAS, yytext()); 
+        }
 
     {menos}        
-        {   return new Symbol(sym.MENOS, yytext()); }
+        {   
+            tokens.add(new token("SignoMenos", yytext()));
+            //return new Symbol(sym.MENOS, yytext()); 
+        }
 
 
     {excepciones_variables}       
@@ -74,12 +98,15 @@ import createdClasses.token;
         }
 
     {variables}
-        {   System.out.println("Encontre una variable Lexema: " + yytext());
-            return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));             
+        {   
+            tokens.add(new token("Variable", yytext()));
+            //return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));             
         }
 
     {finInstruccion}
-        {   return new Symbol(sym.FI, yytext()); 
+        {   
+            tokens.add(new token("FinInstrucción", yytext()));
+            //return new Symbol(sym.FI, yytext()); 
         }
 
     {ignorar}     

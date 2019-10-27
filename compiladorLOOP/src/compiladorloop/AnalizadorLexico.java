@@ -4,6 +4,7 @@ package compiladorloop;
 
 import java_cup.runtime.*;
 import createdClasses.token;
+import java.util.ArrayList;
 
 
 /**
@@ -36,12 +37,12 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\0\1\0\1\13\1\0\1\6\35\0\1\7\1\0\1\10"+
-    "\2\0\12\5\1\0\1\11\5\0\2\1\1\1\1\1\1\1\2\1"+
+    "\11\0\1\0\1\0\1\13\1\0\1\5\35\0\1\6\1\0\1\7"+
+    "\2\0\12\4\1\0\1\10\5\0\2\1\1\1\1\1\1\1\2\1"+
     "\1\1\1\1\2\1\1\1\1\1\2\1\1\1\2\1\1\1\7\1"+
     "\4\0\1\12\1\0\1\2\1\2\1\2\1\2\1\2\1\2\1\2"+
     "\1\2\1\2\2\2\1\2\1\2\1\3\1\2\1\2\1\2\1\2"+
-    "\1\2\1\2\1\2\1\2\1\2\1\2\2\2\1\0\1\4\10\0"+
+    "\1\2\1\2\1\2\1\2\1\2\1\2\2\2\1\0\1\11\10\0"+
     "\1\13\u1fa2\0\1\13\1\13\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
@@ -111,10 +112,11 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\2\4\1\2\1\5\1\6\1\7\1\10"+
-    "\1\11\1\2\16\0\1\12\2\13\11\0\5\4\4\0"+
-    "\1\14\6\0\1\5\11\0\1\2\11\0\5\13\4\0"+
-    "\1\15\2\0\5\16\7\0\5\17\6\0";
+    "\1\2\1\3\2\4\1\5\1\6\1\7\1\10\1\11"+
+    "\2\2\16\0\1\12\2\13\11\0\4\4\4\0\1\4"+
+    "\1\14\5\0\1\5\12\0\1\2\11\0\4\13\4\0"+
+    "\1\13\1\15\2\0\4\16\4\0\1\16\3\0\4\17"+
+    "\4\0\1\17\2\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[108];
@@ -233,6 +235,13 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
    */
   private int zzFinalHighSurrogate = 0;
 
+  /* user code: */
+    public ArrayList<token> tokens;
+    
+    public boolean getEOF(){
+        return this.zzAtEOF;
+    }
+
 
   /**
    * Creates a new scanner
@@ -240,6 +249,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
    * @param   in  the java.io.Reader to read input from.
    */
   AnalizadorLexico(java.io.Reader in) {
+      this.tokens = new ArrayList<>();
     this.zzReader = in;
   }
 
@@ -623,28 +633,32 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             // fall through
           case 7: break;
           case 2: 
-            { System.out.println("Encontre una variable Lexema: " + yytext());
-            return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));
+            { tokens.add(new token("Variable", yytext()));
+            //return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));
             } 
             // fall through
           case 8: break;
           case 3: 
-            { return new Symbol(sym.NUMERO, new token("Numero",yytext()));
+            { tokens.add(new token("Número", yytext()));
+            //return new Symbol(sym.NUMERO, new token("Numero",yytext()));
             } 
             // fall through
           case 9: break;
           case 4: 
-            { return new Symbol(sym.MAS, yytext());
+            { tokens.add(new token("SignoMas", yytext()));
+            //return new Symbol(sym.MAS, yytext());
             } 
             // fall through
           case 10: break;
           case 5: 
-            { return new Symbol(sym.MENOS, yytext());
+            { tokens.add(new token("SignoMenos", yytext()));
+            //return new Symbol(sym.MENOS, yytext());
             } 
             // fall through
           case 11: break;
           case 6: 
-            { return new Symbol(sym.FI, yytext());
+            { tokens.add(new token("FinInstrucción", yytext()));
+            //return new Symbol(sym.FI, yytext());
             } 
             // fall through
           case 12: break;
