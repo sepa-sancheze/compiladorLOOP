@@ -468,7 +468,7 @@ import java.util.ArrayList;
 
     {ignorar}     
         {
-            //tokens.add(new token("ERROR", yytext()));
+            tokens.add(new token("ERROR", yytext()));
             //return new Symbol(sym.ERROR, new token("ERROR", yytext()));              
         }
 
