@@ -8,20 +8,52 @@ package compiladorloop;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int NUMERO = 6;
-  public static final int FI = 4;
-  public static final int MAS = 2;
-  public static final int error = 1;
-  public static final int MENOS = 3;
+  public static final int TANGENTE = 4;
+  public static final int AND = 20;
+  public static final int RAIZ = 2;
+  public static final int OR = 19;
+  public static final int CADENA_A_ENTERO = 9;
+  public static final int MAYOR_QUE = 18;
+  public static final int SENO = 6;
+  public static final int DOS_PUNTOS = 14;
+  public static final int CADENA_A_BOOLEANO = 7;
+  public static final int CORCHETE2 = 12;
+  public static final int MENOR_QUE = 17;
+  public static final int CORCHETE1 = 13;
+  public static final int CADENA_A_REAL = 8;
   public static final int EOF = 0;
-  public static final int VARIABLE = 5;
+  public static final int LOGARITMO = 3;
+  public static final int IGUAL_QUE = 16;
+  public static final int COSENO = 5;
+  public static final int NUMERO = 22;
+  public static final int error = 1;
+  public static final int LLAVE2 = 10;
+  public static final int LLAVE1 = 11;
+  public static final int DECREMENTO = 21;
+  public static final int DISTINTO_QUE = 15;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "MAS",
-  "MENOS",
-  "FI",
-  "VARIABLE",
+  "RAIZ",
+  "LOGARITMO",
+  "TANGENTE",
+  "COSENO",
+  "SENO",
+  "CADENA_A_BOOLEANO",
+  "CADENA_A_REAL",
+  "CADENA_A_ENTERO",
+  "LLAVE2",
+  "LLAVE1",
+  "CORCHETE2",
+  "CORCHETE1",
+  "DOS_PUNTOS",
+  "DISTINTO_QUE",
+  "IGUAL_QUE",
+  "MENOR_QUE",
+  "MAYOR_QUE",
+  "OR",
+  "AND",
+  "DECREMENTO",
   "NUMERO"
   };
 }

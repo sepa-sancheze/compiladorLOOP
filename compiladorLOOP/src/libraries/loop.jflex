@@ -23,8 +23,11 @@ import java.util.ArrayList;
     metodos = "Metodos"
     tipo_propiedades_metodos = "Publicas"|"Publicos"|"Privadas"|"Privados"|"Protegidos"|"Protegidas"
     /*%  PALABRAS RESERVADAS TIPOS DATO Y FUNCIONES */
-    tipo_datos_variables = "entero"|"cadena"|"real"|"booleano"
-    tipo_datos_funciones = "entero"|"cadena"|"real"|"booleano"|"nulo"
+    tipo_entero = "entero"
+    tipo_cadena = "cadena"
+    tipo_real = "real"
+    tipo_booleano = "booleano"
+    tipo_nulo = "nulo"
     /*%  PALABRAS RESERVADAS DE IFS */
     if = "si"|"Si"
     entonces = "entonces"|"Entonces"
@@ -91,8 +94,40 @@ import java.util.ArrayList;
     tangente = "tangente"
     logaritmo = "logaritmo"
     raiz = "raiz"
+    /*%   IGNORAR  */
+    ignorar = \n|\r\n|\r\n|\t\f
 
 %%
+
+    {tipo_booleano}
+        {   
+            tokens.add(new token("TIPO_BOOLEANO", yytext()));
+            //return new Symbol(sym.TIPO_BOOLEANO, new token("TIPO_BOOLEANO", yytext()));             
+        }
+
+    {tipo_cadena}
+        {   
+            tokens.add(new token("TIPO_CADENA", yytext()));
+            //return new Symbol(sym.TIPO_CADENA, new token("TIPO_CADENA", yytext()));             
+        }
+
+    {tipo_entero}
+        {   
+            tokens.add(new token("TIPO_ENTERO", yytext()));
+            //return new Symbol(sym.TIPO_ENTERO, new token("TIPO_ENTERO", yytext()));             
+        }
+
+    {tipo_real}
+        {   
+            tokens.add(new token("TIPO_REAL", yytext()));
+            //return new Symbol(sym.TIPO_REAL, new token("TIPO_REAL", yytext()));             
+        }
+
+    {tipo_nulo}
+        {   
+            tokens.add(new token("TIPO_NULO", yytext()));
+            //return new Symbol(sym.TIPO_NULO, new token("TIPO_NULO", yytext()));             
+        }
 
     {raiz}
         {   
@@ -412,18 +447,6 @@ import java.util.ArrayList;
             //return new Symbol(sym.PROPIEDADES_METODOS, new token("PROPIEDADES_METODOS", yytext()));             
         }
 
-    {tipo_datos_funciones}
-        {   
-            tokens.add(new token("TIPOS_DATOS_FUNCIONES", yytext()));
-            //return new Symbol(sym.TIPOS_DATOS_FUNCIONES, new token("TIPOS_DATOS_FUNCIONES", yytext()));             
-        }
-
-    {tipo_datos_variables}
-        {   
-            tokens.add(new token("TIPOS_DATOS_VARIABLES", yytext()));
-            //return new Symbol(sym.TIPOS_DATOS_VARIABLES, new token("TIPOS_DATOS_VARIABLES", yytext()));             
-        }
-
     {booleano}
         {   
             tokens.add(new token("BOOLEANO", yytext()));
@@ -468,10 +491,9 @@ import java.util.ArrayList;
 
     {ignorar}     
         {
-            tokens.add(new token("ERROR", yytext()));
-            //return new Symbol(sym.ERROR, new token("ERROR", yytext()));              
+            
         }
 
     .   {  
-                        
+            
         }
