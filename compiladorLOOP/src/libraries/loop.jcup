@@ -15,41 +15,31 @@ parser code {:
         report_error("Error sintáctico en el token: " + t.getLexema(), null);
     }
 :}
-
 init with{:
     this.tree = new arbol();
 :}
 
-terminal MAS, MENOS, FI,VARIABLE;            //Símbolos terminales
+//Símbolos terminales
+terminal RAIZ, LOGARITMO,  
+terminal 
+terminal 
+terminal
+
 terminal token NUMERO;
-non terminal token S, I, OP;                         //Símbolos no terminaless
-precedence left MAS;                    //Precedencia para símbolos terminales
-precedence left MENOS;
+terminal token 
+terminal token
+terminal token
+
+//Símbolos no terminaless
+non terminal token S, I, OP;
+
+//Precedencia para símbolos terminales
+//precedence left MAS;                    
+//precedence left MENOS;
 
 start with S;
 
 //::= = ->; S MAS S = S + S
 //El código se va a ejecutar hasta que se hayan cumplido las reglas anteriores.
-S ::=    I S            {: System.out.println("S -> I S"); :}
-        |I              {: System.out.println("S -> I"); :};
-
-I ::= OP FI             {: System.out.println("I -> OP FI"); :}
-      |VARIABLE FI      {: System.out.println("VAR VALIDA");:};
-
-
-OP ::=    OP MAS OP     {: System.out.println("OP -> OP + OP"); :}
-        | OP:i MENOS OP:d   {: 
-                            System.out.println("OP -> OP - OP"); 
-                            token operacion = new token("menos", "-");
-                            operacion.agregarHijo(i);
-                            operacion.agregarHijo(d);
-                            RESULT = operacion;
-                        :}
-        | NUMERO:n      {: 
-                            System.out.println("OP -> NUM"); 
-                            RESULT = n;
-                        :};
-
-
-
-
+S ::=    AND S            {: System.out.println("S -> I S"); :}
+        |OR              {: System.out.println("S -> I"); :};

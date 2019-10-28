@@ -34,9 +34,8 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\010\000\002\002\004\000\002\002\004\000\002\002" +
-    "\003\000\002\003\004\000\002\003\004\000\002\004\005" +
-    "\000\002\004\005\000\002\004\003" });
+    "\000\003\000\002\002\004\000\002\002\004\000\002\002" +
+    "\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -44,15 +43,10 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\016\000\006\007\010\010\004\001\002\000\010\004" +
-    "\ufffa\005\ufffa\006\ufffa\001\002\000\010\004\015\005\016" +
-    "\006\014\001\002\000\010\002\uffff\007\010\010\004\001" +
-    "\002\000\004\002\012\001\002\000\004\006\011\001\002" +
-    "\000\010\002\ufffd\007\ufffd\010\ufffd\001\002\000\004\002" +
-    "\001\001\002\000\004\002\000\001\002\000\010\002\ufffe" +
-    "\007\ufffe\010\ufffe\001\002\000\004\010\004\001\002\000" +
-    "\004\010\004\001\002\000\010\004\ufffb\005\ufffb\006\ufffb" +
-    "\001\002\000\010\004\ufffc\005\016\006\ufffc\001\002" });
+    "\000\006\000\006\025\006\026\004\001\002\000\006\025" +
+    "\006\026\004\001\002\000\004\002\007\001\002\000\004" +
+    "\002\uffff\001\002\000\004\002\001\001\002\000\004\002" +
+    "\000\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -60,12 +54,9 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\016\000\010\002\006\003\005\004\004\001\001\000" +
-    "\002\001\001\000\002\001\001\000\010\002\012\003\005" +
-    "\004\004\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\004\017\001\001\000\004\004\016\001" +
-    "\001\000\002\001\001\000\002\001\001" });
+    "\000\006\000\004\002\004\001\001\000\004\002\007\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -161,7 +152,7 @@ class CUP$AnalizadorSintactico$actions {
           return CUP$AnalizadorSintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // S ::= I S 
+          case 1: // S ::= AND S 
             {
               token RESULT =null;
 		 System.out.println("S -> I S"); 
@@ -170,74 +161,11 @@ class CUP$AnalizadorSintactico$actions {
           return CUP$AnalizadorSintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // S ::= I 
+          case 2: // S ::= OR 
             {
               token RESULT =null;
 		 System.out.println("S -> I"); 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("S",0, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
-            }
-          return CUP$AnalizadorSintactico$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // I ::= OP FI 
-            {
-              token RESULT =null;
-		 System.out.println("I -> OP FI"); 
-              CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("I",1, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
-            }
-          return CUP$AnalizadorSintactico$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // I ::= VARIABLE FI 
-            {
-              token RESULT =null;
-		 System.out.println("VAR VALIDA");
-              CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("I",1, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
-            }
-          return CUP$AnalizadorSintactico$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // OP ::= OP MAS OP 
-            {
-              token RESULT =null;
-		 System.out.println("OP -> OP + OP"); 
-              CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("OP",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
-            }
-          return CUP$AnalizadorSintactico$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // OP ::= OP MENOS OP 
-            {
-              token RESULT =null;
-		int ileft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
-		int iright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
-		token i = (token)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
-		int dleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
-		int dright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
-		token d = (token)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
-		 
-                            System.out.println("OP -> OP - OP"); 
-                            token operacion = new token("menos", "-");
-                            operacion.agregarHijo(i);
-                            operacion.agregarHijo(d);
-                            RESULT = operacion;
-                        
-              CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("OP",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
-            }
-          return CUP$AnalizadorSintactico$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // OP ::= NUMERO 
-            {
-              token RESULT =null;
-		int nleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
-		int nright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
-		token n = (token)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
-		 
-                            System.out.println("OP -> NUM"); 
-                            RESULT = n;
-                        
-              CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("OP",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
 
