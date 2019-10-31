@@ -67,7 +67,8 @@ terminal ERROR;
 //##############################################################################
 non terminal token S, I, OP;
 non terminal ASIGNACION_ENTERO_CUP, ASIGNACION_REAL_CUP, ASIGNACION_CADENA_CUP;
-non terminal ASIGNACION_BOOLEANO_CUP;
+non terminal ASIGNACION_BOOLEANO_CUP, SUMA_CUP, RESTA_CUP, MULTIPLICACION_CUP;
+non terminal DIVISION_CUP, MODULO_CUP, EXPONENCIACION_CUP;
 //TABULACION
 terminal TABULACION;
 
@@ -122,7 +123,13 @@ ASIGNACION_ENTERO_CUP ::=   TIPO_ENTERO VARIABLE |
                             TIPO_ENTERO VARIABLE IGUAL REALES |
                             TIPO_ENTERO VARIABLE IGUAL REALES PUNTO_Y_COMA |
                             VARIABLE_CLASE PUNTO VARIABLE IGUAL DECIMAL |
-                            VARIABLE_CLASE PUNTO VARIABLE IGUAL REALES;
+                            VARIABLE_CLASE PUNTO VARIABLE IGUAL REALES |
+                            TIPO_ENTERO VARIABLE IGUAL RESTA DECIMALES |
+                            TIPO_ENTERO VARIABLE IGUAL RESTA DECIMALES PUNTO_Y_COMA |
+                            TIPO_ENTERO VARIABLE IGUAL RESTA REALES |
+                            TIPO_ENTERO VARIABLE IGUAL RESTA REALES PUNTO_Y_COMA |
+                            VARIABLE_CLASE PUNTO VARIABLE IGUAL RESTA DECIMAL |
+                            VARIABLE_CLASE PUNTO VARIABLE IGUAL RESTA REALES;
 
 ASIGNACION_REAL_CUP ::=     TIPO_REAL VARIABLE |
                             TIPO_REAL VARIABLE PUNTO_Y_COMA |
@@ -131,7 +138,13 @@ ASIGNACION_REAL_CUP ::=     TIPO_REAL VARIABLE |
                             TIPO_REAL VARIABLE IGUAL REALES |
                             TIPO_REAL VARIABLE IGUAL REALES PUNTO_Y_COMA |
                             VARIABLE_CLASE PUNTO VARIABLE IGUAL DECIMAL |
-                            VARIABLE_CLASE PUNTO VARIABLE IGUAL REALES;
+                            VARIABLE_CLASE PUNTO VARIABLE IGUAL REALES |
+                            TIPO_REAL VARIABLE IGUAL RESTA DECIMALES |
+                            TIPO_REAL VARIABLE IGUAL RESTA DECIMALES PUNTO_Y_COMA |
+                            TIPO_REAL VARIABLE IGUAL RESTA REALES |
+                            TIPO_REAL VARIABLE IGUAL RESTA REALES PUNTO_Y_COMA |
+                            VARIABLE_CLASE PUNTO VARIABLE IGUAL RESTA DECIMAL |
+                            VARIABLE_CLASE PUNTO VARIABLE IGUAL RESTA REALES;
 
 ASIGNACION_CADENA_CUP ::=   TIPO_CADENA VARIABLE |
                             TIPO_CADENA VARIABLE PUNTO_Y_COMA |
@@ -204,3 +217,8 @@ EXPONENCIACION_CUP ::=      TIPO_ENTERO VARIABLE IGUAL VARIABLE EXPONENCIACION V
                             TIPO_REAL VARIABLE IGUAL VARIABLE EXPONENCIACION VARIABLE PUNTO_Y_COMA |
                             VARIABLE IGUAL VARIABLE EXPONENCIACION VARIABLE |
                             VARIABLE IGUAL VARIABLE EXPONENCIACION VARIABLE PUNTO_Y_COMA;
+
+//##############################################################################
+// 
+//##############################################################################
+
