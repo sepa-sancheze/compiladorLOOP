@@ -19,27 +19,103 @@ init with{:
     this.tree = new arbol();
 :}
 
-//Símbolos terminales
-terminal RAIZ, LOGARITMO,  
-terminal 
-terminal 
-terminal
+//Los símbolos terminales sin token significan que son palabras, tal cual las pasamos
+//Si tienen el token significa que es una expresión regular
+//##############################################################################
+// Símbolos terminales
+//##############################################################################
+//PALABRAS RESERVADAS
+terminal CLASE, PROPIEDADES, METODOS, PROPIEDADES_METODOS;
 
-terminal token NUMERO;
-terminal token 
-terminal token
-terminal token
+//TIPOS DE DATOS Y FUNCIONES
+terminal TIPO_ENTERO, TIPO_CADENA, TIPO_REAL, TIPO_BOOLEANO, TIPO_NULO;
 
-//Símbolos no terminaless
+//PALABRAS RESERVADAS DE IFS
+terminal IF, ENTONCES, SINO;
+
+//PALABRAS RESERVADAS LECTURA Y ESCRITURA
+terminal LEER, ESCRIBIR;
+
+//PALABRAS RESERVADAS CICLO, FUNCIONES, ETC
+terminal DEVOLVER, CONSTRUCTOR, DESTRUCTOR, PRINCIPAL, INSTANCIAR, DESDE, MIENTRAS;
+terminal INCREMENTAR, DECREMENTAR, HACER, EXTIENDE, INCLUIR;
+
+//REGLAS EXTRAS
+//terminal ????????????????????????????????????
+
+//SIGNOS
+terminal FI, PARENTESIS1, PARENTESIS2, COMA, SUMA, RESTA, MULTIPLICACION, DIVISION;
+terminal MODULO, EXPONENCIACION, IGUAL, INCREMENTO, DECREMENTO, AND, OR, MAYOR_QUE;
+terminal MENOR_QUE, IGUAL_QUE, DISTINTO_QUE, DOS_PUNTOS, CORCHETE1, CORCHETE2;
+terminal LLAVE1, LLAVE2;
+
+//TIPOS DE DATOS
+terminal token DECIMALES, REALES, BOOLEANO, CADENA;
+
+//VARIABLES
+terminal VARIABLE, VALOR_ASIGNADO;
+non terminal LISTA_VARIABLES, DECLARACION_VARIABLES, TIPO_DATO;
+
+//CLASES
+terminal  VARIABLE_CLASE;
+non terminal CUERPO_CLASE , LISTA_METODOS,LISTA_PROPIEDADES, DECLARACION_CLASES;
+//ERROR
+terminal ERROR;
+
+//##############################################################################
+//##############################################################################
+//VARIABLES DEL CUP
 non terminal token S, I, OP;
+//TABULACION
+terminal TABULACION;
 
+//##############################################################################
+// Precedencia símbolos terminales
+//##############################################################################
 //Precedencia para símbolos terminales
 //precedence left MAS;                    
 //precedence left MENOS;
 
 start with S;
 
-//::= = ->; S MAS S = S + S
 //El código se va a ejecutar hasta que se hayan cumplido las reglas anteriores.
 S ::=    AND S            {: System.out.println("S -> I S"); :}
-        |OR              {: System.out.println("S -> I"); :};
+        |OR              {: System.out.println("S -> I"); :}
+        |DECLARACION_VARIABLES
+        |DECLARACION_CLASES;
+
+DECLARACION_CLASES ::= CLASE VARIABLE_CLASE CUERPO_CLASE 
+                        |CLASE VARIABLE_CLASE EXTIENDE VARIABLE_CLASE CUERPO_CLASE;
+
+CUERPO_CLASE::= TABULACION PROPIEDADES PROPIEDADES_METODOS DOS_PUNTOS FI LISTA_PROPIEDADES CUERPO_CLASE;  
+                    
+
+
+
+LISTA_PROPIEDADES::= TABULACION DECLARACION_VARIABLES 
+                    |TABULACION DECLARACION_VARIABLES FI LISTA_PROPIEDADES;
+
+
+
+
+
+
+
+
+DECLARACION_VARIABLES ::= TIPO_DATO VARIABLE {: System.out.println("tipo variable"); :}
+                        |TIPO_DATO VARIABLE COMA LISTA_VARIABLES 
+                        |TIPO_DATO VARIABLE IGUAL VALOR_ASIGNADO 
+                        |TIPO_DATO VARIABLE COMA LISTA_VARIABLES IGUAL VALOR_ASIGNADO;
+
+LISTA_VARIABLES ::=     VARIABLE 
+                        |VARIABLE COMA LISTA_VARIABLES; 
+
+TIPO_DATO ::=           TIPO_ENTERO
+                        |TIPO_BOOLEANO 
+                        |TIPO_CADENA 
+                        |TIPO_REAL ;
+                        
+VALOR_ASIGNADO ::=      DECIMALES
+                        |REALES
+                        |BOOLEANO
+                        |CADENA;

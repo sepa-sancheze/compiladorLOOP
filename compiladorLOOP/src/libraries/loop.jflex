@@ -55,11 +55,12 @@ import java.util.ArrayList;
     cadena = ["\""]([a-zA-Z]*[0-9]*["\ "]*)*["\""]
     /*%   REGLAS EXTRAS */
     findelinea = \n|\r|\rn
-    ignorar = {findelinea}
     tabulacion = ["\ "]{4}
     variables = [a-z]+{reglas_variablesextra}
     reglas_variablesextra = [[a-z]|[0-9]|[A-Z]]*|[[a-z]|[0-9]|[A-Z]]* "_" [[a-z]|[0-9]|[A-Z]]+
     excepciones_variables = [a-z]+[[a-z]|[0-9]|[A-Z]]* "_"  | [A-Z]+ {variables}
+    variables_clase = [A-Z]+{reglas_variablesextra}
+    excepciones_variables_clase = [a-z]+[[a-z]|[0-9]|[A-Z]]* "_"
     /*%   SIGNOS  */
     finInstruccion = ";"
     parentesis1 = "("
@@ -95,7 +96,7 @@ import java.util.ArrayList;
     logaritmo = "logaritmo"
     raiz = "raiz"
     /*%   IGNORAR  */
-    ignorar = \n|\r\n|\r\n|\t\f
+    ignorar = \n|\r\n|\r\n|\t\|{findelinea}|"\ "
 
 %%
 
@@ -473,16 +474,26 @@ import java.util.ArrayList;
 
     {excepciones_variables}
         {   
-            tokens.add(new token("EXCEPCION_VARIABLE", yytext()));
-            //return new Symbol(sym.EXCEPTION_VARIABLE, new token("EXCEPCION_VARIABLE", yytext()));             
+            tokens.add(new token("ERROR", yytext()));
+            //return new Symbol(sym.ERROR, new token("ERROR", yytext()));             
         }
 
     {variables}
         {   
             tokens.add(new token("VARIABLE", yytext()));
-            //return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));             
+            return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));             
+        }
+    {excepciones_variables_clase}
+        {   
+            //tokens.add(new token("ERROR", yytext()));
+            return new Symbol(sym.ERROR, new token("ERROR", yytext()));             
         }
 
+    {variables_clase}
+        {   
+            //tokens.add(new token("VARIABLE_CLASE", yytext()));
+            return new Symbol(sym.VARIABLE, new token("VARIABLE_CLASE", yytext()));             
+        }
     {finInstruccion}
         {   
             tokens.add(new token("FI", yytext()));
@@ -495,5 +506,6 @@ import java.util.ArrayList;
         }
 
     .   {  
-            
+            tokens.add(new token("ERROR", yytext()));
+            //return new Symbol(sym.ERROR, new token("ERROR", yytext()));
         }
