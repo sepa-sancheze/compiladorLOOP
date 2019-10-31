@@ -47,7 +47,7 @@ terminal INCREMENTAR, DECREMENTAR, HACER, EXTIENDE, INCLUIR;
 terminal FI, PARENTESIS1, PARENTESIS2, COMA, SUMA, RESTA, MULTIPLICACION, DIVISION;
 terminal MODULO, EXPONENCIACION, IGUAL, INCREMENTO, DECREMENTO, AND, OR, MAYOR_QUE;
 terminal MENOR_QUE, IGUAL_QUE, DISTINTO_QUE, DOS_PUNTOS, CORCHETE1, CORCHETE2;
-terminal LLAVE1, LLAVE2;
+terminal LLAVE1, LLAVE2, PUNTO_Y_COMA;
 
 //TIPOS DE DATOS
 terminal token DECIMALES, REALES, BOOLEANO, CADENA;
@@ -66,6 +66,7 @@ terminal ERROR;
 //##############################################################################
 //VARIABLES DEL CUP
 non terminal token S, I, OP;
+non terminal ASIGNACION_ENTERO_CUP;
 //TABULACION
 terminal TABULACION;
 
@@ -87,20 +88,10 @@ S ::=    AND S            {: System.out.println("S -> I S"); :}
 DECLARACION_CLASES ::= CLASE VARIABLE_CLASE CUERPO_CLASE 
                         |CLASE VARIABLE_CLASE EXTIENDE VARIABLE_CLASE CUERPO_CLASE;
 
-CUERPO_CLASE::= TABULACION PROPIEDADES PROPIEDADES_METODOS DOS_PUNTOS FI LISTA_PROPIEDADES CUERPO_CLASE;  
-                    
-
-
+CUERPO_CLASE::= TABULACION PROPIEDADES PROPIEDADES_METODOS DOS_PUNTOS FI LISTA_PROPIEDADES CUERPO_CLASE;
 
 LISTA_PROPIEDADES::= TABULACION DECLARACION_VARIABLES 
                     |TABULACION DECLARACION_VARIABLES FI LISTA_PROPIEDADES;
-
-
-
-
-
-
-
 
 DECLARACION_VARIABLES ::= TIPO_DATO VARIABLE {: System.out.println("tipo variable"); :}
                         |TIPO_DATO VARIABLE COMA LISTA_VARIABLES 
@@ -119,3 +110,39 @@ VALOR_ASIGNADO ::=      DECIMALES
                         |REALES
                         |BOOLEANO
                         |CADENA;
+
+//##############################################################################
+// Reglas de asignación de variables
+//##############################################################################
+
+ASIGNACION_ENTERO_CUP ::=   TIPO_ENTERO VARIABLE |
+                            TIPO_ENTERO VARIABLE PUNTO_Y_COMA |
+                            TIPO_ENTERO VARIABLE IGUAL DECIMALES |
+                            TIPO_ENTERO VARIABLE IGUAL DECIMALES PUNTO_Y_COMA |
+                            TIPO_ENTERO VARIABLE IGUAL REALES |
+                            TIPO_ENTERO VARIABLE IGUAL REALES PUNTO_Y_COMA;
+
+ASIGNACION_REAL_CUP ::=     TIPO_REAL VARIABLE |
+                            TIPO_REAL VARIABLE PUNTO_Y_COMA |
+                            TIPO_REAL VARIABLE IGUAL DECIMALES |
+                            TIPO_REAL VARIABLE IGUAL DECIMALES PUNTO_Y_COMA |
+                            TIPO_REAL VARIABLE IGUAL REALES |
+                            TIPO_REAL VARIABLE IGUAL REALES PUNTO_Y_COMA;
+
+ASIGNACION_CADENA_CUP ::=   TIPO_CADENA VARIABLE |
+                            TIPO_CADENA VARIABLE PUNTO_Y_COMA |
+                            TIPO_CADENA VARIABLE IGUAL CADENA |
+                            TIPO_CADENA VARIABLE IGUAL CADENA PUNTO_Y_COMA |
+                            TIPO_CADENA VARIABLE IGUAL DECIMALES |
+                            TIPO_CADENA VARIABLE IGUAL DECIMALES PUNTO_Y_COMA |
+                            TIPO_CADENA VARIABLE IGUAL REALES |
+                            TIPO_CADENA VARIABLE IGUAL REALES PUNTO_Y_COMA;
+
+ASIGNACION_BOOLEANO_CUP ::= TIPO_BOOLEANO VARIABLE |
+                            TIPO_BOOLEANO VARIABLE PUNTO_Y_COMA |
+                            TIPO_BOOLEANO VARIABLE IGUAL BOOLEANO |
+                            TIPO_BOOLEANO VARIABLE IGUAL BOOLEANO PUNTO_Y_COMA |
+                            TIPO_BOOLEANO VARIABLE IGUAL DECIMALES |
+                            TIPO_BOOLEANO VARIABLE IGUAL DECIMALES PUNTO_Y_COMA |
+                            TIPO_BOOLEANO VARIABLE IGUAL REALES |
+                            TIPO_BOOLEANO VARIABLE IGUAL REALES PUNTO_Y_COMA;

@@ -86,6 +86,7 @@ import java.util.ArrayList;
     corchete2 = "]"
     llave1 = "{"
     llave2 = "}"
+    puntoYComa = ";"
     /*%   FUNCIONES ESPECIALES  */
     cadenaEntero = "cadenaAEntero"
     cadenaReal = "cadenaAReal"
@@ -99,6 +100,12 @@ import java.util.ArrayList;
     ignorar = \n|\r\n|\r\n|\t\|{findelinea}|"\ "
 
 %%
+
+    {puntoYComa}
+        {   
+            tokens.add(new token("PUNTO_Y_COMA", yytext()));
+            //return new Symbol(sym.PUNTO_Y_COMA, new token("PUNTO_Y_COMA", yytext()));             
+        }
 
     {tipo_booleano}
         {   
