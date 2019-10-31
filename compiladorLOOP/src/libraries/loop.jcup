@@ -47,7 +47,7 @@ terminal INCREMENTAR, DECREMENTAR, HACER, EXTIENDE, INCLUIR;
 terminal FI, PARENTESIS1, PARENTESIS2, COMA, SUMA, RESTA, MULTIPLICACION, DIVISION;
 terminal MODULO, EXPONENCIACION, IGUAL, INCREMENTO, DECREMENTO, AND, OR, MAYOR_QUE;
 terminal MENOR_QUE, IGUAL_QUE, DISTINTO_QUE, DOS_PUNTOS, CORCHETE1, CORCHETE2;
-terminal LLAVE1, LLAVE2;
+terminal LLAVE1, LLAVE2, PUNTO_Y_COMA;
 
 //TIPOS DE DATOS
 terminal token DECIMALES, REALES, BOOLEANO, CADENA;
@@ -63,59 +63,107 @@ non terminal CUERPO_CLASE , LISTA_METODOS,LISTA_PROPIEDADES, DECLARACION_CLASES;
 terminal ERROR;
 
 //##############################################################################
-//##############################################################################
 //VARIABLES DEL CUP
+//##############################################################################
 non terminal token S, I, OP;
+non terminal ASIGNACION_ENTERO_CUP, ASIGNACION_REAL_CUP, ASIGNACION_CADENA_CUP;
+non terminal ASIGNACION_BOOLEANO_CUP, SUMA_CUP, RESTA_CUP, MULTIPLICACION_CUP;
+non terminal DIVISION_CUP, MODULO_CUP, EXPONENCIACION_CUP;
 //TABULACION
 terminal TABULACION;
 
 //##############################################################################
 // Precedencia símbolos terminales
 //##############################################################################
-//Precedencia para símbolos terminales
 //precedence left MAS;                    
 //precedence left MENOS;
 
 start with S;
 
 //El código se va a ejecutar hasta que se hayan cumplido las reglas anteriores.
-S ::=    AND S            {: System.out.println("S -> I S"); :}
-        |OR              {: System.out.println("S -> I"); :}
-        |DECLARACION_VARIABLES
-        |DECLARACION_CLASES;
+S ::=                       AND S            {: System.out.println("S -> I S"); :}
+                            |OR              {: System.out.println("S -> I"); :}
+                            |DECLARACION_VARIABLES
+                            |DECLARACION_CLASES;
 
-DECLARACION_CLASES ::= CLASE VARIABLE_CLASE CUERPO_CLASE 
-                        |CLASE VARIABLE_CLASE EXTIENDE VARIABLE_CLASE CUERPO_CLASE;
+DECLARACION_CLASES ::=      CLASE VARIABLE_CLASE CUERPO_CLASE 
+                            |CLASE VARIABLE_CLASE EXTIENDE VARIABLE_CLASE CUERPO_CLASE;
 
-CUERPO_CLASE::= TABULACION PROPIEDADES PROPIEDADES_METODOS DOS_PUNTOS FI LISTA_PROPIEDADES CUERPO_CLASE;  
-                    
+CUERPO_CLASE::=             TABULACION PROPIEDADES PROPIEDADES_METODOS DOS_PUNTOS FI LISTA_PROPIEDADES CUERPO_CLASE;
 
+LISTA_PROPIEDADES::=        TABULACION DECLARACION_VARIABLES 
+                            |TABULACION DECLARACION_VARIABLES FI LISTA_PROPIEDADES;
 
+//##############################################################################
+// Tipos variables y datos
+//##############################################################################
 
-LISTA_PROPIEDADES::= TABULACION DECLARACION_VARIABLES 
-                    |TABULACION DECLARACION_VARIABLES FI LISTA_PROPIEDADES;
-
-
-
-
-
-
-
-
-DECLARACION_VARIABLES ::= TIPO_DATO VARIABLE {: System.out.println("tipo variable"); :}
-                        |TIPO_DATO VARIABLE COMA LISTA_VARIABLES 
-                        |TIPO_DATO VARIABLE IGUAL VALOR_ASIGNADO 
-                        |TIPO_DATO VARIABLE COMA LISTA_VARIABLES IGUAL VALOR_ASIGNADO;
-
-LISTA_VARIABLES ::=     VARIABLE 
-                        |VARIABLE COMA LISTA_VARIABLES; 
-
-TIPO_DATO ::=           TIPO_ENTERO
-                        |TIPO_BOOLEANO 
-                        |TIPO_CADENA 
-                        |TIPO_REAL ;
+TIPO_DATO_CUP ::=           TIPO_ENTERO |
+                            TIPO_BOOLEANO |
+                            TIPO_CADENA |
+                            TIPO_REAL ;
                         
-VALOR_ASIGNADO ::=      DECIMALES
-                        |REALES
-                        |BOOLEANO
-                        |CADENA;
+VALOR_ASIGNADO_CUP ::=      DECIMALES |
+                            REALES |
+                            BOOLEANO |
+                            CADENA;
+
+IGUALACION_CUP ::=          VARIABLE IGUAL |
+                            TIPO_DATO_CUP VARIABLE IGUAL |
+                            TIPO_DATO_CUP LISTA_VARIABLES_CUP IGUAL;
+
+LISTA_VARIABLES_CUP ::=     VARIABLE |
+                            VARIABLE COMA LISTA_VARIABLES;
+
+//##############################################################################
+// Reglas de asignación de variables
+//##############################################################################
+
+ASIGNACION_VAR_CUP ::=      TIPO_DATO_CUP VARIABLE |
+                            TIPO_DATO_CUP VARIABLE PUNTO_Y_COMA |
+                            IGUALACION_CUP VALOR_ASIGNADO_CUP |
+                            IGUALACION_CUP VALOR_ASIGNADO_CUP PUNTO_Y_COMA |
+                            IGUALACION_CUP MENOS VALOR_ASIGNADO_CUP |
+                            IGUALACION_CUP MENOS VALOR_ASIGNADO_CUP PUNTO_Y_COMA |
+                            TIPO_DATO_CUP LISTA_VARIABLES_CUP |
+                            TIPO_DATO_CUP LISTA_VARIABLES_CUP PUNTO_Y_COMA |
+                            IGUALACION_CUP VALOR_ASIGNADO_CUP |
+                            IGUALACION_CUP VALOR_ASIGNADO_CUP PUNTO_Y_COMA |
+                            IGUALACION_CUP MENOS VALOR_ASIGNADO_CUP |
+                            IGUALACION_CUP MENOS VALOR_ASIGNADO_CUP PUNTO_Y_COMA;
+                            
+//##############################################################################
+// Operaciones aritméticas
+//##############################################################################
+
+OPERACIONES_CUP  ::=        SUMA |
+                            RESTA |
+                            MULTIPLICACION |
+                            DIVISION |
+                            MODULO |
+                            EXPONENCIACION;
+
+REALIZAR_OPERACION_CUP ::=  IGUALACION_CUP LISTA_OPERACIONES_CUP |
+                            IGUALACION_CUP LISTA_OPERACIONES_CUP PUNTO_Y_COMA;
+
+LISTA_OPERACIONES_CUP ::=   VARIABLE |
+                            VARIABLE OPERACIONES_CUP LISTA_OPERACIONES_CUP;
+
+//##############################################################################
+// Pre y post incrementos
+//##############################################################################
+
+INC_DEC_CUP ::=             VARIABLE SUMA SUMA |
+                            VARIABLE SUMA SUMA PUNTO_Y_COMA |
+                            VARIABLE RESTA RESTA |
+                            VARIABLE RESTA RESTA PUNTO_Y_COMA |
+                            SUMA SUMA VARIABLE |
+                            SUMA SUMA VARIABLE PUNTO_Y_COMA |
+                            RESTA RESTA VARIABLE |
+                            RESTA RESTA VARIABLE PUNTO_Y_COMA |
+                            IGUALACION_CUP INC_DEC_CUP;
+
+//##############################################################################
+// Operaciones lógicas
+//##############################################################################
+
