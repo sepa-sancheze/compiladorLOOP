@@ -486,17 +486,6 @@ import java.util.ArrayList;
             //return new Symbol(sym.CADENA, new token("CADENA", yytext()));             
         }
 
-    {excepciones_variables}
-        {   
-            tokens.add(new token("ERROR", yytext()));
-            //return new Symbol(sym.ERROR, new token("ERROR", yytext()));             
-        }
-
-    {variables}
-        {   
-            tokens.add(new token("VARIABLE", yytext()));
-            //return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));             
-        }
     {excepciones_variables_clase}
         {   
             tokens.add(new token("ERROR", yytext()));
@@ -508,6 +497,19 @@ import java.util.ArrayList;
             tokens.add(new token("VARIABLE_CLASE", yytext()));
             //return new Symbol(sym.VARIABLE_CLASE, new token("VARIABLE_CLASE", yytext()));             
         }
+
+    {excepciones_variables}
+        {   
+            //tokens.add(new token("ERROR", yytext()));
+            //return new Symbol(sym.ERROR, new token("ERROR", yytext()));             
+        }
+
+    {variables}
+        {   
+            tokens.add(new token("VARIABLE", yytext()));
+            //return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));             
+        }
+
     {finInstruccion}
         {   
             tokens.add(new token("FI", yytext()));
