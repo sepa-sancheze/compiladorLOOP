@@ -49,7 +49,7 @@ import java.util.ArrayList;
     extiende = "extiende"|"Extiende"
     incluir = "incluir"|"Incluir"
     /*%   TIPOS DE DATOS  */
-    numerosDecimales = [1-9][0-9]*
+    numerosDecimales = [1-9][0-9]* | 0
     numerosReales = [0-9]*[.][0-9]+[1-9]
     booleano = "verdadero"|"falso"
     cadena = ["\""]([a-zA-Z]*[0-9]*["\ "]*)*["\""]
@@ -87,6 +87,7 @@ import java.util.ArrayList;
     llave1 = "{"
     llave2 = "}"
     puntoYComa = ";"
+    punto = "."
     /*%   FUNCIONES ESPECIALES  */
     cadenaEntero = "cadenaAEntero"
     cadenaReal = "cadenaAReal"
@@ -100,6 +101,12 @@ import java.util.ArrayList;
     ignorar = \n|\r\n|\r\n|\t\|{findelinea}|"\ "
 
 %%
+
+    {punto}
+        {   
+            tokens.add(new token("PUNTO", yytext()));
+            //return new Symbol(sym.PUNTO, new token("PUNTO", yytext()));             
+        }
 
     {puntoYComa}
         {   
@@ -488,18 +495,18 @@ import java.util.ArrayList;
     {variables}
         {   
             tokens.add(new token("VARIABLE", yytext()));
-            return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));             
+            //return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext()));             
         }
     {excepciones_variables_clase}
         {   
-            //tokens.add(new token("ERROR", yytext()));
-            return new Symbol(sym.ERROR, new token("ERROR", yytext()));             
+            tokens.add(new token("ERROR", yytext()));
+            //return new Symbol(sym.ERROR, new token("ERROR", yytext()));             
         }
 
     {variables_clase}
         {   
-            //tokens.add(new token("VARIABLE_CLASE", yytext()));
-            return new Symbol(sym.VARIABLE, new token("VARIABLE_CLASE", yytext()));             
+            tokens.add(new token("VARIABLE_CLASE", yytext()));
+            //return new Symbol(sym.VARIABLE_CLASE, new token("VARIABLE_CLASE", yytext()));             
         }
     {finInstruccion}
         {   
