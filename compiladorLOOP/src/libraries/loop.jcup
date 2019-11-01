@@ -54,11 +54,15 @@ terminal token DECIMALES, REALES, BOOLEANO, CADENA;
 
 //VARIABLES
 terminal VARIABLE, VALOR_ASIGNADO;
-non terminal LISTA_VARIABLES, DECLARACION_VARIABLES, TIPO_DATO;
+non terminal LISTA_VARIABLES_CUP, TIPO_DATO_CUP,ASIGNACION_VAR_CUP;
 
 //CLASES
-terminal  VARIABLE_CLASE;
-non terminal CUERPO_CLASE , LISTA_METODOS,LISTA_PROPIEDADES, DECLARACION_CLASES;
+terminal  VARIABLE_CLASE,ELIMINAR;
+non terminal CUERPO_CLASE_CUP , LISTA_METODOS_CUP ,LISTA_PROPIEDADES_CUP, DECLARACION_CLASES_CUP, ELIMINACION_CLASES_CUP;
+//FUNCIONES
+
+non terminal DECLARACION_FUNCIONES_SUELTAS_CUP, TIPO_FUNCION_CUP;
+
 //ERROR
 terminal ERROR;
 
@@ -83,16 +87,48 @@ start with S;
 //El código se va a ejecutar hasta que se hayan cumplido las reglas anteriores.
 S ::=                       AND S            {: System.out.println("S -> I S"); :}
                             |OR              {: System.out.println("S -> I"); :}
-                            |DECLARACION_VARIABLES
-                            |DECLARACION_CLASES;
+                            |DECLARACION_CLASES_CUP;
+                            
+//##############################################################################
+//CLASES
+//##############################################################################
 
-DECLARACION_CLASES ::=      CLASE VARIABLE_CLASE CUERPO_CLASE 
-                            |CLASE VARIABLE_CLASE EXTIENDE VARIABLE_CLASE CUERPO_CLASE;
+DECLARACION_CLASES_CUP ::=  CLASE VARIABLE_CLASE CUERPO_CLASE_CUP 
+                            |CLASE VARIABLE_CLASE EXTIENDE VARIABLE_CLASE CUERPO_CLASE_CUP;
 
-CUERPO_CLASE::=             TABULACION PROPIEDADES PROPIEDADES_METODOS DOS_PUNTOS FI LISTA_PROPIEDADES CUERPO_CLASE;
+CUERPO_CLASE_CUP::=         TABULACION PROPIEDADES PROPIEDADES_METODOS DOS_PUNTOS  LISTA_PROPIEDADES_CUP CUERPO_CLASE_CUP
+                            |TABULACION METODOS PROPIEDADES_METODOS DOS_PUNTOS  LISTA_METODOS_CUP;
+                        
+LISTA_PROPIEDADES_CUP::=    TABULACION ASIGNACION_VAR_CUP
+                            |TABULACION ASIGNACION_VAR_CUP  LISTA_PROPIEDADES_CUP;
 
-LISTA_PROPIEDADES::=        TABULACION DECLARACION_VARIABLES 
-                            |TABULACION DECLARACION_VARIABLES FI LISTA_PROPIEDADES;
+LISTA_METODOS_CUP::=         DECLARACION_FUNCIONES_SUELTAS_CUP
+                            |DECLARACION_FUNCIONES_SUELTAS_CUP LISTA_METODOS_CUP
+                            |TABULACION CONSTRUCTOR PARENTESIS1 PARENTESIS2 TABULACION ASIGNACION_VAR_CUP 
+                            |TABULACION CONSTRUCTOR PARENTESIS1 PARENTESIS2 TABULACION ASIGNACION_VAR_CUP LISTA_METODOS_CUP
+                            |TABULACION CONSTRUCTOR PARENTESIS1 LISTA_VARIABLES_CUP PARENTESIS2 TABULACION ASIGNACION_VAR_CUP
+                            |TABULACION CONSTRUCTOR PARENTESIS1 LISTA_VARIABLES_CUP PARENTESIS2 TABULACION ASIGNACION_VAR_CUP LISTA_METODOS_CUP
+                            |TABULACION DESTRUCTOR PARENTESIS1 PARENTESIS2 TABULACION ELIMINACION_CLASES_CUP
+                            |TABULACION DESTRUCTOR PARENTESIS1 PARENTESIS2 TABULACION ELIMINACION_CLASES_CUP LISTA_METODOS_CUP;
+
+ELIMINACION_CLASES_CUP::=    ELIMINAR VARIABLE_CLASE
+                            |ELIMINAR VARIABLE_CLASE ELIMINACION_CLASES_CUP;
+
+//##############################################################################
+//FUNCIONES 
+//##############################################################################
+
+DECLARACION_FUNCIONES_SUELTAS_CUP ::= TIPO_FUNCION_CUP VARIABLE PARENTESIS1 PARENTESIS2 //CUERPO OPERACIONES
+                            |TIPO_FUNCION_CUP VARIABLE PARENTESIS1 LISTA_VARIABLES_CUP PARENTESIS2 //CUERPO OPERACOPMES
+
+
+
+TIPO_FUNCION_CUP        ::= TIPO_ENTERO 
+                            |TIPO_BOOLEANO
+                            |TIPO_CADENA 
+                            |TIPO_REAL 
+                            |TIPO_NULO;
+
 
 //##############################################################################
 // Tipos variables y datos
@@ -113,7 +149,7 @@ IGUALACION_CUP ::=          VARIABLE IGUAL |
                             TIPO_DATO_CUP LISTA_VARIABLES_CUP IGUAL;
 
 LISTA_VARIABLES_CUP ::=     VARIABLE |
-                            VARIABLE COMA LISTA_VARIABLES;
+                            VARIABLE COMA LISTA_VARIABLES_CUP;
 
 //##############################################################################
 // Reglas de asignación de variables

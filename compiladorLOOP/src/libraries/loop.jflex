@@ -47,6 +47,7 @@ import java.util.ArrayList;
     decrementar = "decrementar"|"Decrementar"
     hacer = "hacer"|"Hacer"
     extiende = "extiende"|"Extiende"
+    eliminar ="Eliminar"|"eliminar"
     incluir = "incluir"|"Incluir"
     /*%   TIPOS DE DATOS  */
     numerosDecimales = [1-9][0-9]* | 0
@@ -340,6 +341,11 @@ import java.util.ArrayList;
         {   
             tokens.add(new token("INCLUIR", yytext()));
             //return new Symbol(sym.INCLUIR, new token("INCLUIR", yytext()));             
+        }
+    {eliminar}
+        {   
+            tokens.add(new token("ELIMINAR", yytext()));
+            //return new Symbol(sym.DECREMENTAR, new token("DECREMENTAR", yytext()));             
         }
 
     {extiende}
