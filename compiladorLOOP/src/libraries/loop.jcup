@@ -21,9 +21,11 @@ init with{:
 
 //Los símbolos terminales sin token significan que son palabras, tal cual las pasamos
 //Si tienen el token significa que es una expresión regular
+
 //##############################################################################
 // Símbolos terminales
 //##############################################################################
+
 //PALABRAS RESERVADAS
 terminal CLASE, PROPIEDADES, METODOS, PROPIEDADES_METODOS;
 
@@ -40,9 +42,6 @@ terminal LEER, ESCRIBIR;
 terminal DEVOLVER, CONSTRUCTOR, DESTRUCTOR, PRINCIPAL, INSTANCIAR, DESDE, MIENTRAS;
 terminal INCREMENTAR, DECREMENTAR, HACER, EXTIENDE, INCLUIR;
 
-//REGLAS EXTRAS
-//terminal ????????????????????????????????????
-
 //SIGNOS
 terminal FI, PARENTESIS1, PARENTESIS2, COMA, SUMA, RESTA, MULTIPLICACION, DIVISION;
 terminal MODULO, EXPONENCIACION, IGUAL, INCREMENTO, DECREMENTO, AND, OR, MAYOR_QUE;
@@ -54,17 +53,15 @@ terminal token DECIMALES, REALES, BOOLEANO, CADENA;
 
 //VARIABLES
 terminal VARIABLE, VALOR_ASIGNADO;
-non terminal LISTA_VARIABLES_CUP, TIPO_DATO_CUP,ASIGNACION_VAR_CUP;
 
 //CLASES
 terminal  VARIABLE_CLASE,ELIMINAR;
-non terminal CUERPO_CLASE_CUP , LISTA_METODOS_CUP ,LISTA_PROPIEDADES_CUP, DECLARACION_CLASES_CUP, ELIMINACION_CLASES_CUP;
-//FUNCIONES
-
-non terminal DECLARACION_FUNCIONES_SUELTAS_CUP, TIPO_FUNCION_CUP;
 
 //ERROR
 terminal ERROR;
+
+//TABULACION
+terminal TABULACION;
 
 //##############################################################################
 //VARIABLES DEL CUP
@@ -73,8 +70,9 @@ non terminal token S, I, OP;
 non terminal ASIGNACION_ENTERO_CUP, ASIGNACION_REAL_CUP, ASIGNACION_CADENA_CUP;
 non terminal ASIGNACION_BOOLEANO_CUP, SUMA_CUP, RESTA_CUP, MULTIPLICACION_CUP;
 non terminal DIVISION_CUP, MODULO_CUP, EXPONENCIACION_CUP;
-//TABULACION
-terminal TABULACION;
+non terminal LISTA_VARIABLES_CUP, TIPO_DATO_CUP,ASIGNACION_VAR_CUP;
+non terminal CUERPO_CLASE_CUP , LISTA_METODOS_CUP ,LISTA_PROPIEDADES_CUP, DECLARACION_CLASES_CUP, ELIMINACION_CLASES_CUP;
+non terminal DECLARACION_FUNCIONES_SUELTAS_CUP, TIPO_FUNCION_CUP;
 
 //##############################################################################
 // Precedencia símbolos terminales
@@ -203,3 +201,29 @@ INC_DEC_CUP ::=             VARIABLE SUMA SUMA |
 // Operaciones lógicas
 //##############################################################################
 
+OPERACIONES_LOGICAS_CUP::=  AND |
+                            OR ;
+
+REALIZAR_OP_LOGICA_CUP ::=  IGUALACION_CUP LISTA_LOGICAS_CUP |
+                            IGUALACION_CUP LISTA_LOGICAS_CUP PUNTO_Y_COMA;
+
+LISTA_LOGICAS_CUP ::=       VARIABLE |
+                            VARIABLE OPERACIONES_LOGICAS_CUP LISTA_LOGICAS_CUP;
+
+//##############################################################################
+// Símbolos de agrupación
+//##############################################################################
+
+DATOS_VARIABLES_CUP ::=     VALOR_ASIGNADO_CUP |
+                            VARIABLE ;
+
+OPERACIONES_PARENT_CUP::=   DATOS_VARIABLES_CUP |
+                            DATOS_VARIABLES_CUP OPERACIONES_PARENT_CUP ;
+                            
+
+DATOS_IN_PARENTESIS ::=     PARENTESIS1 OPERACIONES_PARENT_CUP PARENTESIS2 ;
+
+AGRUPACION_CUP ::=          IGUALACION_CUP DATOS_IN_PARENTESIS |
+                            IGUALACION_CUP LISTA_OPERACIONES_CUP OPERACIONES_CUP DATOS_IN_PARENTESIS |
+                            IGUALACION_CUP DATOS_IN_PARENTESIS OPERACIONES_CUP LISTA_OPERACIONES_CUP |
+                            IGUALACION_CUP LISTA_OPERACIONES_CUP OPERACIONES_CUP DATOS_IN_PARENTESIS OPERACIONES_CUP LISTA_OPERACIONES_CUP ;
