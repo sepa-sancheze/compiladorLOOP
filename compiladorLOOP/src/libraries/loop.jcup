@@ -167,7 +167,9 @@ ASIGNACION_VAR_CUP ::=      TIPO_DATO_CUP DATOS_VARIABLES_CUP |
                             IGUALACION_CUP VARIABLE_CLASE PUNTO VARIABLE |
                             IGUALACION_CUP VARIABLE_CLASE PUNTO VARIABLE PUNTO_Y_COMA |
                             VARIABLE_CLASE PUNTO VARIABLE IGUAL DATOS_VARIABLES_CUP |
-                            VARIABLE_CLASE PUNTO VARIABLE IGUAL DATOS_VARIABLES_CUP PUNTO_Y_COMA ;
+                            VARIABLE_CLASE PUNTO VARIABLE IGUAL DATOS_VARIABLES_CUP PUNTO_Y_COMA
+                            IGUALACION_CUP CONDICION_CUP |
+                            IGUALACION_CUP CONDICION_CUP ;
                             
 //##############################################################################
 // Operaciones aritméticas
@@ -240,3 +242,36 @@ ESCRITURA_CUP ::=           ESCRIBIR LISTA_VARIABLES_CUP |
 
 LECTURA_CUP ::=             LEER VARIABLE |
                             LEER VARIABLE PUNTO_Y_COMA ;
+
+//##############################################################################
+// Estructuras selectivas
+//##############################################################################
+
+CONDICIONES_LOGICAS_CUP ::= MAYOR_QUE |
+                            MENOR_QUE |
+                            IGUAL_QUE |
+                            DISTINTO_QUE ;
+
+CONDICION_CUP ::=           DATOS_VARIABLES_CUP CONDICIONES_LOGICAS_CUP DATOS_VARIABLES_CUP;
+
+SI_ELSE_CUP ::=             IF CONDICION_CUP ENTONCES CODIGOS_GENERALES_CUP |
+                            IF CONDICION_CUP ENTONCES CODIGOS_GENERALES_CUP SINO CODIGOS_GENERALES_CUP |
+                            IF CONDICION_CUP ENTONCES CODIGOS_GENERALES_CUP SINO SI_ELSE_CUP ;
+
+//##############################################################################
+// Estructuras iterativas
+//##############################################################################
+
+VAR_INI_CUP ::=             VARIABLE |
+                            IGUALACION_CUP VALOR_ASIGNADO_CUP ;
+
+DESDE_CUP ::=               DESDE VAR_INI_CUP MIENTRAS CONDICION_CUP HACER CODIGOS_GENERALES_CUP |
+                            DESDE VAR_INI_CUP MIENTRAS CONDICION_CUP INC_DEC_CUP HACER CODIGOS_GENERALES_CUP ;
+
+HACER_CUP ::=               HACER CODIGOS_GENERALES_CUP MIENTRAS CONDICION_CUP ;
+
+//##############################################################################
+// Códigos generales
+//##############################################################################
+
+CODIGOS_GENERALES_CUP ::=   ;
