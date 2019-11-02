@@ -56,7 +56,7 @@ terminal VARIABLE, VALOR_ASIGNADO;
 
 //CLASES
 terminal  VARIABLE_CLASE,ELIMINAR;
-non terminal CUERPO_FUNCIONES_CUP, DEVOLUCION_METODO_CUP;
+non terminal CUERPO_FUNCIONES_CUP, DEVOLUCION_METODO_CUP, INSTANCIAR_CLASE_VARIABLES_CUP;
 //ERROR
 terminal ERROR;
 
@@ -142,12 +142,25 @@ CUERPO_FUNCIONES_CUP ::=    ASIGNACION_VAR_CUP
                             |LECTURA_CUP
                             |LECTURA_CUP CUERPO_FUNCIONES_CUP
                             |SI_ELSE_CUP
-                            |SI_ELSE_CUP CUERPO_FUNCIONES_CUP;
+                            |SI_ELSE_CUP CUERPO_FUNCIONES_CUP
+                            |INSTANCIAR_CLASE_VARIABLES_CUP
+                            |INSTANCIAR_CLASE_VARIABLES_CUP CUERPO_FUNCIONES_CUP;
 
 DEVOLUCION_METODO_CUP ::=    DEVOLVER VARIABLE
                             |DEVOLVER REALIZAR_OPERACION_CUP
                             |DEVOLVER INC_DEC_CUP
                             |DEVOLVER REALIZAR_OP_LOGICA_CUP;
+//##############################################################################
+// INSTANCIACION DE CLASES EN METODOS
+//##############################################################################
+INSTANCIAR_CLASE_VARIABLES_CUP ::= VARIABLE_CLASE  VARIABLE IGUAL INSTANCIAR VARIABLE_CLASE PARENTESIS1 PARENTESIS2
+                            |VARIABLE_CLASE  VARIABLE IGUAL INSTANCIAR VARIABLE_CLASE PARENTESIS1 LISTA_VARIABLES_CUP PARENTESIS2;
+//##############################################################################
+// FUNCION PRINCIPAL
+//##############################################################################
+FUNCION_PRINCIPAL ::=       TIPO_FUNCION_CUP PRINCIPAL PARENTESIS1 PARENTESIS2 DOS_PUNTOS CUERPO_FUNCIONES_CUP DEVOLVER DEVOLUCION_METODO_CUP;
+                            
+
 //##############################################################################
 // Tipos variables y datos
 //##############################################################################
