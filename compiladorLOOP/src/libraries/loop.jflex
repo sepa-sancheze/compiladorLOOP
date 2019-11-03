@@ -86,8 +86,6 @@ import java.util.ArrayList;
     dosPuntos = ":"
     corchete1 = "["
     corchete2 = "]"
-    llave1 = "{"
-    llave2 = "}"
     puntoYComa = ";"
     punto = "."
     /*%   FUNCIONES ESPECIALES  */
@@ -193,18 +191,6 @@ import java.util.ArrayList;
         {   
             tokens.add(new token("CADENA_A_ENTERO", yytext(), this.tabulaciones));
             //return new Symbol(sym.CADENA_A_ENTERO, new token("CADENA_A_ENTERO", yytext(), this.tabulaciones));
-        }
-
-    {llave2}
-        {   
-            tokens.add(new token("LLAVE2", yytext(), this.tabulaciones));
-            //return new Symbol(sym.LLAVE2, new token("LLAVE2", yytext(), this.tabulaciones));
-        }
-
-    {llave1}
-        {   
-            tokens.add(new token("LLAVE1", yytext(), this.tabulaciones));
-            //return new Symbol(sym.LLAVE1, new token("LLAVE1", yytext(), this.tabulaciones));
         }
 
     {corchete2}
