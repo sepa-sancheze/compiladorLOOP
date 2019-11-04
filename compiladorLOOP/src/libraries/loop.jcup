@@ -66,7 +66,7 @@ terminal OPERACIONES_LOGICAS_CUP, TIPO_DATO_CUP, OPERACIONES_CUP;
 non terminal token S;
 non terminal ASIGNACION_VAR_CUP;
 non terminal CUERPO_CLASE_CUP , LISTA_METODOS_CUP ,LISTA_PROPIEDADES_CUP, DECLARACION_CLASES_CUP, ELIMINACION_CLASES_CUP;
-non terminal DECLARACION_FUNCIONES_SUELTAS_CUP, TIPO_FUNCION_CUP, REALIZAR_OPERACION_CUP;
+non terminal DECLARACION_FUNCIONES_SUELTAS_CUP, TIPO_FUNCION_CUP;
 non terminal INC_DEC_CUP, ESCRITURA_CUP, LECTURA_CUP, SI_ELSE_CUP;
 non terminal FUNCION_PRINCIPAL, VALOR_ASIGNADO_CUP, DATOS_VARIABLES_CUP, IGUALACION_CUP;
 non terminal CONDICION_CUP, LISTA_OPERACIONES_CUP;
@@ -94,8 +94,7 @@ S ::=                       AND S            {: System.out.println("S -> I S"); 
 //##############################################################################
 
 IGUALACION_CUP ::=          TIPO_DATO_CUP DATOS_VARIABLES_CUP IGUAL |
-                            TIPO_DATO_CUP VARIABLE IGUAL |
-                            VARIABLE IGUAL ;
+                            DATOS_VARIABLES_CUP IGUAL ;
 
 DECLARACION_CLASES_CUP ::=  CLASE VARIABLE_CLASE CUERPO_CLASE_CUP 
                             |CLASE VARIABLE_CLASE EXTIENDE VARIABLE_CLASE CUERPO_CLASE_CUP;
@@ -129,8 +128,6 @@ DECLARACION_FUNCIONES_SUELTAS_CUP ::= TIPO_FUNCION_CUP VARIABLE PARENTESIS1 PARE
 
 CUERPO_FUNCIONES_CUP ::=    ASIGNACION_VAR_CUP
                             |ASIGNACION_VAR_CUP CUERPO_FUNCIONES_CUP    
-                            |REALIZAR_OPERACION_CUP
-                            |REALIZAR_OPERACION_CUP CUERPO_FUNCIONES_CUP
                             |INC_DEC_CUP
                             |INC_DEC_CUP CUERPO_FUNCIONES_CUP
                             |ESCRITURA_CUP
@@ -144,7 +141,7 @@ CUERPO_FUNCIONES_CUP ::=    ASIGNACION_VAR_CUP
 
 DEVOLUCION_METODO_CUP ::=    DEVOLVER VARIABLE
                             |DEVOLVER INC_DEC_CUP
-                            |DEVOLVER REALIZAR_OPERACION_CUP;
+                            |DEVOLVER ASIGNACION_VAR_CUP;
 //##############################################################################
 // INSTANCIACION DE CLASES EN METODOS
 //##############################################################################
@@ -162,19 +159,19 @@ FUNCION_PRINCIPAL ::=       TIPO_FUNCION_CUP PRINCIPAL PARENTESIS1 PARENTESIS2 D
 // Tipos variables y datos
 //##############################################################################
 
-DATOS_VARIABLES_CUP ::=     VARIABLE COMA DATOS_VARIABLES_CUP |
+DATOS_VARIABLES_CUP ::=     COMA DATOS_VARIABLES_CUP |
                             VALOR_ASIGNADO_CUP |
-                            VARIABLE ;
+                            VARIABLE DATOS_VARIABLES_CUP;
 
 //##############################################################################
 // Reglas de asignación de variables
 //##############################################################################
 
-ASIGNACION_VAR_CUP ::=      TIPO_DATO_CUP DATOS_VARIABLES_CUP |
-                            IGUALACION_CUP DATOS_VARIABLES_CUP |
-                            IGUALACION_CUP MENOS DATOS_VARIABLES_CUP |
+ASIGNACION_VAR_CUP ::=      TIPO_DATO_CUP LISTA_OPERACIONES_CUP |
+                            IGUALACION_CUP LISTA_OPERACIONES_CUP |
+                            IGUALACION_CUP MENOS LISTA_OPERACIONES_CUP |
                             IGUALACION_CUP VARIABLE_CLASE PUNTO VARIABLE |
-                            VARIABLE_CLASE PUNTO VARIABLE IGUAL DATOS_VARIABLES_CUP |
+                            VARIABLE_CLASE PUNTO VARIABLE IGUAL LISTA_OPERACIONES_CUP |
                             IGUALACION_CUP CONDICION_CUP ;
                             
 //##############################################################################
@@ -186,9 +183,6 @@ OPERACIONES_INTER_CUP ::=	OPERACIONES_CUP |
 
 LISTA_OPERACIONES_CUP ::=   DATOS_VARIABLES_CUP OPERACIONES_INTER_CUP LISTA_OPERACIONES_CUP |
                             DATOS_VARIABLES_CUP ;
-
-REALIZAR_OPERACION_CUP ::=  IGUALACION_CUP LISTA_OPERACIONES_CUP PUNTO_Y_COMA |
-                            IGUALACION_CUP LISTA_OPERACIONES_CUP ;
 
 //##############################################################################
 // Pre y post incrementos

@@ -8,53 +8,83 @@ package compiladorloop;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int TANGENTE = 4;
-  public static final int AND = 20;
-  public static final int RAIZ = 2;
-  public static final int OR = 19;
-  public static final int CADENA_A_ENTERO = 9;
-  public static final int MAYOR_QUE = 18;
-  public static final int SENO = 6;
-  public static final int DOS_PUNTOS = 14;
-  public static final int CADENA_A_BOOLEANO = 7;
-  public static final int CORCHETE2 = 12;
-  public static final int MENOR_QUE = 17;
-  public static final int CORCHETE1 = 13;
-  public static final int CADENA_A_REAL = 8;
+  public static final int ELIMINAR = 34;
+  public static final int PUNTO_Y_COMA = 29;
+  public static final int DEVOLVER = 11;
+  public static final int DESDE = 16;
+  public static final int DOS_PUNTOS = 28;
+  public static final int ENTONCES = 7;
+  public static final int DECREMENTAR = 19;
+  public static final int INSTANCIAR = 15;
+  public static final int INCREMENTAR = 18;
+  public static final int PRINCIPAL = 14;
+  public static final int AND = 26;
+  public static final int IGUAL = 25;
+  public static final int SINO = 8;
+  public static final int OR = 27;
+  public static final int MIENTRAS = 17;
+  public static final int EXTIENDE = 21;
+  public static final int ESCRIBIR = 10;
+  public static final int DESTRUCTOR = 13;
+  public static final int PROPIEDADES_METODOS = 5;
+  public static final int IF = 6;
+  public static final int PARENTESIS2 = 23;
+  public static final int PARENTESIS1 = 22;
   public static final int EOF = 0;
-  public static final int LOGARITMO = 3;
-  public static final int IGUAL_QUE = 16;
-  public static final int COSENO = 5;
-  public static final int NUMERO = 22;
+  public static final int PROPIEDADES = 3;
+  public static final int CLASE = 2;
   public static final int error = 1;
-  public static final int LLAVE2 = 10;
-  public static final int LLAVE1 = 11;
-  public static final int DECREMENTO = 21;
-  public static final int DISTINTO_QUE = 15;
+  public static final int OPERACIONES_CUP = 37;
+  public static final int COMA = 24;
+  public static final int OPERACIONES_LOGICAS_CUP = 35;
+  public static final int MENOS = 31;
+  public static final int VARIABLE_CLASE = 33;
+  public static final int METODOS = 4;
+  public static final int PUNTO = 32;
+  public static final int VARIABLE = 30;
+  public static final int CONSTRUCTOR = 12;
+  public static final int LEER = 9;
+  public static final int HACER = 20;
+  public static final int TIPO_DATO_CUP = 36;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "RAIZ",
-  "LOGARITMO",
-  "TANGENTE",
-  "COSENO",
-  "SENO",
-  "CADENA_A_BOOLEANO",
-  "CADENA_A_REAL",
-  "CADENA_A_ENTERO",
-  "LLAVE2",
-  "LLAVE1",
-  "CORCHETE2",
-  "CORCHETE1",
-  "DOS_PUNTOS",
-  "DISTINTO_QUE",
-  "IGUAL_QUE",
-  "MENOR_QUE",
-  "MAYOR_QUE",
-  "OR",
+  "CLASE",
+  "PROPIEDADES",
+  "METODOS",
+  "PROPIEDADES_METODOS",
+  "IF",
+  "ENTONCES",
+  "SINO",
+  "LEER",
+  "ESCRIBIR",
+  "DEVOLVER",
+  "CONSTRUCTOR",
+  "DESTRUCTOR",
+  "PRINCIPAL",
+  "INSTANCIAR",
+  "DESDE",
+  "MIENTRAS",
+  "INCREMENTAR",
+  "DECREMENTAR",
+  "HACER",
+  "EXTIENDE",
+  "PARENTESIS1",
+  "PARENTESIS2",
+  "COMA",
+  "IGUAL",
   "AND",
-  "DECREMENTO",
-  "NUMERO"
+  "OR",
+  "DOS_PUNTOS",
+  "PUNTO_Y_COMA",
+  "VARIABLE",
+  "MENOS",
+  "PUNTO",
+  "VARIABLE_CLASE",
+  "ELIMINAR",
+  "OPERACIONES_LOGICAS_CUP",
+  "TIPO_DATO_CUP",
+  "OPERACIONES_CUP"
   };
 }
 
