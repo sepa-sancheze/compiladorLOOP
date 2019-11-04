@@ -64,15 +64,15 @@ terminal OPERACIONES_LOGICAS_CUP, TIPO_DATO_CUP, OPERACIONES_CUP;
 //VARIABLES DEL CUP
 //##############################################################################
 non terminal token S;
-non terminal LISTA_VARIABLES_CUP,ASIGNACION_VAR_CUP;
+non terminal ASIGNACION_VAR_CUP;
 non terminal CUERPO_CLASE_CUP , LISTA_METODOS_CUP ,LISTA_PROPIEDADES_CUP, DECLARACION_CLASES_CUP, ELIMINACION_CLASES_CUP;
 non terminal DECLARACION_FUNCIONES_SUELTAS_CUP, TIPO_FUNCION_CUP, REALIZAR_OPERACION_CUP;
-non terminal INC_DEC_CUP, REALIZAR_OP_LOGICA_CUP, ESCRITURA_CUP, LECTURA_CUP, SI_ELSE_CUP;
+non terminal INC_DEC_CUP, ESCRITURA_CUP, LECTURA_CUP, SI_ELSE_CUP;
 non terminal FUNCION_PRINCIPAL, VALOR_ASIGNADO_CUP, DATOS_VARIABLES_CUP, IGUALACION_CUP;
-non terminal CONDICION_CUP, LISTA_OPERACIONES_CUP, LISTA_LOGICAS_CUP;
+non terminal CONDICION_CUP, LISTA_OPERACIONES_CUP;
 non terminal OPERACIONES_PARENT_CUP, DATOS_IN_PARENTESIS;
 non terminal CONDICIONES_LOGICAS_CUP, CODIGOS_GENERALES_CUP, VAR_INI_CUP;
-non terminal AGRUPACION_CUP, LISTA_ESCRITURA_CUP, DESDE_CUP, HACER_CUP;
+non terminal AGRUPACION_CUP, LISTA_ESCRITURA_CUP, DESDE_CUP, HACER_CUP, OPERACIONES_INTER_CUP;
 
 //##############################################################################
 // Precedencia símbolos terminales
@@ -93,10 +93,7 @@ S ::=                       AND S            {: System.out.println("S -> I S"); 
 //CLASES
 //##############################################################################
 
-LISTA_VARIABLES_CUP ::=     VARIABLE |
-                            VARIABLE COMA LISTA_VARIABLES_CUP ;
-
-IGUALACION_CUP ::=          TIPO_DATO_CUP LISTA_VARIABLES_CUP IGUAL |
+IGUALACION_CUP ::=          TIPO_DATO_CUP DATOS_VARIABLES_CUP IGUAL |
                             TIPO_DATO_CUP VARIABLE IGUAL |
                             VARIABLE IGUAL ;
 
@@ -113,8 +110,8 @@ LISTA_METODOS_CUP::=         DECLARACION_FUNCIONES_SUELTAS_CUP
                             |DECLARACION_FUNCIONES_SUELTAS_CUP LISTA_METODOS_CUP
                             |CONSTRUCTOR PARENTESIS1 PARENTESIS2 ASIGNACION_VAR_CUP 
                             |CONSTRUCTOR PARENTESIS1 PARENTESIS2 ASIGNACION_VAR_CUP LISTA_METODOS_CUP
-                            |CONSTRUCTOR PARENTESIS1 LISTA_VARIABLES_CUP PARENTESIS2 ASIGNACION_VAR_CUP
-                            |CONSTRUCTOR PARENTESIS1 LISTA_VARIABLES_CUP PARENTESIS2 ASIGNACION_VAR_CUP LISTA_METODOS_CUP
+                            |CONSTRUCTOR PARENTESIS1 DATOS_VARIABLES_CUP PARENTESIS2 ASIGNACION_VAR_CUP
+                            |CONSTRUCTOR PARENTESIS1 DATOS_VARIABLES_CUP PARENTESIS2 ASIGNACION_VAR_CUP LISTA_METODOS_CUP
                             |DESTRUCTOR PARENTESIS1 PARENTESIS2 ELIMINACION_CLASES_CUP
                             |DESTRUCTOR PARENTESIS1 PARENTESIS2 ELIMINACION_CLASES_CUP LISTA_METODOS_CUP;
 
@@ -126,9 +123,9 @@ ELIMINACION_CLASES_CUP::=    ELIMINAR VARIABLE_CLASE
 //##############################################################################
 
 DECLARACION_FUNCIONES_SUELTAS_CUP ::= TIPO_FUNCION_CUP VARIABLE PARENTESIS1 PARENTESIS2 CUERPO_FUNCIONES_CUP
-                            |TIPO_FUNCION_CUP VARIABLE PARENTESIS1 LISTA_VARIABLES_CUP PARENTESIS2 CUERPO_FUNCIONES_CUP
+                            |TIPO_FUNCION_CUP VARIABLE PARENTESIS1 DATOS_VARIABLES_CUP PARENTESIS2 CUERPO_FUNCIONES_CUP
                             |TIPO_FUNCION_CUP VARIABLE PARENTESIS1 PARENTESIS2 CUERPO_FUNCIONES_CUP DEVOLUCION_METODO_CUP
-                            |TIPO_FUNCION_CUP VARIABLE PARENTESIS1 LISTA_VARIABLES_CUP PARENTESIS2 CUERPO_FUNCIONES_CUP DEVOLUCION_METODO_CUP;
+                            |TIPO_FUNCION_CUP VARIABLE PARENTESIS1 DATOS_VARIABLES_CUP PARENTESIS2 CUERPO_FUNCIONES_CUP DEVOLUCION_METODO_CUP;
 
 CUERPO_FUNCIONES_CUP ::=    ASIGNACION_VAR_CUP
                             |ASIGNACION_VAR_CUP CUERPO_FUNCIONES_CUP    
@@ -136,8 +133,6 @@ CUERPO_FUNCIONES_CUP ::=    ASIGNACION_VAR_CUP
                             |REALIZAR_OPERACION_CUP CUERPO_FUNCIONES_CUP
                             |INC_DEC_CUP
                             |INC_DEC_CUP CUERPO_FUNCIONES_CUP
-                            |REALIZAR_OP_LOGICA_CUP
-                            |REALIZAR_OP_LOGICA_CUP CUERPO_FUNCIONES_CUP
                             |ESCRITURA_CUP
                             |ESCRITURA_CUP CUERPO_FUNCIONES_CUP
                             |LECTURA_CUP
@@ -148,16 +143,15 @@ CUERPO_FUNCIONES_CUP ::=    ASIGNACION_VAR_CUP
                             |INSTANCIAR_CLASE_VARIABLES_CUP CUERPO_FUNCIONES_CUP;
 
 DEVOLUCION_METODO_CUP ::=    DEVOLVER VARIABLE
-                            |DEVOLVER REALIZAR_OPERACION_CUP
                             |DEVOLVER INC_DEC_CUP
-                            |DEVOLVER REALIZAR_OP_LOGICA_CUP;
+                            |DEVOLVER REALIZAR_OPERACION_CUP;
 //##############################################################################
 // INSTANCIACION DE CLASES EN METODOS
 //##############################################################################
 
 
 INSTANCIAR_CLASE_VARIABLES_CUP ::= VARIABLE_CLASE  VARIABLE IGUAL INSTANCIAR VARIABLE_CLASE PARENTESIS1 PARENTESIS2
-                            |VARIABLE_CLASE  VARIABLE IGUAL INSTANCIAR VARIABLE_CLASE PARENTESIS1 LISTA_VARIABLES_CUP PARENTESIS2;
+                            |VARIABLE_CLASE  VARIABLE IGUAL INSTANCIAR VARIABLE_CLASE PARENTESIS1 DATOS_VARIABLES_CUP PARENTESIS2;
 //##############################################################################
 // FUNCION PRINCIPAL
 //##############################################################################
@@ -168,7 +162,8 @@ FUNCION_PRINCIPAL ::=       TIPO_FUNCION_CUP PRINCIPAL PARENTESIS1 PARENTESIS2 D
 // Tipos variables y datos
 //##############################################################################
 
-DATOS_VARIABLES_CUP ::=     VALOR_ASIGNADO_CUP |
+DATOS_VARIABLES_CUP ::=     VARIABLE COMA DATOS_VARIABLES_CUP |
+                            VALOR_ASIGNADO_CUP |
                             VARIABLE ;
 
 //##############################################################################
@@ -176,53 +171,34 @@ DATOS_VARIABLES_CUP ::=     VALOR_ASIGNADO_CUP |
 //##############################################################################
 
 ASIGNACION_VAR_CUP ::=      TIPO_DATO_CUP DATOS_VARIABLES_CUP |
-                            TIPO_DATO_CUP DATOS_VARIABLES_CUP PUNTO_Y_COMA |
-                            TIPO_DATO_CUP LISTA_VARIABLES_CUP |
-                            TIPO_DATO_CUP LISTA_VARIABLES_CUP PUNTO_Y_COMA |
                             IGUALACION_CUP DATOS_VARIABLES_CUP |
-                            IGUALACION_CUP DATOS_VARIABLES_CUP PUNTO_Y_COMA |
                             IGUALACION_CUP MENOS DATOS_VARIABLES_CUP |
-                            IGUALACION_CUP MENOS DATOS_VARIABLES_CUP PUNTO_Y_COMA |
                             IGUALACION_CUP VARIABLE_CLASE PUNTO VARIABLE |
-                            IGUALACION_CUP VARIABLE_CLASE PUNTO VARIABLE PUNTO_Y_COMA |
                             VARIABLE_CLASE PUNTO VARIABLE IGUAL DATOS_VARIABLES_CUP |
-                            VARIABLE_CLASE PUNTO VARIABLE IGUAL DATOS_VARIABLES_CUP PUNTO_Y_COMA |
-                            IGUALACION_CUP CONDICION_CUP |
                             IGUALACION_CUP CONDICION_CUP ;
                             
 //##############################################################################
 // Operaciones aritméticas
 //##############################################################################
 
-LISTA_OPERACIONES_CUP ::=   DATOS_VARIABLES_CUP OPERACIONES_CUP LISTA_OPERACIONES_CUP |
+OPERACIONES_INTER_CUP ::=	OPERACIONES_CUP |
+							OPERACIONES_LOGICAS_CUP;
+
+LISTA_OPERACIONES_CUP ::=   DATOS_VARIABLES_CUP OPERACIONES_INTER_CUP LISTA_OPERACIONES_CUP |
                             DATOS_VARIABLES_CUP ;
 
-REALIZAR_OPERACION_CUP ::=  IGUALACION_CUP LISTA_OPERACIONES_CUP |
-                            IGUALACION_CUP LISTA_OPERACIONES_CUP PUNTO_Y_COMA;
+REALIZAR_OPERACION_CUP ::=  IGUALACION_CUP LISTA_OPERACIONES_CUP PUNTO_Y_COMA |
+                            IGUALACION_CUP LISTA_OPERACIONES_CUP ;
 
 //##############################################################################
 // Pre y post incrementos
 //##############################################################################
 
 INC_DEC_CUP ::=             VARIABLE INCREMENTAR |
-                            VARIABLE INCREMENTAR PUNTO_Y_COMA |
                             VARIABLE DECREMENTAR |
-                            VARIABLE DECREMENTAR PUNTO_Y_COMA |
                             INCREMENTAR VARIABLE |
-                            INCREMENTAR VARIABLE PUNTO_Y_COMA |
                             DECREMENTAR VARIABLE |
-                            DECREMENTAR VARIABLE PUNTO_Y_COMA |
                             IGUALACION_CUP INC_DEC_CUP;
-
-//##############################################################################
-// Operaciones lógicas
-//##############################################################################
-
-REALIZAR_OP_LOGICA_CUP ::=  IGUALACION_CUP LISTA_LOGICAS_CUP |
-                            IGUALACION_CUP LISTA_LOGICAS_CUP PUNTO_Y_COMA;
-
-LISTA_LOGICAS_CUP ::=       DATOS_VARIABLES_CUP |
-                            DATOS_VARIABLES_CUP OPERACIONES_LOGICAS_CUP LISTA_LOGICAS_CUP;
 
 //##############################################################################
 // Símbolos de agrupación
@@ -231,7 +207,6 @@ LISTA_LOGICAS_CUP ::=       DATOS_VARIABLES_CUP |
 OPERACIONES_PARENT_CUP::=   DATOS_VARIABLES_CUP |
                             DATOS_VARIABLES_CUP OPERACIONES_PARENT_CUP ;
                             
-
 DATOS_IN_PARENTESIS ::=     PARENTESIS1 OPERACIONES_PARENT_CUP PARENTESIS2 ;
 
 AGRUPACION_CUP ::=          IGUALACION_CUP DATOS_IN_PARENTESIS |
@@ -244,10 +219,10 @@ AGRUPACION_CUP ::=          IGUALACION_CUP DATOS_IN_PARENTESIS |
 //##############################################################################
 
 LISTA_ESCRITURA_CUP ::=     DATOS_VARIABLES_CUP |
-                            DATOS_VARIABLES_CUP COMA LISTA_VARIABLES_CUP;
+                            DATOS_VARIABLES_CUP COMA DATOS_VARIABLES_CUP;
 
-ESCRITURA_CUP ::=           ESCRIBIR LISTA_VARIABLES_CUP |
-                            ESCRIBIR LISTA_VARIABLES_CUP PUNTO_Y_COMA ;
+ESCRITURA_CUP ::=           ESCRIBIR DATOS_VARIABLES_CUP |
+                            ESCRIBIR DATOS_VARIABLES_CUP PUNTO_Y_COMA ;
 
 LECTURA_CUP ::=             LEER VARIABLE |
                             LEER VARIABLE PUNTO_Y_COMA ;
