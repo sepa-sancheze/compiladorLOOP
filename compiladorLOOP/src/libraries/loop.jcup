@@ -70,6 +70,8 @@ precedence left MULTIPLICACION, DIVISION;
 precedence right OR;
 precedence left AND;
 precedence right COMA;
+precedence left IF, LEER, ESCRIBIR, DESDE, VARIABLE_CLASE, TIPO_DATO_CUP;
+precedence right HACER, VARIABLE, INCREMENTO, DECREMENTO, SINO;
 
 
 start with S;
@@ -260,9 +262,9 @@ CONDICIONES_LOGICAS_CUP ::= MENOR_QUE|
                             DISTINTO_QUE |
                             IGUAL_QUE;
 
-SI_ELSE_CUP ::=             IF CONDICION_CUP ENTONCES CODIGOS_GENERALES_CUP |
-                            IF CONDICION_CUP ENTONCES CODIGOS_GENERALES_CUP SINO CODIGOS_GENERALES_CUP |
-                            IF CONDICION_CUP ENTONCES CODIGOS_GENERALES_CUP SINO SI_ELSE_CUP ;
+SI_ELSE_CUP ::=             IF CONDICION_CUP ENTONCES CUERPO_FUNCIONES_CUP |
+                            IF CONDICION_CUP ENTONCES CUERPO_FUNCIONES_CUP SINO CODIGOS_GENERALES_CUP |
+                            IF CONDICION_CUP ENTONCES CUERPO_FUNCIONES_CUP SINO SI_ELSE_CUP ;
 
 //##############################################################################
 // Estructuras iterativas
@@ -277,15 +279,10 @@ DESDE_CUP ::=               DESDE VAR_INI_CUP MIENTRAS CONDICION_CUP HACER CODIG
 DEC_DESDE_CUP ::=           INCREMENTAR |
                             DECREMENTAR;
 
-HACER_CUP ::=               HACER CODIGOS_GENERALES_CUP MIENTRAS CONDICION_CUP ;
+HACER_CUP ::=               HACER CUERPO_FUNCIONES_CUP MIENTRAS CONDICION_CUP ;
 
 //##############################################################################
 // Códigos generales
 //##############################################################################
 
 CODIGOS_GENERALES_CUP ::=   ASIGNACION_VAR_CUP;
-
-//##############################################################################
-// FUNCIONES ESPECIALES
-//##############################################################################
-

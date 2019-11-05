@@ -524,7 +524,6 @@ import java.util.ArrayList;
         }
 
     .   {  
-            System.out.println("ERROR");
-            //tokens.add(new token("ERROR", yytext(), this.tabulaciones));
-            //return new Symbol(sym.ERROR, new token("ERROR", yytext(), this.tabulaciones));
+            System.err.println("caracter invalido \"" + yytext() + "\" ["+ (yyline+1) + ":"+ (yycolumn+1) + ":"+ yychar + "]");
+            return new Symbol(sym.error);
         }

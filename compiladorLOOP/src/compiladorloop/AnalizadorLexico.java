@@ -63,25 +63,25 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\1\1\1\2\1\6\1\7\1\10\1\11\1\12\1\13"+
     "\1\14\1\15\1\16\1\17\1\20\1\21\2\2\1\22"+
     "\1\23\1\1\1\24\1\25\1\26\2\27\2\2\1\0"+
-    "\2\3\1\1\1\3\1\30\4\3\2\2\5\3\2\2"+
-    "\6\3\1\30\6\2\1\3\1\2\1\3\1\2\3\0"+
-    "\1\3\1\0\1\4\1\0\1\31\1\32\1\33\1\2"+
-    "\1\34\1\35\1\6\3\2\11\3\3\2\10\3\2\2"+
+    "\2\3\1\30\1\3\1\31\4\3\2\2\5\3\2\2"+
+    "\6\3\1\31\6\2\1\3\1\2\1\3\1\2\3\0"+
+    "\1\3\1\0\1\4\1\0\1\32\1\33\1\34\1\2"+
+    "\1\35\1\36\1\6\3\2\11\3\3\2\10\3\2\2"+
     "\7\3\10\2\1\3\1\2\1\3\1\2\1\4\1\3"+
-    "\1\0\1\36\2\2\1\37\1\3\1\40\1\41\5\3"+
-    "\5\2\1\42\1\4\10\3\2\2\6\3\1\43\1\41"+
-    "\4\2\1\37\3\2\1\3\2\2\1\3\1\2\1\3"+
-    "\1\44\1\45\1\2\5\3\5\2\4\3\1\46\3\3"+
-    "\2\2\6\3\4\2\1\46\2\2\1\3\2\2\2\47"+
-    "\1\2\5\3\4\2\7\3\2\2\2\3\1\4\1\50"+
-    "\2\3\6\2\1\3\3\2\5\3\3\2\2\3\1\51"+
-    "\4\3\1\52\1\2\3\3\6\2\1\3\1\51\2\2"+
-    "\1\3\1\53\1\54\1\55\1\56\1\2\1\57\1\2"+
-    "\5\3\1\60\1\61\1\62\4\3\1\53\1\54\1\55"+
-    "\1\56\2\2\1\61\2\2\1\63\1\2\2\64\10\3"+
-    "\5\2\1\65\1\3\1\66\5\3\1\66\2\2\1\67"+
-    "\1\70\1\71\1\72\1\3\1\73\1\3\1\67\1\72"+
-    "\1\71\2\3\1\74\1\3\1\75";
+    "\1\0\1\37\2\2\1\40\1\3\1\41\1\42\5\3"+
+    "\5\2\1\43\1\4\10\3\2\2\6\3\1\44\1\42"+
+    "\4\2\1\40\3\2\1\3\2\2\1\3\1\2\1\3"+
+    "\1\45\1\46\1\2\5\3\5\2\4\3\1\47\3\3"+
+    "\2\2\6\3\4\2\1\47\2\2\1\3\2\2\2\50"+
+    "\1\2\5\3\4\2\7\3\2\2\2\3\1\4\1\51"+
+    "\2\3\6\2\1\3\3\2\5\3\3\2\2\3\1\52"+
+    "\4\3\1\53\1\2\3\3\6\2\1\3\1\52\2\2"+
+    "\1\3\1\54\1\55\1\56\1\57\1\2\1\60\1\2"+
+    "\5\3\1\61\1\62\1\63\4\3\1\54\1\55\1\56"+
+    "\1\57\2\2\1\62\2\2\1\64\1\2\2\65\10\3"+
+    "\5\2\1\66\1\3\1\67\5\3\1\67\2\2\1\70"+
+    "\1\71\1\72\1\73\1\3\1\74\1\3\1\70\1\73"+
+    "\1\72\2\3\1\75\1\3\1\76";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[382];
@@ -1260,371 +1260,377 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { System.out.println("ERROR");
-            //tokens.add(new token("ERROR", yytext(), this.tabulaciones));
-            //return new Symbol(sym.ERROR, new token("ERROR", yytext(), this.tabulaciones));
+            { System.err.println("caracter invalido \"" + yytext() + "\" ["+ (yyline+1) + ":"+ (yycolumn+1) + ":"+ yychar + "]");
+            return new Symbol(sym.error);
             } 
             // fall through
-          case 62: break;
+          case 63: break;
           case 2: 
             { tokens.add(new token("VARIABLE_CLASE", yytext(), this.tabulaciones));
             return new Symbol(sym.VARIABLE_CLASE, new token("VARIABLE_CLASE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 63: break;
+          case 64: break;
           case 3: 
             { tokens.add(new token("VARIABLE", yytext(), this.tabulaciones));
             return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 64: break;
+          case 65: break;
           case 4: 
             { tokens.add(new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
             return new Symbol(sym.TIPO_DATO_CUP, new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 65: break;
+          case 66: break;
           case 5: 
             { tokens.add(new token("PUNTO", yytext(), this.tabulaciones));
             return new Symbol(sym.PUNTO, new token("PUNTO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 66: break;
+          case 67: break;
           case 6: 
             { //this.tabulaciones = 0;
             } 
             // fall through
-          case 67: break;
+          case 68: break;
           case 7: 
             { tokens.add(new token("PUNTO_Y_COMA", yytext(), this.tabulaciones));
             return new Symbol(sym.PUNTO_Y_COMA, new token("PUNTO_Y_COMA", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 68: break;
+          case 69: break;
           case 8: 
             { tokens.add(new token("PARENTESIS1", yytext(), this.tabulaciones));
             return new Symbol(sym.PARENTESIS1, new token("PARENTESIS1", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 69: break;
+          case 70: break;
           case 9: 
             { tokens.add(new token("PARENTESIS2", yytext(), this.tabulaciones));
             return new Symbol(sym.PARENTESIS2, new token("PARENTESIS2", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 70: break;
+          case 71: break;
           case 10: 
             { tokens.add(new token("COMA", yytext(), this.tabulaciones));
             return new Symbol(sym.COMA, new token("COMA", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 71: break;
+          case 72: break;
           case 11: 
             { tokens.add(new token("SUMA", yytext(), this.tabulaciones));
             return new Symbol(sym.SUMA, new token("SUMA", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 72: break;
+          case 73: break;
           case 12: 
             { tokens.add(new token("RESTA", yytext(), this.tabulaciones));
             return new Symbol(sym.RESTA, new token("RESTA", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 73: break;
+          case 74: break;
           case 13: 
             { tokens.add(new token("MULTIPLICACION", yytext(), this.tabulaciones));
             return new Symbol(sym.MULTIPLICACION, new token("MULTIPLICACION", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 74: break;
+          case 75: break;
           case 14: 
             { tokens.add(new token("DIVISION", yytext(), this.tabulaciones));
             return new Symbol(sym.DIVISION, new token("DIVISION", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 75: break;
+          case 76: break;
           case 15: 
             { tokens.add(new token("MODULO", yytext(), this.tabulaciones));
             return new Symbol(sym.MODULO, new token("MODULO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 76: break;
+          case 77: break;
           case 16: 
             { tokens.add(new token("EXPONENCIACION", yytext(), this.tabulaciones));
             return new Symbol(sym.EXPONENCIACION, new token("EXPONENCIACION", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 77: break;
+          case 78: break;
           case 17: 
             { tokens.add(new token("IGUAL", yytext(), this.tabulaciones));
             return new Symbol(sym.IGUAL, new token("IGUAL", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 78: break;
+          case 79: break;
           case 18: 
             { tokens.add(new token("MAYOR_QUE", yytext(), this.tabulaciones));
             return new Symbol(sym.MAYOR_QUE, new token("MAYOR_QUE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 79: break;
+          case 80: break;
           case 19: 
             { tokens.add(new token("MENOR_QUE", yytext(), this.tabulaciones));
             return new Symbol(sym.MENOR_QUE, new token("MENOR_QUE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 80: break;
+          case 81: break;
           case 20: 
             { tokens.add(new token("DOS_PUNTOS", yytext(), this.tabulaciones));
             return new Symbol(sym.DOS_PUNTOS, new token("DOS_PUNTOS", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 81: break;
+          case 82: break;
           case 21: 
             { //tokens.add(new token("CORCHETE1", yytext(), this.tabulaciones));
             //return new Symbol(sym.CORCHETE1, new token("CORCHETE1", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 82: break;
+          case 83: break;
           case 22: 
             { //tokens.add(new token("CORCHETE2", yytext(), this.tabulaciones));
             //return new Symbol(sym.CORCHETE2, new token("CORCHETE2", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 83: break;
+          case 84: break;
           case 23: 
             { this.tabulaciones = 0;
             } 
             // fall through
-          case 84: break;
+          case 85: break;
           case 24: 
+            { System.out.println("ERROR");
+            //tokens.add(new token("ERROR", yytext(), this.tabulaciones));
+            //return new Symbol(sym.ERROR, new token("ERROR", yytext(), this.tabulaciones));
+            } 
+            // fall through
+          case 86: break;
+          case 25: 
             { tokens.add(new token("IF", yytext(), this.tabulaciones));
             return new Symbol(sym.IF, new token("IF", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 85: break;
-          case 25: 
+          case 87: break;
+          case 26: 
             { tokens.add(new token("INCREMENTO", yytext(), this.tabulaciones));
             return new Symbol(sym.INCREMENTO, new token("INCREMENTO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 86: break;
-          case 26: 
+          case 88: break;
+          case 27: 
             { tokens.add(new token("DECREMENTO", yytext(), this.tabulaciones));
             return new Symbol(sym.DECREMENTO, new token("DECREMENTO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 87: break;
-          case 27: 
+          case 89: break;
+          case 28: 
             { tokens.add(new token("IGUAL_QUE", yytext(), this.tabulaciones));
             return new Symbol(sym.IGUAL_QUE, new token("IGUAL_QUE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 88: break;
-          case 28: 
+          case 90: break;
+          case 29: 
             { tokens.add(new token("OR", yytext(), this.tabulaciones));
             return new Symbol(sym.OR, new token("OR", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 89: break;
-          case 29: 
+          case 91: break;
+          case 30: 
             { tokens.add(new token("DISTINTO_QUE", yytext(), this.tabulaciones));
             return new Symbol(sym.DISTINTO_QUE, new token("DISTINTO_QUE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 90: break;
-          case 30: 
+          case 92: break;
+          case 31: 
             { tokens.add(new token("AND", yytext(), this.tabulaciones));
             return new Symbol(sym.AND, new token("AND", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 91: break;
-          case 31: 
+          case 93: break;
+          case 32: 
             { tokens.add(new token("LEER", yytext(), this.tabulaciones));
             return new Symbol(sym.LEER, new token("LEER", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 92: break;
-          case 32: 
+          case 94: break;
+          case 33: 
             { tokens.add(new token("SENO", yytext(), this.tabulaciones));
             return new Symbol(sym.SENO, new token("SENO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 93: break;
-          case 33: 
+          case 95: break;
+          case 34: 
             { tokens.add(new token("SINO", yytext(), this.tabulaciones));
             return new Symbol(sym.SINO, new token("SINO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 94: break;
-          case 34: 
+          case 96: break;
+          case 35: 
             { tokens.add(new token("RAIZ", yytext(), this.tabulaciones));
             return new Symbol(sym.RAIZ, new token("RAIZ", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 95: break;
-          case 35: 
+          case 97: break;
+          case 36: 
             { //tokens.add(new token("TIPO_NULO", yytext(), this.tabulaciones));
             //return new Symbol(sym.TIPO_NULO, new token("TIPO_NULO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 96: break;
-          case 36: 
+          case 98: break;
+          case 37: 
             { this.tabulaciones++;
             //tokens.add(new token("TABULACION", yytext(), tabs));
             //return new Symbol(sym.TABULACION, new token("TABULACION", yytext(), tabs));
             } 
             // fall through
-          case 97: break;
-          case 37: 
+          case 99: break;
+          case 38: 
             { tokens.add(new token("CLASE", yytext(), this.tabulaciones));
             return new Symbol(sym.CLASE, new token("CLASE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 98: break;
-          case 38: 
+          case 100: break;
+          case 39: 
             { tokens.add(new token("DESDE", yytext(), this.tabulaciones));
             return new Symbol(sym.DESDE, new token("DESDE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 99: break;
-          case 39: 
+          case 101: break;
+          case 40: 
             { tokens.add(new token("HACER", yytext(), this.tabulaciones));
             return new Symbol(sym.HACER, new token("HACER", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 100: break;
-          case 40: 
+          case 102: break;
+          case 41: 
             { tokens.add(new token("COSENO", yytext(), this.tabulaciones));
             return new Symbol(sym.COSENO, new token("COSENO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 101: break;
-          case 41: 
+          case 103: break;
+          case 42: 
             { //tokens.add(new token("INCLUIR", yytext(), this.tabulaciones));
             //return new Symbol(sym.INCLUIR, new token("INCLUIR", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 102: break;
-          case 42: 
+          case 104: break;
+          case 43: 
             { tokens.add(new token("METODOS", yytext(), this.tabulaciones));
             return new Symbol(sym.METODOS, new token("METODOS", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 103: break;
-          case 43: 
+          case 105: break;
+          case 44: 
             { tokens.add(new token("ELIMINAR", yytext(), this.tabulaciones));
             return new Symbol(sym.ELIMINAR, new token("ELIMINAR", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 104: break;
-          case 44: 
+          case 106: break;
+          case 45: 
             { tokens.add(new token("ESCRIBIR", yytext(), this.tabulaciones));
             return new Symbol(sym.ESCRIBIR, new token("ESCRIBIR", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 105: break;
-          case 45: 
+          case 107: break;
+          case 46: 
             { tokens.add(new token("ENTONCES", yytext(), this.tabulaciones));
             return new Symbol(sym.ENTONCES, new token("ENTONCES", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 106: break;
-          case 46: 
+          case 108: break;
+          case 47: 
             { tokens.add(new token("EXTIENDE", yytext(), this.tabulaciones));
             return new Symbol(sym.EXTIENDE, new token("EXTIENDE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 107: break;
-          case 47: 
+          case 109: break;
+          case 48: 
             { tokens.add(new token("PROPIEDADES_METODOS", yytext(), this.tabulaciones));
             return new Symbol(sym.PROPIEDADES_METODOS, new token("PROPIEDADES_METODOS", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 108: break;
-          case 48: 
+          case 110: break;
+          case 49: 
             { tokens.add(new token("DEVOLVER", yytext(), this.tabulaciones));
             return new Symbol(sym.DEVOLVER, new token("DEVOLVER", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 109: break;
-          case 49: 
+          case 111: break;
+          case 50: 
             { tokens.add(new token("MIENTRAS", yytext(), this.tabulaciones));
             return new Symbol(sym.MIENTRAS, new token("MIENTRAS", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 110: break;
-          case 50: 
+          case 112: break;
+          case 51: 
             { tokens.add(new token("TANGENTE", yytext(), this.tabulaciones));
             return new Symbol(sym.TANGENTE, new token("TANGENTE", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 111: break;
-          case 51: 
+          case 113: break;
+          case 52: 
             { tokens.add(new token("LOGARITMO", yytext(), this.tabulaciones));
             return new Symbol(sym.LOGARITMO, new token("LOGARITMO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 112: break;
-          case 52: 
+          case 114: break;
+          case 53: 
             { tokens.add(new token("PRINCIPAL", yytext(), this.tabulaciones));
             return new Symbol(sym.PRINCIPAL, new token("PRINCIPAL", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 113: break;
-          case 53: 
+          case 115: break;
+          case 54: 
             { tokens.add(new token("INSTANCIAR", yytext(), this.tabulaciones));
             return new Symbol(sym.INSTANCIAR, new token("INSTANCIAR", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 114: break;
-          case 54: 
+          case 116: break;
+          case 55: 
             { tokens.add(new token("DESTRUCTOR", yytext(), this.tabulaciones));
             return new Symbol(sym.DESTRUCTOR, new token("DESTRUCTOR", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 115: break;
-          case 55: 
+          case 117: break;
+          case 56: 
             { tokens.add(new token("CONSTRUCTOR", yytext(), this.tabulaciones));
             return new Symbol(sym.CONSTRUCTOR, new token("CONSTRUCTOR", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 116: break;
-          case 56: 
+          case 118: break;
+          case 57: 
             { tokens.add(new token("PROPIEDADES", yytext(), this.tabulaciones));
             return new Symbol(sym.PROPIEDADES, new token("PROPIEDADES", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 117: break;
-          case 57: 
+          case 119: break;
+          case 58: 
             { tokens.add(new token("INCREMENTAR", yytext(), this.tabulaciones));
             return new Symbol(sym.INCREMENTAR, new token("INCREMENTAR", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 118: break;
-          case 58: 
+          case 120: break;
+          case 59: 
             { tokens.add(new token("DECREMENTAR", yytext(), this.tabulaciones));
             return new Symbol(sym.DECREMENTAR, new token("DECREMENTAR", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 119: break;
-          case 59: 
+          case 121: break;
+          case 60: 
             { tokens.add(new token("CADENA_A_REAL", yytext(), this.tabulaciones));
             return new Symbol(sym.CADENA_A_REAL, new token("CADENA_A_REAL", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 120: break;
-          case 60: 
+          case 122: break;
+          case 61: 
             { tokens.add(new token("CADENA_A_ENTERO", yytext(), this.tabulaciones));
             return new Symbol(sym.CADENA_A_ENTERO, new token("CADENA_A_ENTERO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 121: break;
-          case 61: 
+          case 123: break;
+          case 62: 
             { tokens.add(new token("CADENA_A_BOOLEANO", yytext(), this.tabulaciones));
             return new Symbol(sym.CADENA_A_BOOLEANO, new token("CADENA_A_BOOLEANO", yytext(), this.tabulaciones));
             } 
             // fall through
-          case 122: break;
+          case 124: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

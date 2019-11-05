@@ -1463,8 +1463,8 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             // fall through
           case 95: break;
           case 35: 
-            { tokens.add(new token("TIPO_NULO", yytext(), this.tabulaciones));
-            return new Symbol(sym.TIPO_NULO, new token("TIPO_NULO", yytext(), this.tabulaciones));
+            { //tokens.add(new token("TIPO_NULO", yytext(), this.tabulaciones));
+            //return new Symbol(sym.TIPO_NULO, new token("TIPO_NULO", yytext(), this.tabulaciones));
             } 
             // fall through
           case 96: break;
