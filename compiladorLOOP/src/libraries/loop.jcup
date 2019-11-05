@@ -73,7 +73,6 @@ precedence right COMA;
 precedence left IF, LEER, ESCRIBIR, DESDE, VARIABLE_CLASE, TIPO_DATO_CUP;
 precedence right HACER, VARIABLE, INCREMENTO, DECREMENTO, SINO;
 
-
 start with S;
 
 //El código se va a ejecutar hasta que se hayan cumplido las reglas anteriores.
@@ -273,8 +272,8 @@ SI_ELSE_CUP ::=             IF CONDICION_CUP ENTONCES CUERPO_FUNCIONES_CUP |
 VAR_INI_CUP ::=             VARIABLE |
                             IGUALACION_CUP VALOR_ASIGNADO_CUP ;
 
-DESDE_CUP ::=               DESDE VAR_INI_CUP MIENTRAS CONDICION_CUP HACER CODIGOS_GENERALES_CUP |
-                            DESDE VAR_INI_CUP MIENTRAS CONDICION_CUP DEC_DESDE_CUP HACER CODIGOS_GENERALES_CUP ;
+DESDE_CUP ::=               DESDE VAR_INI_CUP MIENTRAS CONDICION_CUP HACER CUERPO_FUNCIONES_CUP |
+                            DESDE VAR_INI_CUP MIENTRAS CONDICION_CUP DEC_DESDE_CUP HACER CUERPO_FUNCIONES_CUP ;
 
 DEC_DESDE_CUP ::=           INCREMENTAR |
                             DECREMENTAR;
