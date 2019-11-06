@@ -671,7 +671,7 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
     public void syntax_error(Symbol sy){
         token t = (token)sy.value;
         done_parsing();
-        report_error("Error sintáctico en el token: " + t.getLexema(), null);
+        report_error("Error sintáctico en el token: " + t.getLexema() + ". ", null);
     }
 
 
@@ -705,7 +705,7 @@ class CUP$AnalizadorSintactico$actions {
               Object RESULT =null;
 		int start_valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).left;
 		int start_valright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).right;
-		token start_val = (token)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
+		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
 		RESULT = start_val;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
@@ -716,7 +716,7 @@ class CUP$AnalizadorSintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 1: // S ::= DECLARACION_CLASES_CUP 
             {
-              token RESULT =null;
+              Object RESULT =null;
 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("S",0, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }

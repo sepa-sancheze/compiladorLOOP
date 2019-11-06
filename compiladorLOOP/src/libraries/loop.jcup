@@ -12,7 +12,7 @@ parser code {:
     public void syntax_error(Symbol sy){
         token t = (token)sy.value;
         done_parsing();
-        report_error("Error sintáctico en el token: " + t.getLexema(), null);
+        report_error("Error sintáctico en el token: " + t.getLexema() + ". ", null);
     }
 :}
 init with{:
@@ -36,7 +36,7 @@ terminal IGUAL, AND, OR, DOS_PUNTOS;
 terminal PUNTO_Y_COMA;
 terminal VARIABLE, RAIZ;
 terminal MENOS, PUNTO;
-terminal  VARIABLE_CLASE,ELIMINAR;
+terminal VARIABLE_CLASE,ELIMINAR;
 terminal TIPO_DATO_CUP;
 terminal SUMA, RESTA, MULTIPLICACION, DIVISION, EXPONENCIACION, MODULO;
 terminal MENOR_QUE, MAYOR_QUE, DISTINTO_QUE, IGUAL_QUE, INCREMENTAR, DECREMENTAR;
@@ -47,7 +47,7 @@ terminal CADENA_A_BOOLEANO, CADENA_A_REAL, CADENA_A_ENTERO;
 //VARIABLES DEL CUP
 //##############################################################################
 
-non terminal token S;
+non terminal S;
 non terminal ASIGNACION_VAR_CUP;
 non terminal CUERPO_CLASE_CUP , LISTA_METODOS_CUP ,LISTA_PROPIEDADES_CUP, DECLARACION_CLASES_CUP, ELIMINACION_CLASES_CUP;
 non terminal DECLARACION_FUNCIONES_SUELTAS_CUP, TIPO_FUNCION_CUP;
