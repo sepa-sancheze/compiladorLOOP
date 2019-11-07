@@ -301,6 +301,12 @@ import java.util.ArrayList;
             return new Symbol(sym.SUMA, new token("SUMA", yytext(), this.tabulaciones));
         }
 
+    {finInstruccion}
+        {   
+            //tokens.add(new token("FI", yytext(), this.tabulaciones));
+            return new Symbol(sym.FI, new token("FI", yytext(), this.tabulaciones));
+        }
+
     {coma}
         {   
             //tokens.add(new token("COMA", yytext(), this.tabulaciones));
@@ -505,12 +511,6 @@ import java.util.ArrayList;
         {   
             //tokens.add(new token("VARIABLE", yytext(), this.tabulaciones));
             return new Symbol(sym.VARIABLE, new token("VARIABLE", yytext(), this.tabulaciones));
-        }
-
-    {finInstruccion}
-        {   
-            //tokens.add(new token("FI", yytext(), this.tabulaciones));
-            return new Symbol(sym.FI, new token("FI", yytext(), this.tabulaciones));
         }
 
     {findelinea}     

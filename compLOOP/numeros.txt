@@ -1,0 +1,44 @@
+Clase Impar 
+    Propiedades Publicas :
+        cadena hola
+        entero asdf
+    Propiedades Privadas :
+        cadena hola
+        entero asdf    
+    Metodos Publicos:
+        entero a, b = 6
+        entero a = 5 * 3
+        Impar.hola = 5
+        escribir a, b, c, 5
+        entero esImpar(entero numero)
+            si numero % 2 entonces
+                devolver 1
+            sino
+                devolver 0
+clase HolaMundo
+    propiedades privadas:
+        entero a
+        cadena nombre
+        Impar i
+    metodos publicos:
+        constructor()
+            i = nuevo Impar()
+            a = 0
+            nombre = ""
+        
+        entero inicio()
+            escribir "escriba su nombre"
+            leer nombre
+            escribir "escribar un valor entre 1 y 30"
+            leer a
+        escribir "Hola ", nombre
+        si i.esImpar(a) entonces
+            escribir  "El numero que eligio es impar"
+        sino
+            escribir "El numero que eligio es par"
+        devolver 0
+
+entero Principal()
+    HolaMundo hola = instanciar HolaMundo()
+    hola.inicio()
+    devolver 0

@@ -1,0 +1,7 @@
+/build/
+/nbproject/private
+*~
+*.swp
+*.gv
+*.jpeg
+/dist/
