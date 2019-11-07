@@ -2,8 +2,12 @@
 #Builds
 ##################################
 compiladorLOOP/build
+compLOOP/build
 
 ##################################
 #Inputs
 ##################################
 compiladorLOOP/src/inputs/input.txt
+compLOOP/arbol.gv
+compLOOP/arbol.jpeg
+compLOOP/numeros.txt
