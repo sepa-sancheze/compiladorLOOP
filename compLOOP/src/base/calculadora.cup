@@ -53,10 +53,11 @@ terminal CADENA_A_BOOLEANO, CADENA_A_REAL, CADENA_A_ENTERO;
 non terminal S;
 non terminal DECLARACION_CLASES_CUP, CLASES_CUP, ENCABEZADO_CUP, PROPIEDADES_CUP;
 non terminal METODOS_CUP, VARIABLES_PROPIEDADES_CUP, CODIGO_METODOS_CUP;
-non terminal DECLARACION_VARIABLES_CUP;
+non terminal DECLARACION_VARIABLES_CUP, CONDICION_CUP, ELSE_CUP;
 non terminal OPERACIONES_CUP, REALIZAR_OPERACION_CUP, LISTA_OPERACIONES_CUP;
-non terminal VARIABLES_CUP, VALOR_INICIAL_CUP;
-non terminal LECTURA_ESCRITURA_CUP, LECTURA_CUP, ESCRITURA_CUP;
+non terminal VARIABLES_CUP, VALOR_INICIAL_CUP, ESTRUCTURA_SELECTIVA_CUP;
+non terminal LECTURA_ESCRITURA_CUP, LECTURA_CUP, ESCRITURA_CUP, DEVOLUCION_CUP;
+non terminal OPERADORES_LOGICOS_CUP, TIPOS_DATOS_CONDICIONES_CUP;
 
 //##############################################################################
 // Precedencia símbolos terminales
@@ -95,7 +96,11 @@ METODOS_CUP ::=                 METODOS PROPIEDADES_METODOS DOS_PUNTOS CODIGO_ME
 CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP CODIGO_METODOS_CUP |
                                 REALIZAR_OPERACION_CUP CODIGO_METODOS_CUP |
                                 LECTURA_ESCRITURA_CUP CODIGO_METODOS_CUP |
+                                ESTRUCTURA_SELECTIVA_CUP CODIGO_METODOS_CUP |
 
+
+
+                                ESTRUCTURA_SELECTIVA_CUP |
                                 LECTURA_ESCRITURA_CUP |
                                 REALIZAR_OPERACION_CUP |
                                 DECLARACION_VARIABLES_CUP;
@@ -120,7 +125,8 @@ VALOR_INICIAL_CUP ::=           IGUAL MENOS MENOS VARIABLE |
                                 IGUAL MENOS REALIZAR_OPERACION_CUP |
                                 IGUAL VARIABLE |
                                 IGUAL TIPO_DATO_CUP |
-                                IGUAL REALIZAR_OPERACION_CUP;
+                                IGUAL REALIZAR_OPERACION_CUP |
+                                IGUAL CONDICION_CUP;
 
 //OPERACIONES BÁSICAS
 OPERACIONES_CUP  ::=            SUMA |
@@ -149,3 +155,25 @@ LECTURA_CUP ::=                 LEER VARIABLE;
 ESCRITURA_CUP ::=               ESCRIBIR VARIABLES_CUP;
 
 //ESTRUCTURAS SELECTIVAS 
+OPERADORES_LOGICOS_CUP ::=      MENOR_QUE |
+                                MAYOR_QUE |
+                                IGUAL_QUE |
+                                DISTINTO_QUE ;
+
+CONDICION_CUP ::=               TIPOS_DATOS_CONDICIONES_CUP OPERADORES_LOGICOS_CUP TIPOS_DATOS_CONDICIONES_CUP ;
+
+TIPOS_DATOS_CONDICIONES_CUP ::= VARIABLE |
+                                TIPO_DATO_CUP;
+
+ESTRUCTURA_SELECTIVA_CUP ::=    IF CONDICION_CUP ENTONCES DEVOLUCION_CUP ELSE_CUP |
+                                IF CONDICION_CUP ENTONCES DEVOLUCION_CUP;
+
+ELSE_CUP ::=                    SINO CONDICION_CUP ENTONCES DEVOLUCION_CUP ELSE_CUP |
+                                SINO CONDICION_CUP ENTONCES DEVOLUCION_CUP |
+                                SINO DEVOLUCION_CUP;
+                                //IF CONDICION_CUP ENTONCES CODIGO_METODOS_CUP;
+
+DEVOLUCION_CUP ::=              DEVOLVER TIPO_DATO_CUP |
+                                DEVOLVER VARIABLE;
+
+//ESTRUCTURAS ITERATIVAS
