@@ -475,7 +475,7 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
     public void syntax_error(Symbol sy) {
         token t=(token)sy.value;
         done_parsing();
-        report_error("Error sintáctico cerca de " + t.getTipo() + ", " + t.getLexema() + ", " + t.getTabulaciones() + ". ",null);
+        report_error("Error sintáctico cerca de " + t.getLexema() + ", F=" + t.getLinea() + ", C=" + t.getColumna() + ". ",null);
         
     }
 
