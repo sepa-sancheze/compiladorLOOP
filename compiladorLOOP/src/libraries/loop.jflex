@@ -117,32 +117,32 @@ import java.util.ArrayList;
 
     {tipo_booleano}
         {   
-            //tokens.add(new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
-            return new Symbol(sym.TIPO_DATO_CUP, new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
+            //tokens.add(new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
+            return new Symbol(sym.PALABRA_RESERVADA_TIPO, new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
         }
 
     {tipo_cadena}
         {   
-            //tokens.add(new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
-            return new Symbol(sym.TIPO_DATO_CUP, new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
+            //tokens.add(new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
+            return new Symbol(sym.PALABRA_RESERVADA_TIPO, new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
         }
 
     {tipo_entero}
         {   
-            //tokens.add(new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
-            return new Symbol(sym.TIPO_DATO_CUP, new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
+            //tokens.add(new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
+            return new Symbol(sym.PALABRA_RESERVADA_TIPO, new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
         }
 
     {tipo_real}
         {   
-            //tokens.add(new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
-            return new Symbol(sym.TIPO_DATO_CUP, new token("TIPO_DATO_CUP", yytext(), this.tabulaciones));
+            //tokens.add(new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
+            return new Symbol(sym.PALABRA_RESERVADA_TIPO, new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
         }
 
     {tipo_nulo}
         {   
-            ////tokens.add(new token("TIPO_NULO", yytext(), this.tabulaciones));
-            //return new Symbol(sym.TIPO_NULO, new token("TIPO_NULO", yytext(), this.tabulaciones));
+            ////tokens.add(new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
+            //return new Symbol(sym.PALABRA_RESERVADA_TIPO, new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones));
         }
 
     {raiz}
