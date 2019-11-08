@@ -58,6 +58,7 @@ non terminal OPERACIONES_CUP, REALIZAR_OPERACION_CUP, LISTA_OPERACIONES_CUP;
 non terminal VARIABLES_CUP, VALOR_INICIAL_CUP, ESTRUCTURA_SELECTIVA_CUP;
 non terminal LECTURA_ESCRITURA_CUP, LECTURA_CUP, ESCRITURA_CUP, DEVOLUCION_CUP;
 non terminal OPERADORES_LOGICOS_CUP, TIPOS_DATOS_CONDICIONES_CUP;
+non terminal VAR_INI_CUP, DESDE_CUP, INC_DEC_VAR, HACER_CUP;
 
 //##############################################################################
 // Precedencia símbolos terminales
@@ -97,9 +98,11 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP CODIGO_METODOS_CUP |
                                 REALIZAR_OPERACION_CUP CODIGO_METODOS_CUP |
                                 LECTURA_ESCRITURA_CUP CODIGO_METODOS_CUP |
                                 ESTRUCTURA_SELECTIVA_CUP CODIGO_METODOS_CUP |
+                                DESDE_CUP CODIGO_METODOS_CUP |
+                                HACER_CUP CODIGO_METODOS_CUP |
 
-
-
+                                HACER_CUP |
+                                DESDE_CUP |
                                 ESTRUCTURA_SELECTIVA_CUP |
                                 LECTURA_ESCRITURA_CUP |
                                 REALIZAR_OPERACION_CUP |
@@ -177,3 +180,10 @@ DEVOLUCION_CUP ::=              DEVOLVER TIPO_DATO_CUP |
                                 DEVOLVER VARIABLE;
 
 //ESTRUCTURAS ITERATIVAS
+
+INC_DEC_VAR ::=                 INCREMENTAR TIPO_DATO_CUP |
+                                DECREMENTAR TIPO_DATO_CUP ;
+
+DESDE_CUP ::=                   DESDE DECLARACION_VARIABLES_CUP MIENTRAS CONDICION_CUP INC_DEC_VAR HACER DEVOLUCION_CUP;
+
+HACER_CUP ::=                   HACER DEVOLUCION_CUP MIENTRAS CONDICION_CUP;
