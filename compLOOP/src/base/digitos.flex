@@ -55,6 +55,7 @@ import java.util.ArrayList;
     extiende = "extiende"|"Extiende"
     eliminar ="Eliminar"|"eliminar"
     incluir = "incluir"|"Incluir"
+    nuevo = "nuevo"
     /*%   TIPOS DE DATOS  */
     numerosDecimales = [1-9][0-9]* | 0
     numerosReales = [0-9]*[.][0-9]+[1-9]
@@ -111,6 +112,12 @@ import java.util.ArrayList;
         {   
             //tokens.add(new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
             return new Symbol(sym.PUNTO, new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
+        }
+
+    {nuevo}
+        {   
+            //tokens.add(new token("NUEVO", yytext(), this.tabulaciones, yyline, yycolumn));
+            return new Symbol(sym.NUEVO, new token("NUEVO", yytext(), this.tabulaciones, yyline, yycolumn));
         }
 
     {puntoYComa}
