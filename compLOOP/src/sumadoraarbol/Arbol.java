@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2014 Dhaby Xiloj <dhabyx@gmail.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 package sumadoraarbol;
 
@@ -103,14 +87,16 @@ public class Arbol {
     private void recorrido(Nodo nodo) {
         if (nodo.getHijos().isEmpty()) {
             switch (nodo.getTipo()) {
-                case Nodo.TIPO_NUMERO:
-                    System.out.println("Valor :" + nodo.getValor());
-                    break;
                 case Nodo.TIPO_IDENTIFICADOR:
-                    System.out.println("Id :" + nodo.getIdentificador());
+                    System.out.println(" :" + nodo.getIdentificador());
                     break;
                 case Nodo.TIPO_OPERADOR:
                     imprimirOperador(nodo);
+                case Nodo.TIPO_IDENTIFICADOR_CLASE:
+                    System.out.println(" :" + nodo.getIdentificador());
+                    break;
+                case Nodo.TIPO_RESERVADA:
+                    imprimirOperador(nodo);                    
             }
 
             return;
@@ -122,6 +108,9 @@ public class Arbol {
             case Nodo.TIPO_OPERADOR:
                 imprimirOperador(nodo);
                 break;
+            case Nodo.TIPO_RESERVADA:
+                imprimirOperador(nodo);
+                break;                
             case Nodo.TIPO_EXPRESION:
                 System.out.println("Nodo expresión");
                 break;
@@ -129,18 +118,18 @@ public class Arbol {
     }
 
     private void imprimirOperador(Nodo nodo) {
-        System.out.print("Operador :");
-        switch (nodo.getOperador()) {
-            case Nodo.OP_SUMA:
-                System.out.println("Suma");
-                break;
-            case Nodo.OP_RESTA:
-                System.out.println("Resta");
-                break;
-            case Nodo.OP_IGUAL:
-                System.out.println("Igual");
-                break;
-        }
+//        System.out.print("Operador :");
+//        switch (nodo.getOperador()) {
+//            case Nodo.OP_SUMA:
+//                System.out.println("Suma");
+//                break;
+//            case Nodo.OP_RESTA:
+//                System.out.println("Resta");
+//                break;
+//            case Nodo.OP_IGUAL:
+//                System.out.println("Igual");
+//                break;
+//        }
     }
 
     /**
@@ -148,13 +137,14 @@ public class Arbol {
      * @param tipoRecorrido Elige el tipo de recorrido que se hará
      */
     public void recorrerArbol(int tipoRecorrido) {
-        if (tipoRecorrido == TIPO_RECORRIDO_GRAFO) {
-            if (raiz.getHijos().size() > 0) {
-                crearGrafo(raiz);
-            }
-        } else if (tipoRecorrido == TIPO_RECORRIDO_SIMPLE) {
-            recorrerArbol();
-        }
+//        if (tipoRecorrido == TIPO_RECORRIDO_GRAFO) {
+//            if (raiz.getHijos().size() > 0) {
+//                crearGrafo(raiz);
+//            }
+//        } else if (tipoRecorrido == TIPO_RECORRIDO_SIMPLE) {
+//            recorrerArbol();
+//        }
+                recorrerArbol();
     }
 
     /*
@@ -258,5 +248,8 @@ public class Arbol {
         contenido+="}->{"+idHijo+" [label=\""+nombreHijo+"\"]}";
         return contenido;
     }
+                                                              
 
 }
+
+
