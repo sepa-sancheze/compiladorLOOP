@@ -18,7 +18,7 @@ public class Nodo {
     public static final int PARENTESIS2 = 22;
     public static final int PARENTESIS1 = 21;
     public static final int COMA = 23;
-    //??public static final int MENOS = 32;
+    public static final int MENOS = 32;
     public static final int PUNTO = 33;
 //EXTRAS
     public static final int EOF = 0;

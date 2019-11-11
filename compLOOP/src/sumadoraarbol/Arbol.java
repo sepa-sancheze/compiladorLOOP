@@ -8,10 +8,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Dhaby Xiloj <dhabyx@gmail.com>
- */
 public class Arbol {
     private Nodo raiz;
 
@@ -107,12 +103,15 @@ public class Arbol {
         switch(nodo.getTipo()) {
             case Nodo.TIPO_OPERADOR:
                 imprimirOperador(nodo);
+                System.out.println("=" + nodo.getValor());
                 break;
             case Nodo.TIPO_RESERVADA:
+                System.out.println("=" + nodo.getValor());
                 imprimirOperador(nodo);
                 break;                
             case Nodo.TIPO_EXPRESION:
                 System.out.println("Nodo expresión");
+                System.out.println("=" + nodo.getValor());
                 break;
         }
     }
@@ -137,14 +136,14 @@ public class Arbol {
      * @param tipoRecorrido Elige el tipo de recorrido que se hará
      */
     public void recorrerArbol(int tipoRecorrido) {
-//        if (tipoRecorrido == TIPO_RECORRIDO_GRAFO) {
-//            if (raiz.getHijos().size() > 0) {
-//                crearGrafo(raiz);
-//            }
-//        } else if (tipoRecorrido == TIPO_RECORRIDO_SIMPLE) {
-//            recorrerArbol();
-//        }
-                recorrerArbol();
+        if (tipoRecorrido == TIPO_RECORRIDO_GRAFO) {
+            if (raiz.getHijos().size() > 0) {
+                crearGrafo(raiz);
+            }
+        } else if (tipoRecorrido == TIPO_RECORRIDO_SIMPLE) {
+            recorrerArbol();
+        }
+                //recorrerArbol();
     }
 
     /*

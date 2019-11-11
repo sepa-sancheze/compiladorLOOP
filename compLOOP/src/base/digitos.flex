@@ -69,7 +69,6 @@ import java.util.ArrayList;
     variables_clase = [A-Z]+{reglas_variablesextra}
     excepciones_variables_clase = [a-z]+[[a-z]|[0-9]|[A-Z]]* "_"
     /*%   SIGNOS  */
-    finInstruccion = ";"
     parentesis1 = "("
     parentesis2 = ")"
     coma = ","
@@ -91,7 +90,6 @@ import java.util.ArrayList;
     dosPuntos = ":"
     corchete1 = "["
     corchete2 = "]"
-    puntoYComa = ";"
     punto = "."
     /*%   FUNCIONES ESPECIALES  */
     cadenaEntero = "cadenaAEntero"
@@ -118,12 +116,6 @@ import java.util.ArrayList;
         {   
             //tokens.add(new token("NUEVO", yytext(), this.tabulaciones, yyline, yycolumn));
             return new Symbol(sym.NUEVO, new token("NUEVO", yytext(), this.tabulaciones, yyline, yycolumn));
-        }
-
-    {puntoYComa}
-        {   
-            //tokens.add(new token("PUNTO_Y_COMA", yytext(), this.tabulaciones, yyline, yycolumn));
-            return new Symbol(sym.PUNTO_Y_COMA, new token("PUNTO_Y_COMA", yytext(), this.tabulaciones, yyline, yycolumn));
         }
 
     {tipo_booleano}
@@ -310,12 +302,6 @@ import java.util.ArrayList;
         {   
             //tokens.add(new token("SUMA", yytext(), this.tabulaciones, yyline, yycolumn));
             return new Symbol(sym.SUMA, new token("SUMA", yytext(), this.tabulaciones, yyline, yycolumn));
-        }
-
-    {finInstruccion}
-        {   
-            //tokens.add(new token("FI", yytext(), this.tabulaciones, yyline, yycolumn));
-            return new Symbol(sym.FI, new token("FI", yytext(), this.tabulaciones, yyline, yycolumn));
         }
 
     {coma}
