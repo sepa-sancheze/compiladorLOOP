@@ -902,15 +902,6 @@ class CUP$AnalizadorSintactico$actions {
 		int propiedad2right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo propiedad2 = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    //Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
-                                    Nodo propiedades1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.PROPIEDADES);
-                                    Nodo  propmetodos1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.PROPIEDADES_METODOS);
-                                    Nodo dospuntos1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.DOS_PUNTOS);                                                                            
-                                    //propiedad.agregarHijo(propiedades1);
-                                    //propiedad.agregarHijo(propmetodos1);
-                                    //propiedad.agregarHijo(dospuntos1);
-                                    //propiedad.agregarHijo(variablespropiedades);
-                                    //propiedad.agregarHijo(propiedad2);
                                     RESULT=propiedad;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("PROPIEDADES_CUP",4, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-4)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -934,14 +925,6 @@ class CUP$AnalizadorSintactico$actions {
 		int variablespropiedadesright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo variablespropiedades = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    //Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
-                                    //Nodo propiedades1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.PROPIEDADES );
-                                    //Nodo metodos = new Nodo(Nodo.TIPO_RESERVADA,Nodo.PROPIEDADES_METODOS ); 
-                                    //Nodo dospuntos1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.DOS_PUNTOS );                                                                            
-                                    //propiedad.agregarHijo(propiedades1);
-                                    //encabezado.agregarHijo(metodos);
-                                    //propiedad.agregarHijo(dospuntos1);
-                                    propiedad.agregarHijo(variablespropiedades);
                                     RESULT=propiedad;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("PROPIEDADES_CUP",4, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);

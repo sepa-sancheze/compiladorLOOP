@@ -148,27 +148,10 @@ ENCABEZADO_CUP ::=              CLASE:clase VARIABLE_CLASE:identificadorclase EX
                                 :};  
 PROPIEDADES_CUP ::=             PROPIEDADES: propiedades PROPIEDADES_METODOS: propmetodos DOS_PUNTOS: dospuntos VARIABLES_PROPIEDADES_CUP:variablespropiedades PROPIEDADES_CUP: propiedad2 
                                 {:
-                                    //Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
-                                    Nodo propiedades1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.PROPIEDADES);
-                                    Nodo  propmetodos1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.PROPIEDADES_METODOS);
-                                    Nodo dospuntos1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.DOS_PUNTOS);                                                                            
-                                    //propiedad.agregarHijo(propiedades1);
-                                    //propiedad.agregarHijo(propmetodos1);
-                                    //propiedad.agregarHijo(dospuntos1);
-                                    //propiedad.agregarHijo(variablespropiedades);
-                                    //propiedad.agregarHijo(propiedad2);
                                     RESULT=propiedad;
                                 :}
                                 |PROPIEDADES: propiedades PROPIEDADES_METODOS:propmetodos DOS_PUNTOS:dospuntos VARIABLES_PROPIEDADES_CUP:variablespropiedades
                                 {:
-                                    //Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
-                                    //Nodo propiedades1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.PROPIEDADES );
-                                    //Nodo metodos = new Nodo(Nodo.TIPO_RESERVADA,Nodo.PROPIEDADES_METODOS ); 
-                                    //Nodo dospuntos1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.DOS_PUNTOS );                                                                            
-                                    //propiedad.agregarHijo(propiedades1);
-                                    //encabezado.agregarHijo(metodos);
-                                    //propiedad.agregarHijo(dospuntos1);
-                                    propiedad.agregarHijo(variablespropiedades);
                                     RESULT=propiedad;
                                 :};  
 VARIABLES_PROPIEDADES_CUP ::=   PALABRA_RESERVADA_TIPO:tipodato VARIABLE:identificador VARIABLES_PROPIEDADES_CUP:variablespropiedades2
