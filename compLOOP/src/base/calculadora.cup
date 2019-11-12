@@ -158,19 +158,19 @@ VARIABLES_PROPIEDADES_CUP ::=   PALABRA_RESERVADA_TIPO:tipodato VARIABLE:identif
                                 {:
                                     Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,identificador.getLexema());
                                     propiedad.agregarHijo(identificador1);
-                                    RESULT=identificador1;
+                                    //RESULT=identificador1;
                                 :}
                                 |VARIABLE_CLASE:variablec VARIABLE:variable
                                 {:
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );   
                                     propiedad.agregarHijo(variable1);
-                                    RESULT=variable1;
+                                    //RESULT=variable1;
                                 :}                                                           
                                 |PALABRA_RESERVADA_TIPO:tipodato VARIABLE:identificador
                                 {:                      
                                     Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,identificador.getLexema() );  
                                     propiedad.agregarHijo(identificador1);
-                                    RESULT=identificador1;
+                                    //RESULT=identificador1;
                                 :};
 
 METODOS_CUP ::=                 METODOS:metodo PROPIEDADES_METODOS:propmetodos DOS_PUNTOS:dospuntos CODIGO_METODOS_CUP:codigos METODOS_CUP:metodos2
@@ -290,11 +290,14 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                     codigo.agregarHijo(llamada);
                                     RESULT=codigo;
                                 :}
-                                |PROGRAMA_PRINCIPAL_CUP:programa                  
+                                |PROGRAMA_PRINCIPAL_CUP:programa               
                                 {:
-                                    Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    codigo.agregarHijo(programa);
-                                    RESULT=codigo;
+                                    //Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    //codigo.agregarHijo(programa);
+                                    //RESULT=codigo;
+                                    Nodo program = new Nodo(Nodo.TIPO_IDENTIFICADOR, "PRINCIPAL");
+                                    parser.arbolSintactico.agregarHijo(programa);
+                                    RESULT = program;
                                 :}
                                 |VARIAS_VARIABLES_CUP:varias
                                 {:
