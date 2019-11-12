@@ -76,8 +76,6 @@ public class Nodo {
     public static final int DESTRUCTOR = 12;
     public static final int PRINCIPAL = 13;
     public static final int CONSTRUCTOR = 11;
-   
-
 
     public static final int TIPO_EXPRESION=102;
     public static final int TIPO_RESERVADA=104;
@@ -123,8 +121,11 @@ public class Nodo {
         this.tipo = tipo;
         switch (this.tipo) {
             case Nodo.TIPO_EXPRESION:
+                break;
             case Nodo.TIPO_NUMERO:
+                break;
             case Nodo.TIPO_OPERADOR:
+                break;
             case Nodo.TIPO_RESERVADA:
                 break;
             case Nodo.TIPO_IDENTIFICADOR:
@@ -308,6 +309,15 @@ public class Nodo {
     public String getIdentificador() {
         return identificador;
     }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+
+    public void setIdentificador_clase(String identificador_clase) {
+        this.identificador_clase = identificador_clase;
+    }
+    
     public String getIdentificador_clase() {
         return identificador_clase;
     }    

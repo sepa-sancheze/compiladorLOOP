@@ -12,6 +12,7 @@ public class SumadoraArbol {
             parser.arbolSintactico.setGraphvizPath("dot");
             parser.arbolSintactico.recorrerArbol();
             parser.arbolSintactico.recorrerArbol(Arbol.TIPO_RECORRIDO_GRAFO);
+            System.out.println("Prueba");
         } 
         catch (java.lang.Exception el)
         {

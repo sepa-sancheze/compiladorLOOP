@@ -189,7 +189,7 @@ public class Arbol {
 
             switch(nodo.getTipo()) {
                 case Nodo.TIPO_EXPRESION:
-                    bw.write(crearContenido(idPadre,padreNombre,contador,"expr"));
+                    bw.write(crearContenido(idPadre,padreNombre,contador,nodo.getOperadorString()));
                     bw.newLine();
                     break;
                 case Nodo.TIPO_OPERADOR:
