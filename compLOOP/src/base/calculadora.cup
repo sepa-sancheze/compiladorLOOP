@@ -4,7 +4,8 @@ import java_cup.runtime.Symbol;
 
 action code {:
     Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
-    Nodo metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");;
+    Nodo metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
+    Nodo parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
     
 :}
 
@@ -926,8 +927,8 @@ LISTA_VARIABLES_CUP ::=         COMA:coma LISTA_VARIABLES_CUP:lista1
                                 {:
                                     Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     Nodo coma1 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.COMA );
-                                    lista.agregarHijo(coma1);
-                                    lista.agregarHijo(lista1);
+                                    parametros.agregarHijo(coma1);
+                                    //parametros.agregarHijo(lista1);
                                     RESULT=lista;
                                 :}
 
@@ -936,9 +937,9 @@ LISTA_VARIABLES_CUP ::=         COMA:coma LISTA_VARIABLES_CUP:lista1
                                     Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
                                     Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
-                                    lista.agregarHijo(tipodato1);
-                                    lista.agregarHijo(variable1);
-                                    lista.agregarHijo(lista1);
+                                    parametros.agregarHijo(tipodato1);
+                                    parametros.agregarHijo(variable1);
+                                    //parametros.agregarHijo(lista1);
                                     RESULT=lista;
                                 :}                                
                                 |PALABRA_RESERVADA_TIPO:tipodato VARIABLE:variable
@@ -946,15 +947,15 @@ LISTA_VARIABLES_CUP ::=         COMA:coma LISTA_VARIABLES_CUP:lista1
                                     Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
                                     Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
-                                    lista.agregarHijo(tipodato1);
-                                    lista.agregarHijo(variable1);
+                                    //parametros.agregarHijo(tipodato1);
+                                    parametros.agregarHijo(variable1);
                                     RESULT=lista;
                                 :}
                                 |VARIABLE: variable
                                 {:
                                     Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
-                                    lista.agregarHijo(variable1);
+                                    parametros.agregarHijo(variable1);
                                     RESULT=lista;
                                 :}  ;
 
@@ -968,10 +969,11 @@ FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
                                     Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
                                     Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    Nodo lista1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "PARAMETROS");
                                     //funciones.agregarHijo(palabra1)
                                     funciones.agregarHijo(variable1);
                                     funciones.agregarHijo(p222);
-                                    funciones.agregarHijo(lista);
+                                    funciones.agregarHijo(parametros);
                                     funciones.agregarHijo(p22);
                                     funciones.agregarHijo(metodo);
                                     funciones.agregarHijo(devolucion);
