@@ -232,7 +232,8 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                     Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     metodos.agregarHijo(funciones);
                                     metodos.agregarHijo(codigos1);
-                                    RESULT=codigo;
+                                    RESULT=metodos;
+                                    //
                                 :}  
                                 |INSTANCIACION_CUP:instanciacion CODIGO_METODOS_CUP:codigos1 
                                 {:
@@ -302,9 +303,10 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                 {:
                                     metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
-                                    Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
                                     metodos.agregarHijo(funciones);
                                     RESULT=codigo;
+                                    //
                                 :} 
                            
                                 | HACER_CUP:hacer
