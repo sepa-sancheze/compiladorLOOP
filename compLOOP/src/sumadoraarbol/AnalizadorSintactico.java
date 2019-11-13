@@ -1153,7 +1153,7 @@ class CUP$AnalizadorSintactico$actions {
 		Nodo codigos1 = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
                                     metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
-                                    parser.arbolSintactico.agregarHijo(metodos);
+                                    //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     metodos.agregarHijo(funciones);
                                     metodos.agregarHijo(codigos1);
@@ -1341,7 +1341,7 @@ class CUP$AnalizadorSintactico$actions {
 		Nodo funciones = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
                                     metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
-                                    parser.arbolSintactico.agregarHijo(metodos);
+                                    //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     metodos.agregarHijo(funciones);
                                     RESULT=codigo;
