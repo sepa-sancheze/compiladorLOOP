@@ -1055,7 +1055,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
                                     codigo.agregarHijo(declaracion);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1075,7 +1075,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
                                     codigo.agregarHijo(leerescribir);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1095,7 +1095,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SELECTIVA");
                                     codigo.agregarHijo(estructuraselectiva);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1115,7 +1115,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESDE");
                                     codigo.agregarHijo(desde);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1135,7 +1135,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "HACER");
                                     codigo.agregarHijo(hacer);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1153,12 +1153,12 @@ class CUP$AnalizadorSintactico$actions {
 		int codigos1right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo codigos1 = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
+                                    //metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     metodos.agregarHijo(funciones);
-                                    metodos.agregarHijo(codigos1);
-                                    RESULT=metodos;
+                                    //metodos.agregarHijo(codigos1);
+                                    RESULT=codigo;
                                     //
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1238,7 +1238,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLES");
                                     codigo.agregarHijo(varias);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1258,7 +1258,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "LLAMADA");
                                     codigo.agregarHijo(llamada);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1275,7 +1275,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "LLAMADA");
                                     codigo.agregarHijo(llamada);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1311,7 +1311,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLES");
                                     codigo.agregarHijo(varias);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1342,7 +1342,7 @@ class CUP$AnalizadorSintactico$actions {
 		int funcionesright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo funciones = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
+                                    //metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
                                     metodos.agregarHijo(funciones);
@@ -1363,7 +1363,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "HACER");
                                     codigo.agregarHijo(hacer);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1380,7 +1380,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESDE");
                                     codigo.agregarHijo(desde);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1397,7 +1397,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SELECTIVA");
                                     codigo.agregarHijo(estructuraselectiva);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1414,7 +1414,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
                                     codigo.agregarHijo(leerescribir);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=leerescribir;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1431,7 +1431,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "OPERACION");
                                     codigo.agregarHijo(realizar);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1448,7 +1448,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
                                     codigo.agregarHijo(declaracion);
-                                    metodos.agregarHijo(codigo);
+                                    //metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
