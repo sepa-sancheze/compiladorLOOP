@@ -223,7 +223,7 @@ public class Nodo {
             case PUNTO:
                 return "punto";                                               
         }
-        return "na";
+        return "NULL";
     }
     public String getReservadaString() {
         switch (reservada) {
@@ -284,7 +284,7 @@ public class Nodo {
             case CADENA_A_BOOLEANO:
                 return "cadena_a_booleano";                     
         }
-        return "na";
+        return "NULL";
     }
 
     /**
