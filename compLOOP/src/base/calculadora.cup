@@ -4,7 +4,7 @@ import java_cup.runtime.Symbol;
 
 action code {:
     Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
-    Nodo metodos  = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
+    Nodo metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");;
     
 :}
 
@@ -227,9 +227,11 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                 :}  
                                |FUNCIONES_SUELTAS_CUP:funciones CODIGO_METODOS_CUP:codigos1
                                 {:
+                                    metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
+                                    parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    codigo.agregarHijo(funciones);
-                                    codigo.agregarHijo(codigos1);
+                                    metodos.agregarHijo(funciones);
+                                    metodos.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :}  
                                 |INSTANCIACION_CUP:instanciacion CODIGO_METODOS_CUP:codigos1 
@@ -298,8 +300,10 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                 :} 
                                 | FUNCIONES_SUELTAS_CUP:funciones
                                 {:
+                                    metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
+                                    parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    codigo.agregarHijo(funciones);
+                                    metodos.agregarHijo(funciones);
                                     RESULT=codigo;
                                 :} 
                            
