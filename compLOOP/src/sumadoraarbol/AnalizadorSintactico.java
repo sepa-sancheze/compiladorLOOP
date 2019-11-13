@@ -1154,7 +1154,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
-                                    Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     metodos.agregarHijo(funciones);
                                     metodos.agregarHijo(codigos1);
                                     RESULT=metodos;
@@ -2727,7 +2727,7 @@ class CUP$AnalizadorSintactico$actions {
 		int tipodatoright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Object tipodato = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    Nodo devolucion = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo devolucion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEVOLVER");
                                     Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
                                     devolucion.agregarHijo(tipodato1);   
                                     RESULT=devolucion;
@@ -2747,7 +2747,7 @@ class CUP$AnalizadorSintactico$actions {
 		int variableright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		token variable = (token)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    Nodo devolucion = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo devolucion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEVOLVER");
                                     Nodo devolver1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.DEVOLVER );
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
                                     devolucion.agregarHijo(devolver1) ;

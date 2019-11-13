@@ -229,7 +229,7 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                 {:
                                     metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
-                                    Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     metodos.agregarHijo(funciones);
                                     metodos.agregarHijo(codigos1);
                                     RESULT=metodos;
@@ -856,14 +856,14 @@ ELSE_CUP ::=                    SINO:sino CONDICION_CUP:condicion ENTONCES:enton
 
 DEVOLUCION_CUP ::=              DEVOLVER:devolver TIPO_DATO_CUP:tipodato 
                                 {:
-                                    Nodo devolucion = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo devolucion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEVOLVER");
                                     Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
                                     devolucion.agregarHijo(tipodato1);   
                                     RESULT=devolucion;
                                 :}
                                 |DEVOLVER:devolver VARIABLE:variable
                                 {:
-                                    Nodo devolucion = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo devolucion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEVOLVER");
                                     Nodo devolver1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.DEVOLVER );
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
                                     devolucion.agregarHijo(devolver1) ;
