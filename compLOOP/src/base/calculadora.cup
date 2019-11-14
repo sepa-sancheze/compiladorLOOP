@@ -3,6 +3,7 @@ package sumadoraarbol;
 import java_cup.runtime.Symbol;
 
 action code {:
+    //Nodo principal = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PRINCIPAL");
     Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
     Nodo metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
     Nodo parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
@@ -201,7 +202,7 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
                                     codigo.agregarHijo(leerescribir);
-                                    //metodos.agregarHijo(codigo);
+                                    codigo.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :} 
 
@@ -287,7 +288,7 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                     //RESULT=codigo;
                                     Nodo program = new Nodo(Nodo.TIPO_IDENTIFICADOR, "PRINCIPAL");
                                     parser.arbolSintactico.agregarHijo(program);
-                                    RESULT = programa;
+                                    //RESULT = program;
                                 :}
                                 |VARIAS_VARIABLES_CUP:varias
                                 {:
@@ -340,7 +341,7 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
                                     codigo.agregarHijo(leerescribir);
                                     //metodos.agregarHijo(codigo);
-                                    RESULT=leerescribir;
+                                    RESULT=codigo;
                                 :}
 
                                 |REALIZAR_OPERACION_CUP: realizar
