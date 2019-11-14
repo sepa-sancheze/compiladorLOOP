@@ -228,6 +228,8 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                 :}  
                                |FUNCIONES_SUELTAS_CUP:funciones CODIGO_METODOS_CUP:codigos1
                                 {:
+                                    //
+                                    parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
                                     //metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
@@ -302,6 +304,8 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                 :} 
                                 | FUNCIONES_SUELTAS_CUP:funciones
                                 {:
+                                    //
+                                    parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
                                     //metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
@@ -925,42 +929,38 @@ HACER_CUP ::=                   HACER:hacer1 CODIGO_METODOS_CUP:codigo MIENTRAS:
 
 LISTA_VARIABLES_CUP ::=         COMA:coma LISTA_VARIABLES_CUP:lista1
                                 {:
-                                    Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    Nodo coma1 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.COMA );
-                                    parametros.agregarHijo(coma1);
-                                    //parametros.agregarHijo(lista1);
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_1");
+                                    //lista.agregarHijo(lista1);
                                     RESULT=lista;
                                 :}
 
                                 |PALABRA_RESERVADA_TIPO:tipodato VARIABLE:variable LISTA_VARIABLES_CUP:lista1 
                                 {:
-                                    Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_2");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
-                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
-                                    parametros.agregarHijo(tipodato1);
+                                    //lista.agregarHijo(variable1);
+                                    //lista.agregarHijo(lista1);
                                     parametros.agregarHijo(variable1);
-                                    //parametros.agregarHijo(lista1);
                                     RESULT=lista;
                                 :}                                
                                 |PALABRA_RESERVADA_TIPO:tipodato VARIABLE:variable
                                 {:
-                                    Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_3");
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
                                     Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
-                                    //parametros.agregarHijo(tipodato1);
+                                    //lista.agregarHijo(tipodato1);
+                                    //lista.agregarHijo(variable1);
                                     parametros.agregarHijo(variable1);
                                     RESULT=lista;
                                 :}
                                 |VARIABLE: variable
                                 {:
-                                    Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_4");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
+                                    //lista.agregarHijo(variable1);
                                     parametros.agregarHijo(variable1);
-                                    RESULT=lista;
+                                    //RESULT=lista;
                                 :}  ;
-
-
-
 
 FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 LISTA_VARIABLES_CUP:lista PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
@@ -969,7 +969,6 @@ FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
                                     Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
                                     Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
-                                    Nodo lista1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "PARAMETROS");
                                     //funciones.agregarHijo(palabra1)
                                     funciones.agregarHijo(variable1);
                                     funciones.agregarHijo(p222);

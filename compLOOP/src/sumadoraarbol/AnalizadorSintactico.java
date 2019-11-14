@@ -1153,6 +1153,8 @@ class CUP$AnalizadorSintactico$actions {
 		int codigos1right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo codigos1 = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
+                                    //
+                                    parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
                                     //metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
@@ -1342,6 +1344,8 @@ class CUP$AnalizadorSintactico$actions {
 		int funcionesright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo funciones = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
+                                    //
+                                    parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
                                     //metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
@@ -2888,10 +2892,8 @@ class CUP$AnalizadorSintactico$actions {
 		int lista1right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo lista1 = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    Nodo coma1 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.COMA );
-                                    parametros.agregarHijo(coma1);
-                                    //parametros.agregarHijo(lista1);
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_1");
+                                    //lista.agregarHijo(lista1);
                                     RESULT=lista;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("LISTA_VARIABLES_CUP",28, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -2912,12 +2914,11 @@ class CUP$AnalizadorSintactico$actions {
 		int lista1right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo lista1 = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_2");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
-                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
-                                    parametros.agregarHijo(tipodato1);
+                                    //lista.agregarHijo(variable1);
+                                    //lista.agregarHijo(lista1);
                                     parametros.agregarHijo(variable1);
-                                    //parametros.agregarHijo(lista1);
                                     RESULT=lista;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("LISTA_VARIABLES_CUP",28, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -2935,10 +2936,11 @@ class CUP$AnalizadorSintactico$actions {
 		int variableright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		token variable = (token)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_3");
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
                                     Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
-                                    //parametros.agregarHijo(tipodato1);
+                                    //lista.agregarHijo(tipodato1);
+                                    //lista.agregarHijo(variable1);
                                     parametros.agregarHijo(variable1);
                                     RESULT=lista;
                                 
@@ -2954,10 +2956,11 @@ class CUP$AnalizadorSintactico$actions {
 		int variableright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		token variable = (token)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    Nodo lista = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_4");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
+                                    //lista.agregarHijo(variable1);
                                     parametros.agregarHijo(variable1);
-                                    RESULT=lista;
+                                    //RESULT=lista;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("LISTA_VARIABLES_CUP",28, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
@@ -2994,7 +2997,6 @@ class CUP$AnalizadorSintactico$actions {
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
                                     Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
                                     Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
-                                    Nodo lista1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "PARAMETROS");
                                     //funciones.agregarHijo(palabra1)
                                     funciones.agregarHijo(variable1);
                                     funciones.agregarHijo(p222);
