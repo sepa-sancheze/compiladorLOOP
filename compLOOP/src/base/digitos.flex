@@ -62,7 +62,7 @@ import java.util.ArrayList;
     booleano = "verdadero"|"falso"
     cadena = ["\""]([a-zA-Z]*[0-9]*["\ "]*)*["\""]
     /*%   REGLAS EXTRAS */
-    tabulacion = ["\ "]{4}
+    tabulacion = ["\ "]{4}|\t
     variables = [a-z]+{reglas_variablesextra}
     reglas_variablesextra = [[a-z]|[0-9]|[A-Z]]*|[[a-z]|[0-9]|[A-Z]]* "_" [[a-z]|[0-9]|[A-Z]]+
     excepciones_variables = [a-z]+[[a-z]|[0-9]|[A-Z]]* "_"  | [A-Z]+ {variables}
