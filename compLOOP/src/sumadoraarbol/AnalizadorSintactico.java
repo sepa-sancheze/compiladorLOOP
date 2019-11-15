@@ -704,6 +704,7 @@ class CUP$AnalizadorSintactico$actions {
     Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
     Nodo metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
     Nodo parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
+    Nodo func = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
     
 
   private final AnalizadorSintactico parser;
@@ -1056,7 +1057,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
                                     codigo.agregarHijo(declaracion);
-                                    //metodos.agregarHijo(codigo);
+                                    metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1076,7 +1077,8 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
                                     codigo.agregarHijo(leerescribir);
-                                    codigo.agregarHijo(codigos1);
+                                    //codigo.agregarHijo(codigos1);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1159,10 +1161,10 @@ class CUP$AnalizadorSintactico$actions {
                                     //metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
                                     //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    metodos.agregarHijo(funciones);
+                                    metodos.agregarHijo(func);
                                     //metodos.agregarHijo(codigos1);
-                                    RESULT=codigo;
-                                    //
+                                    RESULT=func;
+                                    ////
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
@@ -1419,7 +1421,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
                                     codigo.agregarHijo(leerescribir);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1553,8 +1555,6 @@ class CUP$AnalizadorSintactico$actions {
 		Nodo valinicial = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
                                     Nodo declaracion  = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    //Nodo tipodato1 = new Nodo(Nodo.TIPO_OPERADOR, variable2.getLexema() );
-                                    //declaracion.agregarHijo(tipodato);
                                     declaracion.agregarHijo(variable);
                                     declaracion.agregarHijo(valinicial);
                                     RESULT=declaracion;
