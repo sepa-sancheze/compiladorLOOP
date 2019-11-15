@@ -3,7 +3,7 @@ package sumadoraarbol;
 import java_cup.runtime.Symbol;
 
 action code {:
-    //Nodo principal = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PRINCIPAL");
+    Nodo principal = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PRINCIPAL");
     Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
     Nodo metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
     Nodo parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
@@ -92,10 +92,10 @@ start with S;
 //##############################################################################
 
 
-
+//COMPLETADO
 S ::=                           //CLASE_GENERAL_CUP;// PROGRAMA_PRINCIPAL_CUP;
                                 CLASE_GENERAL_CUP:clasegeneral;
-
+//COMPLETADO
 CLASE_GENERAL_CUP ::=           CLASE_GENERAL_CUP:clasegeneral CLASES_CUP:clase1 
                                 {:
                                     //Nodo clase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"CLASE");
@@ -111,14 +111,14 @@ CLASE_GENERAL_CUP ::=           CLASE_GENERAL_CUP:clasegeneral CLASES_CUP:clase1
                                     //clase.agregarHijo(clase1);
                                     //RESULT=clase;
                                 :};
-
+//COMPLETADO
 CLASES_CUP ::=                  DECLARACION_CLASES_CUP: dec
                                 {:
                                     Nodo clase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"CLASE");
                                     clase.agregarHijo(dec);
                                     RESULT=clase;
                                 :};
-
+//COMPLETADO
 DECLARACION_CLASES_CUP ::=      ENCABEZADO_CUP:encabezado PROPIEDADES_CUP:propiedades METODOS_CUP:metodo
                                 {:
                                     Nodo decclase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"MIEMBROS");                                
@@ -127,7 +127,7 @@ DECLARACION_CLASES_CUP ::=      ENCABEZADO_CUP:encabezado PROPIEDADES_CUP:propie
                                     decclase.agregarHijo(metodo);
                                     RESULT=decclase;
                                 :};
-
+//COMPLETADO
 ENCABEZADO_CUP ::=              CLASE:clase VARIABLE_CLASE:identificadorclase EXTIENDE:extiende VARIABLE_CLASE:identificadorclase1
                                 {:
                                     Nodo encabezado = new Nodo(Nodo.TIPO_IDENTIFICADOR,"ENCABEZADO");
@@ -150,6 +150,7 @@ ENCABEZADO_CUP ::=              CLASE:clase VARIABLE_CLASE:identificadorclase EX
                                     encabezado.agregarHijo(identificador1);
                                     RESULT=encabezado;
                                 :};  
+//COMPLETADO
 PROPIEDADES_CUP ::=             PROPIEDADES: propiedades PROPIEDADES_METODOS: propmetodos DOS_PUNTOS: dospuntos VARIABLES_PROPIEDADES_CUP:variablespropiedades PROPIEDADES_CUP: propiedad2 
                                 {:
                                     RESULT=propiedad;
@@ -158,6 +159,7 @@ PROPIEDADES_CUP ::=             PROPIEDADES: propiedades PROPIEDADES_METODOS: pr
                                 {:
                                     RESULT=propiedad;
                                 :};  
+//COMPLETADO
 VARIABLES_PROPIEDADES_CUP ::=   PALABRA_RESERVADA_TIPO:tipodato VARIABLE:identificador VARIABLES_PROPIEDADES_CUP:variablespropiedades2
                                 {:
                                     Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,identificador.getLexema());
@@ -176,7 +178,7 @@ VARIABLES_PROPIEDADES_CUP ::=   PALABRA_RESERVADA_TIPO:tipodato VARIABLE:identif
                                     propiedad.agregarHijo(identificador1);
                                     //RESULT=identificador1;
                                 :};
-
+//COMPLETADO
 METODOS_CUP ::=                 METODOS:metodo PROPIEDADES_METODOS:propmetodos DOS_PUNTOS:dospuntos CODIGO_METODOS_CUP:codigos METODOS_CUP:metodos2
                                 {:
                                     RESULT=metodos;
@@ -185,61 +187,53 @@ METODOS_CUP ::=                 METODOS:metodo PROPIEDADES_METODOS:propmetodos D
                                 {:
                                     RESULT=metodos;
                                 :};
-CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_METODOS_CUP:codigos1 
+CODIGO_METODOS_CUP ::=          
+                                DECLARACION_VARIABLES_CUP:declaracion CODIGO_METODOS_CUP:codigos1 
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
                                     codigo.agregarHijo(declaracion);
                                     metodos.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}
-                               // |te falto una
-                               // {:
-                                    // Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    //codigo.agregarHijo(realizar);
-                                    // codigo.agregarHijo(codigos1);
-                                    // RESULT=codigo;
-                               // :}
+                                //TERMINADO
                                 |LECTURA_ESCRITURA_CUP:leerescribir CODIGO_METODOS_CUP:codigos1 
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
                                     codigo.agregarHijo(leerescribir);
-                                    //codigo.agregarHijo(codigos1);
                                     func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :} 
-
+                                //TERMINADO
                                 |ESTRUCTURA_SELECTIVA_CUP:estructuraselectiva CODIGO_METODOS_CUP:codigos1 
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SELECTIVA");
                                     codigo.agregarHijo(estructuraselectiva);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :} 
+                                //TERMINADO
                                 |DESDE_CUP:desde CODIGO_METODOS_CUP:codigos1
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESDE");
                                     codigo.agregarHijo(desde);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
                                     RESULT=codigo;
-                                :}                                  
+                                :}  
+                                //TERMINADO
                                 |HACER_CUP:hacer CODIGO_METODOS_CUP:codigos1
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "HACER");
                                     codigo.agregarHijo(hacer);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :}  
+                                //TERMINADO
                                |FUNCIONES_SUELTAS_CUP:funciones CODIGO_METODOS_CUP:codigos1
                                 {:
-                                    //
                                     parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
-                                    //metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
-                                    //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     metodos.agregarHijo(func);
-                                    //metodos.agregarHijo(codigos1);
                                     RESULT=func;
-                                    ////
                                 :}  
                                 |INSTANCIACION_CUP:instanciacion CODIGO_METODOS_CUP:codigos1 
                                 {:
@@ -305,39 +299,39 @@ CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP:declaracion CODIGO_MET
                                     codigo.agregarHijo(instanciacion);
                                     RESULT=codigo;
                                 :} 
+                                //TERMINADO
                                 | FUNCIONES_SUELTAS_CUP:funciones
                                 {:
-                                    //
                                     parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
-                                    //metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
-                                    //parser.arbolSintactico.agregarHijo(metodos);
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
                                     metodos.agregarHijo(funciones);
                                     RESULT=codigo;
-                                    //
                                 :} 
-                           
+                                //TERMINADO
                                 | HACER_CUP:hacer
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "HACER");
                                     codigo.agregarHijo(hacer);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}                                   
+                                //TERMINADO
                                 | DESDE_CUP:desde 
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESDE");
                                     codigo.agregarHijo(desde);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}
+                                //TERMINADO
                                 | ESTRUCTURA_SELECTIVA_CUP:estructuraselectiva
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SELECTIVA");
                                     codigo.agregarHijo(estructuraselectiva);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
-                                :}                                  
+                                :}      
+                                //TERMINADO
                                 |LECTURA_ESCRITURA_CUP: leerescribir
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
@@ -965,34 +959,20 @@ LISTA_VARIABLES_CUP ::=         COMA:coma LISTA_VARIABLES_CUP:lista1
 
 FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 LISTA_VARIABLES_CUP:lista PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
-                                    Nodo funciones = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    //Nodo palabra1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
-                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
-                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
-                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
-                                    //funciones.agregarHijo(palabra1)
-                                    funciones.agregarHijo(variable1);
-                                    funciones.agregarHijo(p222);
-                                    funciones.agregarHijo(parametros);
-                                    funciones.agregarHijo(p22);
-                                    funciones.agregarHijo(metodo);
-                                    funciones.agregarHijo(devolucion);
-                                    RESULT=funciones;
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
+                                    this.func.agregarHijo(variable1);
+                                    this.func.agregarHijo(this.parametros);
+                                    //this.func.agregarHijo(metodo);
+                                    this.func.agregarHijo(devolucion);
+                                    RESULT = this.func;
                                 :} 
                                 | PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
-                                    Nodo funciones = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    //Nodo palabra1 = new Nodo(, );
-                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
-                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
-                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
-                                    //funciones.agregarHijo(palabra1)
-                                    funciones.agregarHijo(variable1);
-                                    funciones.agregarHijo(p222);
-                                    funciones.agregarHijo(p22);
-                                    funciones.agregarHijo(metodo);
-                                    funciones.agregarHijo(devolucion);
-                                    RESULT=funciones;
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
+                                    this.func.agregarHijo(variable1);
+                                    //this.func.agregarHijo(metodo);
+                                    this.func.agregarHijo(devolucion);
+                                    RESULT = this.func;
                                 :}; 
 
 
