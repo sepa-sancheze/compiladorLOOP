@@ -187,12 +187,12 @@ METODOS_CUP ::=                 METODOS:metodo PROPIEDADES_METODOS:propmetodos D
                                 {:
                                     RESULT=metodos;
                                 :};
-CODIGO_METODOS_CUP ::=          
+CODIGO_METODOS_CUP ::=          //TERMINADO
                                 DECLARACION_VARIABLES_CUP:declaracion CODIGO_METODOS_CUP:codigos1 
                                 {:
-                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DECLA_VAR");
                                     codigo.agregarHijo(declaracion);
-                                    metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :}
                                 //TERMINADO
@@ -216,7 +216,7 @@ CODIGO_METODOS_CUP ::=
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESDE");
                                     codigo.agregarHijo(desde);
-                                    func.agregarHijo(codigos1);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}  
                                 //TERMINADO
@@ -224,59 +224,66 @@ CODIGO_METODOS_CUP ::=
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "HACER");
                                     codigo.agregarHijo(hacer);
-                                    func.agregarHijo(codigos1);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}  
                                 //TERMINADO
-                               |FUNCIONES_SUELTAS_CUP:funciones CODIGO_METODOS_CUP:codigos1
+                                |FUNCIONES_SUELTAS_CUP:funciones CODIGO_METODOS_CUP:codigos1
                                 {:
                                     parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
                                     Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     metodos.agregarHijo(func);
                                     RESULT=func;
                                 :}  
+                                //TERMINADO
                                 |INSTANCIACION_CUP:instanciacion CODIGO_METODOS_CUP:codigos1 
                                 {:
-                                    Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACION");
                                     codigo.agregarHijo(instanciacion);
-                                    codigo.agregarHijo(codigos1);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}                               
-                                  |CONSTRUCTOR_CUP:constructor CODIGO_METODOS_CUP:codigos1
+                                //TERMINADO
+                                |CONSTRUCTOR_CUP:constructor CODIGO_METODOS_CUP:codigos1
                                 {:
-                                    Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CONSTRUCTOR");
                                     codigo.agregarHijo(constructor);
-                                    codigo.agregarHijo(codigos1);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
-                                :}                                 
+                                :}                               
+                                //TERMINADO
                                 |DESTRUCTOR_CUP:destructor CODIGO_METODOS_CUP:codigos1
                                 {:
-                                    Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESTRUCTOR");
                                     codigo.agregarHijo(destructor);
-                                    codigo.agregarHijo(codigos1);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}                                 
+                                //TERMINADO
                                 | VARIAS_VARIABLES_CUP:varias CODIGO_METODOS_CUP:codigos1
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLES");
                                     codigo.agregarHijo(varias);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :} 
+                                //TERMINADO
                                 |LLAMADA_METODO_CLASE_CUP:llamada CODIGO_METODOS_CUP:codigos1
                                 {:
-                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "LLAMADA");
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CALL_CLASE");
                                     codigo.agregarHijo(llamada);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
-                                :}                                  
+                                :}   
+                                //TERMINADO
                                 |LLAMADA_METODO_CLASE_CUP:llamada
                                 {:
-                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "LLAMADA");
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CALL_METOD");
                                     codigo.agregarHijo(llamada);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}
+                                //TERMINADO
                                 |PROGRAMA_PRINCIPAL_CUP:programa               
                                 {:
                                     //Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
@@ -286,17 +293,20 @@ CODIGO_METODOS_CUP ::=
                                     parser.arbolSintactico.agregarHijo(program);
                                     //RESULT = program;
                                 :}
+                                //TERMINADO
                                 |VARIAS_VARIABLES_CUP:varias
                                 {:
-                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLES");
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "MULTIPLE_VARS");
                                     codigo.agregarHijo(varias);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}    
+                                //TERMINADO
                                 | INSTANCIACION_CUP :instanciacion
                                 {:
-                                    Nodo codigo  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACION");
                                     codigo.agregarHijo(instanciacion);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :} 
                                 //TERMINADO
@@ -339,19 +349,20 @@ CODIGO_METODOS_CUP ::=
                                     func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}
-
+                                //TERMINADO
                                 |REALIZAR_OPERACION_CUP: realizar
                                 {:
-                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "OPERACION");
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DO_OPER");
                                     codigo.agregarHijo(realizar);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
-                                :}                                  
+                                :}                                
+                                //TERMINADO
                                 |DECLARACION_VARIABLES_CUP: declaracion
                                 {:
-                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DECLA_VAR");
                                     codigo.agregarHijo(declaracion);
-                                    //metodos.agregarHijo(codigo);
+                                    func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :};
 
