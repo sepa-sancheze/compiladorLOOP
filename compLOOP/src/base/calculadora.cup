@@ -192,7 +192,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DECLA_VAR");
                                     codigo.agregarHijo(declaracion);
-                                    func.agregarHijo(codigos1);
+                                    //func.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :}
                                 //TERMINADO
@@ -201,7 +201,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
                                     codigo.agregarHijo(leerescribir);
                                     func.agregarHijo(codigo);
-                                    RESULT=codigo;
+                                    RESULT=codigos1;
                                 :} 
                                 //TERMINADO
                                 |ESTRUCTURA_SELECTIVA_CUP:estructuraselectiva CODIGO_METODOS_CUP:codigos1 
@@ -230,17 +230,6 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 //TERMINADO
                                 |FUNCIONES_SUELTAS_CUP:funciones CODIGO_METODOS_CUP:codigos1
                                 {:
-                                    //Reestablecer todos los valores
-                                    //this.propiedad = null;
-                                    //this.metodos = null;
-                                    //this.parametros = null;
-                                    //this.func = null;
-
-                                    this.propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
-                                    //this.metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
-                                    this.parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
-                                    //this.func = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
-                                    
 
                                     parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
                                     Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
@@ -729,22 +718,21 @@ LISTA_OPERACIONES_CUP ::=       OPERACIONES_CUP:operaciones VARIABLE:variable LI
                                 :}; 
 LECTURA_ESCRITURA_CUP ::=       LECTURA_CUP :lectura
                                 {:
-                                    Nodo lecturaescritura  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo lecturaescritura  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "READ");
                                     RESULT=lecturaescritura;
                                 :}  
                                 |ESCRITURA_CUP: escritura
                                 {:
-                                    Nodo lecturaescritura  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo lecturaescritura  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "WRITE");
                                     RESULT=lecturaescritura;
                                 :} ;
 LECTURA_CUP ::=                 LEER:leer VARIABLE:variable
                                 {:
                                     Nodo lectura  = new Nodo(Nodo.TIPO_EXPRESION, 0);
-                                    Nodo leer1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.LEER );
+                                    //Nodo leer1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.LEER );
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() ); 
-                                    lectura.agregarHijo(leer1);
+                                    //lectura.agregarHijo(leer1);
                                     lectura.agregarHijo(variable1);
-
                                     RESULT=lectura;
                                 :} ;
 ESCRITURA_CUP ::=               ESCRIBIR:escribir VARIABLES_CUP:variable
@@ -752,7 +740,6 @@ ESCRITURA_CUP ::=               ESCRIBIR:escribir VARIABLES_CUP:variable
                                     Nodo escritura  = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     //Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() ); 
                                     escritura.agregarHijo(variable);
-
                                     RESULT=escritura;
                                 :}; 
 
@@ -982,7 +969,6 @@ LISTA_VARIABLES_CUP ::=         COMA:coma LISTA_VARIABLES_CUP:lista1
 
 FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 LISTA_VARIABLES_CUP:lista PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
-                                    this.func = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
                                     this.func.agregarHijo(variable1);
                                     this.func.agregarHijo(this.parametros);
@@ -992,7 +978,6 @@ FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable
                                 :} 
                                 | PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
-                                    this.func = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
                                     this.func.agregarHijo(variable1);
                                     this.func.agregarHijo(metodo);
