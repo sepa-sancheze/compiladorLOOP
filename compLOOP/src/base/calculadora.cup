@@ -8,7 +8,7 @@ action code {:
     Nodo metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
     Nodo parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
     Nodo func = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
-    
+    boolean banderaFuncion = false;
 :}
 
 parser code {:
@@ -230,6 +230,18 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 //TERMINADO
                                 |FUNCIONES_SUELTAS_CUP:funciones CODIGO_METODOS_CUP:codigos1
                                 {:
+                                    //Reestablecer todos los valores
+                                    //this.propiedad = null;
+                                    //this.metodos = null;
+                                    //this.parametros = null;
+                                    //this.func = null;
+
+                                    this.propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
+                                    //this.metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
+                                    this.parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
+                                    //this.func = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
+                                    
+
                                     parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
                                     Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
                                     metodos.agregarHijo(func);
@@ -970,22 +982,24 @@ LISTA_VARIABLES_CUP ::=         COMA:coma LISTA_VARIABLES_CUP:lista1
 
 FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 LISTA_VARIABLES_CUP:lista PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
+                                    this.func = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
                                     this.func.agregarHijo(variable1);
                                     this.func.agregarHijo(this.parametros);
-                                    //this.func.agregarHijo(metodo);
+                                    this.func.agregarHijo(metodo);
                                     this.func.agregarHijo(devolucion);
                                     RESULT = this.func;
                                 :} 
                                 | PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
+                                    this.func = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
                                     this.func.agregarHijo(variable1);
-                                    //this.func.agregarHijo(metodo);
+                                    this.func.agregarHijo(metodo);
                                     this.func.agregarHijo(devolucion);
                                     RESULT = this.func;
                                 :}; 
-
+//
 
 FUNCIONES_PREDEFINIDAS_CUP ::=  CADENA_A_ENTERO:ce PARENTESIS1:p1 VARIABLE:variable PARENTESIS2:p2
                                 {:
