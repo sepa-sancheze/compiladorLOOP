@@ -30,7 +30,7 @@ public class EscribirenFichero {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("C:\\Users\\tito88\\Pictures\\compiladorLOOP\\compLOOP\\simbolos.txt");
+            fichero = new FileWriter("simbolos.txt");
             pw = new PrintWriter(fichero);
 
             for (int x = 0; x < sim.size(); x++) {

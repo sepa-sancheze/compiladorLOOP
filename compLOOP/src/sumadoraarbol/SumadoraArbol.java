@@ -10,7 +10,7 @@ public class SumadoraArbol {
             AnalizadorLexico lex = new AnalizadorLexico(new FileReader("numeros.txt"));
             AnalizadorSintactico parser = new AnalizadorSintactico(lex);
             parser.parse();
-            parser.arbolSintactico.setGraphvizPath("C:\\Users\\tito88\\Desktop\\graphviz-2.38\\release\\bin\\dot.exe");
+            parser.arbolSintactico.setGraphvizPath("dot.exe");
             parser.arbolSintactico.recorrerArbol();
             parser.arbolSintactico.recorrerArbol(Arbol.TIPO_RECORRIDO_GRAFO);
             System.out.println("Prueba");
