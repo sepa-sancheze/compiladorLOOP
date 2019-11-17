@@ -1092,38 +1092,30 @@ FUNCIONES_PREDEFINIDAS_CUP ::=  CADENA_A_ENTERO:ce PARENTESIS1:p1 VARIABLE:varia
 
 INSTANCIACION_CUP ::=           VARIABLE_CLASE:variablec VARIABLE:variable IGUAL:igual INSTANCIAR:instanciar VARIABLE_CLASE:variablec1 PARENTESIS1:p1 PARENTESIS2:p2
                                 {:
-                                    Nodo instanciacion = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo instanciacion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACIÓN");
                                     Nodo variablec2 = new Nodo(Nodo.TIPO_IDENTIFICADOR_CLASE,variablec.getLexema() );
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
-                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);
-                                    Nodo instanciar1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.INSTANCIAR );
+                                    Nodo instanciar1 = new Nodo(Nodo.VARIABLE_CLASE, variablec.getLexema() );
                                     Nodo variablec22 = new Nodo(Nodo.TIPO_IDENTIFICADOR_CLASE,variablec1.getLexema() );
-                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
-                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+
                                     instanciacion.agregarHijo(variablec2);
                                     instanciacion.agregarHijo(variable1);
-                                    instanciacion.agregarHijo(igual1);
                                     instanciacion.agregarHijo(instanciar1);
                                     instanciacion.agregarHijo(variablec22);
-                                    instanciacion.agregarHijo(p222);
-                                    instanciacion.agregarHijo(p22);
                                     RESULT=instanciacion;
                                 :} 
                                 |VARIABLE:variable IGUAL:igual INSTANCIAR:instanciar VARIABLE_CLASE:variablec PARENTESIS1:p1 PARENTESIS2:p2 
                                 {:
-                                    Nodo instanciacion = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo instanciacion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACIÓN");
+
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema());
-                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);
-                                    Nodo instanciar1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.INSTANCIAR );
+                                    Nodo instanciar1 = new Nodo(Nodo.VARIABLE_CLASE, variablec.getLexema() );
                                     Nodo variablec1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variablec.getLexema());
-                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
-                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+
                                     instanciacion.agregarHijo(variable1);
-                                    instanciacion.agregarHijo(igual1);
                                     instanciacion.agregarHijo(instanciar1);
                                     instanciacion.agregarHijo(variablec1);
-                                    instanciacion.agregarHijo(p222);
-                                    instanciacion.agregarHijo(p22);
+
                                     RESULT=instanciacion;
                                 :};
 
@@ -1131,15 +1123,16 @@ VARIAS_VARIABLES_CUP ::=        ELIMINAR:eliminar VARIAS_VARIABLES_CUP:varias
                                 {:
                                     Nodo variasv = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIAS_VARIABLES");
                                     Nodo eliminar1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.ELIMINAR );
-
                                     variasv.agregarHijo(eliminar1);
                                     variasv.agregarHijo(varias);
                                     RESULT=variasv;
                                 :} 
-                                |ELIMINAR:eliminar
+                                |ELIMINAR:eliminar VARIABLE:var
                                 {:
                                     Nodo variasv = new Nodo(Nodo.TIPO_IDENTIFICADOR, "ELIMINAR");
                                     Nodo eliminar1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.ELIMINAR );
+                                    Nodo var1 = new Nodo(Nodo.VARIABLE, var.getLexema());
+                                    eliminar1.agregarHijo(var1);
                                     variasv.agregarHijo(eliminar1);
                                     RESULT=variasv;
                                 :};
