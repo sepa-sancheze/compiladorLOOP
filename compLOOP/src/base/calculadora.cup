@@ -194,6 +194,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                     if(contPrincipal == 0){
                                         Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DECLA_VAR");
                                         codigo.agregarHijo(declaracion);
+                                        func.agregarHijo(codigos1);
                                         RESULT=codigo;
                                     }else{
                                         System.out.println("DECLA_VAR principal");
@@ -206,6 +207,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                         Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
                                         codigo.agregarHijo(leerescribir);
                                         //func.agregarHijo(codigo);
+                                        func.agregarHijo(codigos1);
                                         RESULT=codigo;
                                     }else{}
                                 :} 
@@ -215,7 +217,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                     if(contPrincipal == 0){
                                         Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SELECTIVA");
                                         codigo.agregarHijo(estructuraselectiva);
-                                        func.agregarHijo(codigo);
+                                        func.agregarHijo(codigos1);
                                         RESULT=codigo;
                                     }else{}
                                 :} 
@@ -224,7 +226,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESDE");
                                     codigo.agregarHijo(desde);
-                                    func.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :}  
                                 //TERMINADO
@@ -232,7 +234,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "HACER");
                                     codigo.agregarHijo(hacer);
-                                    func.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :}  
                                 //TERMINADO
@@ -249,7 +251,8 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACION");
                                     codigo.agregarHijo(instanciacion);
-                                    func.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
+                                    //func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :}                               
                                 //TERMINADO
@@ -257,7 +260,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CONSTRUCTOR");
                                     codigo.agregarHijo(constructor);
-                                    func.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :}                               
                                 //TERMINADO
@@ -265,7 +268,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESTRUCTOR");
                                     codigo.agregarHijo(destructor);
-                                    func.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :}                                 
                                 //TERMINADO
@@ -273,7 +276,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLES");
                                     codigo.agregarHijo(varias);
-                                    func.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :} 
                                 //TERMINADO
@@ -281,7 +284,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CALL_CLASE");
                                     codigo.agregarHijo(llamada);
-                                    func.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
                                     RESULT=codigo;
                                 :}   
                                 //TERMINADO
@@ -316,7 +319,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACION");
                                     codigo.agregarHijo(instanciacion);
-                                    func.agregarHijo(codigo);
+                                    //func.agregarHijo(codigo);
                                     RESULT=codigo;
                                 :} 
                                 //TERMINADO
@@ -324,7 +327,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                     parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
                                     Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
-                                    metodos.agregarHijo(funciones);
+                                    codigo.agregarHijo(funciones);
                                     RESULT=codigo;
                                 :} 
                                 //TERMINADO
