@@ -111,6 +111,7 @@ public void add(String nuevo) {
     numerosReales = [0-9]*[.][0-9]+[1-9]
     booleano = "verdadero"|"falso"
     cadena = ["\""]([a-zA-Z]*[0-9]*["\ "]*)*["\""]
+    comentarios = [\/\/]([a-zA-Z]*[0-9]*["\ "]*)*
     /*%   REGLAS EXTRAS */
     tabulacion = ["\ "]{4}|\t
     variables = [a-z]+{reglas_variablesextra}
@@ -163,6 +164,14 @@ public void add(String nuevo) {
             //tokens.add(new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
              this.add("PUNTO");
             return new Symbol(sym.PUNTO, new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
+            
+        }
+
+    {comentarios}
+        {   
+            //tokens.add(new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
+            //this.add("PUNTO");
+            //return new Symbol(sym.PUNTO, new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
             
         }
 
@@ -418,7 +427,8 @@ public void add(String nuevo) {
     {incluir}
         {   
             ////tokens.add(new token("INCLUIR", yytext(), this.tabulaciones, yyline, yycolumn));
-            //return new Symbol(sym.INCLUIR, new token("INCLUIR", yytext(), this.tabulaciones, yyline, yycolumn));
+            this.add("INCLUIR");
+            return new Symbol(sym.INCLUIR, new token("INCLUIR", yytext(), this.tabulaciones, yyline, yycolumn));
         }
     {eliminar}
         {   
@@ -592,7 +602,7 @@ public void add(String nuevo) {
     {cadena}
         {   
             //tokens.add(new token("TIPO_DATO_CUP", yytext(), this.tabulaciones, yyline, yycolumn));
-            this.add("CADENAS");
+            this.add("TIPO_DATO_CUP");
             return new Symbol(sym.TIPO_DATO_CUP, new token("TIPO_DATO_CUP", yytext(), this.tabulaciones, yyline, yycolumn));
         }
 
