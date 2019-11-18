@@ -330,7 +330,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 {:
                                         Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SELECTIVA");
                                         codigo.agregarHijo(estructuraselectiva);
-                                        func.agregarHijo(codigo);
+                                        //func.agregarHijo(codigo);
                                         RESULT=codigo;
                                 :}      
                                 //TERMINADO

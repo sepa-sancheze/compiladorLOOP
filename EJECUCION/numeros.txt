@@ -1,0 +1,15 @@
+Clase Impar
+    Propiedades Publicas:
+        entero a
+        cadena b
+	Metodos Publicos:
+	    cadena suma(entero a, cadena b)
+	    	entero c = d
+			devolver c
+		cadena raizCuadrada(entero r)
+    		real root = raiz(r)
+			devolver root
+
+entero Principal()
+    b = 5
+    devolver 0

@@ -1,0 +1,6 @@
+digraph arbol{
+{0 [label="raiz"]}->{1 [label="PRINCIPAL"]}{0 [label="raiz"]}->{2 [label="CLASE"]}{2}->{3 [label="MIEMBROS"]}{3}->{4 [label="NOMBRE"]}{4}->{5 [label="Impar"]}{3}->{6 [label="PROPIEDADES"]}{6}->{7 [label="b"]}{6}->{8 [label="a"]}{3}->{9 [label="METODOS"]}{9}->{10 [label="FUNC"]}{10}->{11 [label="suma"]}{10}->{12 [label="PARAMETROS"]}{12}->{13 [label="b"]}{12}->{14 [label="a"]}{12}->{15 [label="r"]}{10}->{16 [label="DECLA_VAR"]}{16}->{17 [label="DEC_VAR"]}{17}->{18 [label="VARIABLE"]}{18}->{19 [label="c"]}{17}->{20 [label="VAL_INI"]}{20}->{21 [label="="]}
+{20}->{22 [label="d"]}{10}->{23 [label="DEVOLVER"]}{23}->{25 [label="c"]}{9}->{26 [label="FUNC"]}{26}->{27 [label="raizCuadrada"]}{26}->{28 [label="PARAMETROS"]}{28}->{29 [label="b"]}{28}->{30 [label="a"]}{28}->{31 [label="r"]}{26}->{32 [label="DECLA_VAR"]}{32}->{33 [label="DEC_VAR"]}{33}->{34 [label="VARIABLE"]}{34}->{35 [label="root"]}{33}->{36 [label="VAL_INI"]}{36}->{37 [label="="]}
+{36}->{38 [label="RAIZ"]}{38}->{39 [label="raiz"]}
+{38}->{40 [label="r"]}{26}->{41 [label="DEVOLVER"]}{41}->{43 [label="root"]}{9}->{44 [label="FUNCION"]}{9}->{45 [label="FUNCION"]}
+}

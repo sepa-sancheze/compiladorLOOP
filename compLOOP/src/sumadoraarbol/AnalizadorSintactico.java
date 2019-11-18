@@ -1411,7 +1411,7 @@ class CUP$AnalizadorSintactico$actions {
 		
                                         Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SELECTIVA");
                                         codigo.agregarHijo(estructuraselectiva);
-                                        func.agregarHijo(codigo);
+                                        //func.agregarHijo(codigo);
                                         RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
