@@ -111,7 +111,7 @@ public void add(String nuevo) {
     numerosReales = [0-9]*[.][0-9]+[1-9]
     booleano = "verdadero"|"falso"
     cadena = ["\""]([a-zA-Z]*[0-9]*["\ "]*)*["\""]
-    comentarios = ["#"]([a-zA-Z]*[0-9]*["\ "]*)*
+    comentarios = ["#"]([a-zA-Z]*[0-9]*["\ "]*["="]*["+"]*["-"]*["*"]*["/"]*["%"]*["."]*["_"]*["("]*[")"]*["["]*["]"]*)*
     /*%   REGLAS EXTRAS */
     tabulacion = ["\ "]{4}|\t
     variables = [a-z]+{reglas_variablesextra}

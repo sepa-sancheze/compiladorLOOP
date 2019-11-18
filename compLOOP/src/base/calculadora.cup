@@ -442,11 +442,9 @@ DECLARACION_VARIABLES_CUP ::=   PALABRA_RESERVADA_TIPO:tipodato VARIABLES_CUP:va
                                 |VARIABLE_CLASE:identificadorclase PUNTO:punto VARIABLE:identificador VALOR_INICIAL_CUP:valinicial
                                 {:
                                     Nodo declaracion  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEC_VAR");
-                                    Nodo identificadorclase1 = new Nodo(Nodo.TIPO_IDENTIFICADOR_CLASE,identificadorclase.getLexema() );
-                                    Nodo punto1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PUNTO );
+                                    Nodo identificadorclase1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,identificadorclase.getLexema());
                                     Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, identificador.getLexema() );
                                     declaracion.agregarHijo(identificadorclase1);
-                                    declaracion.agregarHijo(punto1);
                                     declaracion.agregarHijo(identificador1);
                                     declaracion.agregarHijo(valinicial);
                                     RESULT=declaracion;
@@ -539,33 +537,33 @@ VALOR_INICIAL_CUP ::=           IGUAL:igual DECREMENTO:dec VARIABLE:variable
                                     valinicial.agregarHijo(mas2);
                                     RESULT=valinicial;
                                 :}                                
-                                |IGUAL:igual MENOS:menos VARIABLE:variable
+                                |IGUAL:igual RESTA:menos VARIABLE:variable
                                 {:
                                     Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
                                     Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                               
-                                    Nodo menos2 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.MENOS );
+                                    Nodo menos2 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "-");
                                     Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );
                                     valinicial.agregarHijo(igual1);                          
                                     valinicial.agregarHijo(menos2);
                                     valinicial.agregarHijo(identificador);  
                                     RESULT=valinicial;
                                 :}     
-                                | IGUAL:igual MENOS:menos TIPO_DATO_CUP:tipodato
+                                | IGUAL:igual RESTA:menos TIPO_DATO_CUP:tipodato
                                 {:
                                     Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
                                     Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                           
-                                    Nodo menos2 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.MENOS );
+                                    Nodo menos2 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "-");
                                     Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
                                     valinicial.agregarHijo(igual1);                          
                                     valinicial.agregarHijo(menos2);
                                     valinicial.agregarHijo(tipodato1);  
                                     RESULT=valinicial;
                                 :}                                  
-                                |IGUAL:igual MENOS:menos REALIZAR_OPERACION_CUP:realizar
+                                |IGUAL:igual RESTA:menos REALIZAR_OPERACION_CUP:realizar
                                 {:
                                     Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
                                     Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                           
-                                    Nodo menos2 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.MENOS );                           
+                                    Nodo menos2 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "-");
                                     valinicial.agregarHijo(igual1);
                                     valinicial.agregarHijo(menos2);
                                     valinicial.agregarHijo(realizar);  
