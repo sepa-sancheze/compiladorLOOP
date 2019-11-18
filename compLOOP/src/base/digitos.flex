@@ -111,7 +111,7 @@ public void add(String nuevo) {
     numerosReales = [0-9]*[.][0-9]+[1-9]
     booleano = "verdadero"|"falso"
     cadena = ["\""]([a-zA-Z]*[0-9]*["\ "]*)*["\""]
-    comentarios = [\/\/]([a-zA-Z]*[0-9]*["\ "]*)*
+    comentarios = ["#"]([a-zA-Z]*[0-9]*["\ "]*)*
     /*%   REGLAS EXTRAS */
     tabulacion = ["\ "]{4}|\t
     variables = [a-z]+{reglas_variablesextra}
@@ -157,21 +157,18 @@ public void add(String nuevo) {
 
 %%
     
-
+    {comentarios}
+        {   
+            //tokens.add(new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
+            //this.add("PUNTO");
+            //return new Symbol(sym.PUNTO, new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
+        }
 
     {punto}
         {   
             //tokens.add(new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
              this.add("PUNTO");
             return new Symbol(sym.PUNTO, new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
-            
-        }
-
-    {comentarios}
-        {   
-            //tokens.add(new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
-            //this.add("PUNTO");
-            //return new Symbol(sym.PUNTO, new token("PUNTO", yytext(), this.tabulaciones, yyline, yycolumn));
             
         }
 

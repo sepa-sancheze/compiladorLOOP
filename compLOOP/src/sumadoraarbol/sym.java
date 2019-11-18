@@ -45,16 +45,17 @@ public class sym {
   public static final int MODULO = 40;
   public static final int MENOS = 30;
   public static final int MAYOR_QUE = 42;
-  public static final int VARIABLE_CLASE = 56;
+  public static final int VARIABLE_CLASE = 57;
   public static final int NUEVO = 29;
   public static final int METODOS = 4;
   public static final int TANGENTE = 49;
   public static final int PALABRA_RESERVADA_TIPO = 34;
   public static final int PUNTO = 31;
-  public static final int VARIABLE = 55;
+  public static final int VARIABLE = 56;
   public static final int COSENO = 48;
   public static final int CADENA_A_ENTERO = 54;
   public static final int CADENA_A_REAL = 53;
+  public static final int INCLUIR = 55;
   public static final int IGUAL_QUE = 44;
   public static final int SENO = 47;
   public static final int CONSTRUCTOR = 11;
@@ -121,6 +122,7 @@ public class sym {
   "CADENA_A_BOOLEANO",
   "CADENA_A_REAL",
   "CADENA_A_ENTERO",
+  "INCLUIR",
   "VARIABLE",
   "VARIABLE_CLASE"
   };
