@@ -3,7 +3,7 @@ package compiladorloop;
 import java_cup.runtime.*;
 import createdClasses.arbol;
 import createdClasses.token;
-
+import createdClasses.Nodo;
 //Agregar variables
 parser code {:
     public arbol tree;
@@ -12,38 +12,137 @@ parser code {:
     public void syntax_error(Symbol sy){
         token t = (token)sy.value;
         done_parsing();
-        report_error("Error sintáctico en el token: " + t.getLexema(), null);
+        report_error("Error sintáctico en el token: " + t.getLexema() + ". ", null);
     }
 :}
-
 init with{:
     this.tree = new arbol();
 :}
 
-terminal MAS, MENOS, FI;            //Símbolos terminales
-terminal token NUMERO;
-non terminal token S, I, OP;                         //Símbolos no terminaless
-precedence left MAS;                    //Precedencia para símbolos terminales
-precedence left MENOS;
+//Los símbolos terminales sin token significan que son palabras, tal cual las pasamos
+//Si tienen el token significa que es una expresión regular
+
+//##############################################################################
+// Símbolos terminales
+//##############################################################################
+
+terminal CLASE, PROPIEDADES, METODOS;
+terminal IF, ENTONCES, SINO;
+terminal LEER, ESCRIBIR;
+terminal DEVOLVER, CONSTRUCTOR, DESTRUCTOR, PRINCIPAL, INSTANCIAR, DESDE, MIENTRAS;
+terminal INCREMENTO, DECREMENTO, HACER, EXTIENDE;
+terminal PARENTESIS1, PARENTESIS2, COMA;
+terminal IGUAL, AND, OR, DOS_PUNTOS;
+terminal PUNTO_Y_COMA;
+terminal VARIABLE, RAIZ;
+terminal MENOS, PUNTO;
+terminal VARIABLE_CLASE,ELIMINAR;
+terminal TIPO_DATO_CUP;
+terminal SUMA, RESTA, MULTIPLICACION, DIVISION, EXPONENCIACION, MODULO;
+terminal MENOR_QUE, MAYOR_QUE, DISTINTO_QUE, IGUAL_QUE, INCREMENTAR, DECREMENTAR;
+terminal SENO, COSENO, TANGENTE, LOGARITMO, PROPIEDADES_METODOS;
+terminal CADENA_A_BOOLEANO, CADENA_A_REAL, CADENA_A_ENTERO;
+
+//##############################################################################
+//VARIABLES DEL CUP
+//##############################################################################
+
+non terminal S;
+non terminal DECLARACION_CLASES_CUP, CLASES_CUP, ENCABEZADO_CUP, PROPIEDADES_CUP;
+non terminal METODOS_CUP, VARIABLES_PROPIEDADES_CUP, CODIGO_METODOS_CUP;
+non terminal DECLARACION_VARIABLES_CUP;
+non terminal OPERACIONES_CUP, REALIZAR_OPERACION_CUP, LISTA_OPERACIONES_CUP;
+non terminal VARIABLES_CUP, VALOR_INICIAL_CUP;
+non terminal LECTURA_ESCRITURA_CUP, LECTURA_CUP, ESCRITURA_CUP;
+
+//##############################################################################
+// Precedencia símbolos terminales
+//##############################################################################
+precedence right SUMA, RESTA;
+precedence left EXPONENCIACION, MODULO, RAIZ;
+precedence left MULTIPLICACION, DIVISION;
+precedence right OR;
+precedence left AND;
 
 start with S;
 
-//::= = ->; S MAS S = S + S
-//El código se va a ejecutar hasta que se hayan cumplido las reglas anteriores.
-S ::=    I S            {: System.out.println("S -> I S"); :}
-        |I              {: System.out.println("S -> I"); :};
+//##############################################################################
+// Declaración de gramática
+//##############################################################################
 
-I ::= OP FI             {: System.out.println("I -> OP FI"); :};
+S ::=                           CLASES_CUP;
 
-OP ::=    OP MAS OP     {: System.out.println("OP -> OP + OP"); :}
-        | OP:i MENOS OP:d   {: 
-                            System.out.println("OP -> OP - OP"); 
-                            token operacion = new token("menos", "-");
-                            operacion.agregarHijo(i);
-                            operacion.agregarHijo(d);
-                            RESULT = operacion;
-                        :}
-        | NUMERO:n      {: 
-                            System.out.println("OP -> NUM"); 
-                            RESULT = n;
-                        :};
+CLASES_CUP ::=                  DECLARACION_CLASES_CUP CLASES_CUP |
+                                DECLARACION_CLASES_CUP;
+
+DECLARACION_CLASES_CUP ::=      ENCABEZADO_CUP PROPIEDADES_CUP METODOS_CUP;
+
+ENCABEZADO_CUP ::=              CLASE VARIABLE_CLASE EXTIENDE VARIABLE_CLASE |
+                                CLASE VARIABLE_CLASE;
+
+PROPIEDADES_CUP ::=             PROPIEDADES PROPIEDADES_METODOS DOS_PUNTOS VARIABLES_PROPIEDADES_CUP PROPIEDADES_CUP |
+                                PROPIEDADES PROPIEDADES_METODOS DOS_PUNTOS VARIABLES_PROPIEDADES_CUP;
+
+VARIABLES_PROPIEDADES_CUP ::=   TIPO_DATO_CUP VARIABLE VARIABLES_PROPIEDADES_CUP |
+                                TIPO_DATO_CUP VARIABLE;
+
+METODOS_CUP ::=                 METODOS PROPIEDADES_METODOS DOS_PUNTOS CODIGO_METODOS_CUP METODOS_CUP |
+                                METODOS PROPIEDADES_METODOS DOS_PUNTOS CODIGO_METODOS_CUP;
+
+CODIGO_METODOS_CUP ::=          DECLARACION_VARIABLES_CUP CODIGO_METODOS_CUP |
+                                REALIZAR_OPERACION_CUP CODIGO_METODOS_CUP |
+                                LECTURA_ESCRITURA_CUP CODIGO_METODOS_CUP |
+
+                                LECTURA_ESCRITURA_CUP |
+                                REALIZAR_OPERACION_CUP |
+                                DECLARACION_VARIABLES_CUP;
+
+//Códigos generales 
+//VARIABLES
+DECLARACION_VARIABLES_CUP ::=   TIPO_DATO_CUP VARIABLES_CUP VALOR_INICIAL_CUP |
+                                TIPO_DATO_CUP VARIABLES_CUP |
+                                VARIABLE |
+                                VARIABLE_CLASE PUNTO VARIABLE VALOR_INICIAL_CUP;
+
+VARIABLES_CUP ::=               VARIABLE COMA VARIABLES_CUP |
+                                VARIABLE |
+                                TIPO_DATO_CUP ;
+
+VALOR_INICIAL_CUP ::=           IGUAL MENOS MENOS VARIABLE |
+                                IGUAL SUMA SUMA VARIABLE |
+                                IGUAL VARIABLE MENOS MENOS |
+                                IGUAL VARIABLE SUMA SUMA |
+                                IGUAL MENOS VARIABLE |
+                                IGUAL MENOS TIPO_DATO_CUP |
+                                IGUAL MENOS REALIZAR_OPERACION_CUP |
+                                IGUAL VARIABLE |
+                                IGUAL TIPO_DATO_CUP |
+                                IGUAL REALIZAR_OPERACION_CUP;
+
+//OPERACIONES BÁSICAS
+OPERACIONES_CUP  ::=            SUMA |
+                                RESTA |
+                                MULTIPLICACION |
+                                DIVISION |
+                                MODULO |
+                                EXPONENCIACION |
+                                AND |
+                                OR;
+
+REALIZAR_OPERACION_CUP ::=      VARIABLE LISTA_OPERACIONES_CUP |
+                                TIPO_DATO_CUP LISTA_OPERACIONES_CUP;
+
+LISTA_OPERACIONES_CUP ::=       OPERACIONES_CUP VARIABLE LISTA_OPERACIONES_CUP |
+                                OPERACIONES_CUP TIPO_DATO_CUP LISTA_OPERACIONES_CUP |
+                                OPERACIONES_CUP TIPO_DATO_CUP |
+                                OPERACIONES_CUP VARIABLE;
+
+//LECTURA Y ESCRITURA
+LECTURA_ESCRITURA_CUP ::=       LECTURA_CUP |
+                                ESCRITURA_CUP;
+
+LECTURA_CUP ::=                 LEER VARIABLE;
+
+ESCRITURA_CUP ::=               ESCRIBIR VARIABLES_CUP;
+
+//ESTRUCTURAS SELECTIVAS 

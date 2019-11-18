@@ -1,0 +1,1209 @@
+package sumadoraarbol;
+
+import java_cup.runtime.Symbol;
+
+action code {:
+    Nodo principal = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PRINCIPAL");
+    Nodo propiedad = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PROPIEDADES");
+    Nodo metodos = new Nodo(Nodo.TIPO_IDENTIFICADOR,"METODOS");
+    Nodo parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
+    Nodo func = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
+    boolean banderaFuncion = false;
+    int contPrincipal = 0;
+:}
+
+parser code {:
+    
+    public Arbol arbolSintactico;
+
+    @Override
+    public void syntax_error(Symbol sy) {
+        token t=(token)sy.value;
+        done_parsing();
+        report_error("Error sintáctico cerca de " + t.getLexema() + ", F=" + t.getLinea() + ", C=" + t.getColumna() + ". ",null);
+        
+    }
+:}
+
+init with {: 
+    arbolSintactico = new Arbol();
+:};
+
+//Los símbolos terminales sin token significan que son palabras, tal cual las pasamos
+//Si tienen el token significa que es una expresión regular
+
+//##############################################################################
+// Símbolos terminales
+//##############################################################################
+
+terminal CLASE, PROPIEDADES, METODOS;
+terminal IF, ENTONCES, SINO;
+terminal LEER, ESCRIBIR;
+terminal DEVOLVER, CONSTRUCTOR, DESTRUCTOR, PRINCIPAL, INSTANCIAR, DESDE, MIENTRAS;
+terminal INCREMENTO, DECREMENTO, HACER, EXTIENDE;
+terminal PARENTESIS1, PARENTESIS2, COMA;
+terminal IGUAL, AND, OR, DOS_PUNTOS;
+terminal RAIZ, NUEVO;
+terminal MENOS, PUNTO;
+terminal ELIMINAR, TIPO_DATO_CUP;
+terminal PALABRA_RESERVADA_TIPO;
+terminal SUMA, RESTA, MULTIPLICACION, DIVISION, EXPONENCIACION, MODULO;
+terminal MENOR_QUE, MAYOR_QUE, DISTINTO_QUE, IGUAL_QUE, INCREMENTAR, DECREMENTAR;
+terminal SENO, COSENO, TANGENTE, LOGARITMO, PROPIEDADES_METODOS;
+terminal CADENA_A_BOOLEANO, CADENA_A_REAL, CADENA_A_ENTERO, INCLUIR;
+//Con tokens
+terminal token VARIABLE, VARIABLE_CLASE;
+
+//##############################################################################
+//VARIABLES DEL CUP
+//##############################################################################
+
+non terminal S;
+non terminal Nodo DECLARACION_CLASES_CUP, CLASES_CUP, ENCABEZADO_CUP, PROPIEDADES_CUP;
+non terminal Nodo METODOS_CUP, VARIABLES_PROPIEDADES_CUP, CODIGO_METODOS_CUP;
+non terminal Nodo DECLARACION_VARIABLES_CUP, CONDICION_CUP, ELSE_CUP, VARIAS_VARIABLES_CUP;
+non terminal Nodo OPERACIONES_CUP, REALIZAR_OPERACION_CUP, LISTA_OPERACIONES_CUP;
+non terminal Nodo VARIABLES_CUP, VALOR_INICIAL_CUP, ESTRUCTURA_SELECTIVA_CUP;
+non terminal Nodo LECTURA_ESCRITURA_CUP, LECTURA_CUP, ESCRITURA_CUP, DEVOLUCION_CUP;
+non terminal Nodo OPERADORES_LOGICOS_CUP, TIPOS_DATOS_CONDICIONES_CUP;
+non terminal Nodo DESDE_CUP, INC_DEC_VAR, HACER_CUP, FUNCIONES_SUELTAS_CUP;
+non terminal Nodo LISTA_VARIABLES_CUP, INSTANCIACION_CUP;
+non terminal Nodo CONSTRUCTOR_CUP, DESTRUCTOR_CUP, PROGRAMA_PRINCIPAL_CUP;
+non terminal Nodo LLAMADA_METODO_CLASE_CUP, FUNCIONES_PREDEFINIDAS_CUP;
+//Con nodos
+non terminal Nodo CLASE_GENERAL_CUP;
+
+//##############################################################################
+// Precedencia símbolos terminales
+//##############################################################################
+precedence right SUMA, RESTA;
+precedence left EXPONENCIACION, MODULO, RAIZ;
+precedence left MULTIPLICACION, DIVISION;
+precedence right OR;
+precedence left AND;
+precedence left ELIMINAR, TIPO_DATO_CUP, CLASE, PALABRA_RESERVADA_TIPO;
+precedence left VARIABLE_CLASE, VARIABLE, HACER, DESDE, DESTRUCTOR, CONSTRUCTOR;
+precedence left IF, LEER, ESCRIBIR;
+precedence right SINO;
+
+start with S;
+
+//##############################################################################
+// Declaración de gramática
+//##############################################################################
+
+
+//COMPLETADO
+S ::=                           //CLASE_GENERAL_CUP;// PROGRAMA_PRINCIPAL_CUP;
+                                CLASE_GENERAL_CUP:clasegeneral;
+//COMPLETADO
+CLASE_GENERAL_CUP ::=           CLASE_GENERAL_CUP:clasegeneral CLASES_CUP:clase1 
+                                {:
+                                    //Nodo clase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"CLASE");
+                                    //clase.agregarHijo(clasegeneral);
+                                    //clase.agregarHijo(clase1);
+                                    //RESULT=clase;
+                                    parser.arbolSintactico.agregarHijo(clase1);
+                                :}
+                                |CLASES_CUP:clase1
+                                {:
+                                    parser.arbolSintactico.agregarHijo(clase1);
+                                    //Nodo clase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"CLASE");
+                                    //clase.agregarHijo(clase1);
+                                    //RESULT=clase;
+                                :};
+//COMPLETADO
+CLASES_CUP ::=                  DECLARACION_CLASES_CUP: dec
+                                {:
+                                    Nodo clase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"CLASE");
+                                    clase.agregarHijo(dec);
+                                    RESULT=clase;
+                                :};
+//COMPLETADO
+DECLARACION_CLASES_CUP ::=      ENCABEZADO_CUP:encabezado PROPIEDADES_CUP:propiedades METODOS_CUP:metodo
+                                {:
+                                    Nodo decclase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"MIEMBROS");
+                                    decclase.agregarHijo(encabezado);
+                                    decclase.agregarHijo(propiedades);
+                                    decclase.agregarHijo(metodo);
+                                    RESULT=decclase;
+                                :};
+//COMPLETADO
+ENCABEZADO_CUP ::=              CLASE:clase VARIABLE_CLASE:identificadorclase EXTIENDE:extiende VARIABLE_CLASE:identificadorclase1
+                                {:
+                                    Nodo encabezado = new Nodo(Nodo.TIPO_IDENTIFICADOR,"NOMBRE_HERENCIA");
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR,identificadorclase.getLexema());
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, identificadorclase1.getLexema());
+                                    encabezado.agregarHijo(identificador);
+                                    encabezado.agregarHijo(identificador1);
+                                    RESULT=encabezado;
+                                :}
+                                |CLASE: clase VARIABLE_CLASE:identificador
+                                {:
+                                    Nodo encabezado = new Nodo(Nodo.TIPO_IDENTIFICADOR,"NOMBRE");
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, identificador.getLexema());                                                                
+                                    encabezado.agregarHijo(identificador1);
+                                    RESULT=encabezado;
+                                :};  
+//COMPLETADO
+PROPIEDADES_CUP ::=             PROPIEDADES: propiedades PROPIEDADES_METODOS: propmetodos DOS_PUNTOS: dospuntos VARIABLES_PROPIEDADES_CUP:variablespropiedades PROPIEDADES_CUP: propiedad2 
+                                {:
+                                    RESULT=propiedad;
+                                :}
+                                |PROPIEDADES: propiedades PROPIEDADES_METODOS:propmetodos DOS_PUNTOS:dospuntos VARIABLES_PROPIEDADES_CUP:variablespropiedades
+                                {:
+                                    RESULT=propiedad;
+                                :};  
+//COMPLETADO
+VARIABLES_PROPIEDADES_CUP ::=   PALABRA_RESERVADA_TIPO:tipodato VARIABLE:identificador VARIABLES_PROPIEDADES_CUP:variablespropiedades2
+                                {:
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,identificador.getLexema());
+                                    propiedad.agregarHijo(identificador1);
+                                    //RESULT=identificador1;
+                                :}
+                                |VARIABLE_CLASE:variablec VARIABLE:variable
+                                {:
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );   
+                                    propiedad.agregarHijo(variable1);
+                                    //RESULT=variable1;
+                                :}                                                           
+                                |PALABRA_RESERVADA_TIPO:tipodato VARIABLE:identificador
+                                {:                      
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,identificador.getLexema() );  
+                                    propiedad.agregarHijo(identificador1);
+                                    //RESULT=identificador1;
+                                :};
+//COMPLETADO
+METODOS_CUP ::=                 METODOS:metodo PROPIEDADES_METODOS:propmetodos DOS_PUNTOS:dospuntos CODIGO_METODOS_CUP:codigos METODOS_CUP:metodos2
+                                {:
+                                    RESULT=metodos;
+                                :}
+                                |METODOS:metodo PROPIEDADES_METODOS:propmetodos DOS_PUNTOS:dospuntos CODIGO_METODOS_CUP:codigos
+                                {:
+                                    RESULT=metodos;
+                                :};
+CODIGO_METODOS_CUP ::=          //TERMINADO
+                                DECLARACION_VARIABLES_CUP:declaracion CODIGO_METODOS_CUP:codigos1 
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DECLA_VAR");
+                                    codigo.agregarHijo(declaracion);
+                                    func.agregarHijo(codigos1);
+                                    RESULT=codigo;
+                                :}
+                                //TERMINADO
+                                |LECTURA_ESCRITURA_CUP:leerescribir CODIGO_METODOS_CUP:codigos1 
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
+                                    codigo.agregarHijo(leerescribir);
+                                    //func.agregarHijo(codigo);
+                                    func.agregarHijo(codigos1);
+                                    RESULT=codigo;
+                                :} 
+                                //TERMINADO
+                                |ESTRUCTURA_SELECTIVA_CUP:estructuraselectiva CODIGO_METODOS_CUP:codigos1 
+                                {:
+                                        Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SELECTIVA");
+                                        codigo.agregarHijo(estructuraselectiva);
+                                        func.agregarHijo(codigos1);
+                                        RESULT=codigo;
+                                :} 
+                                //TERMINADO
+                                |DESDE_CUP:desde CODIGO_METODOS_CUP:codigos1
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESDE");
+                                    codigo.agregarHijo(desde);
+                                    func.agregarHijo(codigos1);
+                                    RESULT=codigo;
+                                :}  
+                                //TERMINADO
+                                |HACER_CUP:hacer CODIGO_METODOS_CUP:codigos1
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "HACER");
+                                    codigo.agregarHijo(hacer);
+                                    func.agregarHijo(codigos1);
+                                    RESULT=codigo;
+                                :}  
+                                //TERMINADO
+                                |FUNCIONES_SUELTAS_CUP:funciones CODIGO_METODOS_CUP:codigos1
+                                {:
+
+                                    parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
+                                    Nodo codigo = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    metodos.agregarHijo(func);
+                                    RESULT=func;
+                                :}  
+                                //TERMINADO
+                                |INSTANCIACION_CUP:instanciacion CODIGO_METODOS_CUP:codigos1 
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACION");
+                                    codigo.agregarHijo(instanciacion);
+                                    func.agregarHijo(codigos1);
+                                    //func.agregarHijo(codigo);
+                                    RESULT=codigo;
+                                :}                               
+                                //TERMINADO
+                                |CONSTRUCTOR_CUP:constructor CODIGO_METODOS_CUP:codigos1
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CONSTRUCTOR");
+                                    codigo.agregarHijo(constructor);
+                                    func.agregarHijo(codigos1);
+                                    RESULT=codigo;
+                                :}                               
+                                //TERMINADO
+                                |DESTRUCTOR_CUP:destructor CODIGO_METODOS_CUP:codigos1
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESTRUCTOR");
+                                    codigo.agregarHijo(destructor);
+                                    func.agregarHijo(codigos1);
+                                    RESULT=codigo;
+                                :}                                 
+                                //TERMINADO
+                                | VARIAS_VARIABLES_CUP:varias CODIGO_METODOS_CUP:codigos1
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLES");
+                                    codigo.agregarHijo(varias);
+                                    func.agregarHijo(codigos1);
+                                    RESULT=codigo;
+                                :} 
+                                //TERMINADO
+                                |LLAMADA_METODO_CLASE_CUP:llamada CODIGO_METODOS_CUP:codigos1
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CALL_CLASE");
+                                    codigo.agregarHijo(llamada);
+                                    func.agregarHijo(codigos1);
+                                    RESULT=codigo;
+                                :}   
+                                //TERMINADO
+                                |LLAMADA_METODO_CLASE_CUP:llamada
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CALL_METOD");
+                                    codigo.agregarHijo(llamada);
+                                    func.agregarHijo(codigo);
+                                    RESULT=codigo;
+                                :}
+                                //TERMINADO
+                                |PROGRAMA_PRINCIPAL_CUP:programa               
+                                {:
+                                    Nodo program = new Nodo(Nodo.TIPO_IDENTIFICADOR, "PRINCIPAL");
+                                    parser.arbolSintactico.agregarHijo(program);
+                                    RESULT = principal;
+                                :}
+                                //TERMINADO
+                                |VARIAS_VARIABLES_CUP:varias
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "MULTIPLE_VARS");
+                                    codigo.agregarHijo(varias);
+                                    func.agregarHijo(codigo);
+                                    RESULT=codigo;
+                                :}    
+                                //TERMINADO
+                                | INSTANCIACION_CUP :instanciacion
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACION");
+                                    codigo.agregarHijo(instanciacion);
+                                    //func.agregarHijo(codigo);
+                                    RESULT=codigo;
+                                :} 
+                                //TERMINADO
+                                | FUNCIONES_SUELTAS_CUP:funciones
+                                {:
+                                    //RESULT=codigo;
+                                :} 
+                                //TERMINADO
+                                | HACER_CUP:hacer
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "HACER");
+                                    codigo.agregarHijo(hacer);
+                                    func.agregarHijo(codigo);
+                                    RESULT=codigo;
+                                :}                                   
+                                //TERMINADO
+                                | DESDE_CUP:desde 
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESDE");
+                                    codigo.agregarHijo(desde);
+                                    func.agregarHijo(codigo);
+                                    RESULT=codigo;
+                                :}
+                                //TERMINADO
+                                | ESTRUCTURA_SELECTIVA_CUP:estructuraselectiva
+                                {:
+                                        Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SELECTIVA");
+                                        codigo.agregarHijo(estructuraselectiva);
+                                        //func.agregarHijo(codigo);
+                                        RESULT=codigo;
+                                :}      
+                                //TERMINADO
+                                |LECTURA_ESCRITURA_CUP: leerescribir
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "R/W");
+                                    codigo.agregarHijo(leerescribir);
+                                    func.agregarHijo(codigo);
+                                    RESULT=codigo;
+                                :}
+                                //TERMINADO
+                                |REALIZAR_OPERACION_CUP: realizar
+                                {:
+                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DO_OPER");
+                                    codigo.agregarHijo(realizar);
+                                    func.agregarHijo(codigo);
+                                    RESULT=codigo;
+                                :}                                
+                                //TERMINADO
+                                |DECLARACION_VARIABLES_CUP: declaracion
+                                {:
+                                        Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DECLA_VAR");
+                                        codigo.agregarHijo(declaracion);
+                                        RESULT=codigo;
+                                :};
+
+LLAMADA_METODO_CLASE_CUP ::=    VARIABLE:variable PUNTO:punto VARIABLE:variable2 PARENTESIS1:p1 LISTA_VARIABLES_CUP:lista PARENTESIS2:p2 
+                                {:
+                                    Nodo declaracion  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );
+                                    Nodo punto1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PUNTO );
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable2.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    declaracion.agregarHijo(identificador);
+                                    declaracion.agregarHijo(punto1);
+                                    declaracion.agregarHijo(identificador1);
+                                    declaracion.agregarHijo(p222);
+                                    declaracion.agregarHijo(lista);
+                                    declaracion.agregarHijo(p22);
+                                    RESULT=declaracion;
+                                :} 
+                               |VARIABLE:variable PUNTO:punto VARIABLE:variable2 PARENTESIS1:p1 PARENTESIS2:p2
+                                {:
+                                    Nodo declaracion  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );
+                                    Nodo punto1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PUNTO );
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable2.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    declaracion.agregarHijo(identificador);
+                                    declaracion.agregarHijo(punto1);
+                                    declaracion.agregarHijo(identificador1);
+                                    declaracion.agregarHijo(p222);
+                                    declaracion.agregarHijo(p22);
+                                    RESULT=declaracion;
+                                :} ;                              
+DECLARACION_VARIABLES_CUP ::=   PALABRA_RESERVADA_TIPO:tipodato VARIABLES_CUP:variable VALOR_INICIAL_CUP: valinicial  
+                                {:
+                                    Nodo declaracion  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEC_VAR");
+                                    //Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema());
+                                    declaracion.agregarHijo(variable);
+                                    declaracion.agregarHijo(valinicial);
+                                    RESULT=declaracion;
+                                :}
+                                |PALABRA_RESERVADA_TIPO:tipodato VARIABLES_CUP:variable 
+                                {:
+                                    Nodo declaracion  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEC_VAR");
+                                    declaracion.agregarHijo(variable);
+                                    RESULT=declaracion;
+                                :}                                
+                                |VARIABLE: identificador
+                                {:
+                                    Nodo declaracion  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEC_VAR");
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, identificador.getLexema() );
+                                    declaracion.agregarHijo(identificador1);
+                                    RESULT=declaracion;
+                                :} 
+                                |VARIABLE_CLASE:identificadorclase PUNTO:punto VARIABLE:identificador VALOR_INICIAL_CUP:valinicial
+                                {:
+                                    Nodo declaracion  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEC_VAR");
+                                    Nodo identificadorclase1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,identificadorclase.getLexema());
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, identificador.getLexema() );
+                                    declaracion.agregarHijo(identificadorclase1);
+                                    declaracion.agregarHijo(identificador1);
+                                    declaracion.agregarHijo(valinicial);
+                                    RESULT=declaracion;
+                                :}
+                                |VARIABLE:variable VALOR_INICIAL_CUP:val  
+                                {:
+                                    Nodo declaracion  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEC_VAR");
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );
+                                    declaracion.agregarHijo(identificador);
+                                    declaracion.agregarHijo(val);
+                                    RESULT=declaracion;
+                                :} ;
+
+VARIABLES_CUP ::=               VARIABLE:identificador COMA:coma VARIABLES_CUP:variable2
+                                {:
+                                    Nodo variables  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, identificador.getLexema() );
+                                    Nodo coma1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.COMA );
+                                    variables.agregarHijo(identificador1);
+                                    variables.agregarHijo(coma1);
+                                    variables.agregarHijo(variable2);
+                                    RESULT=variables;
+                                :} 
+                                |TIPO_DATO_CUP:tipodato COMA:coma VARIABLES_CUP:variable 
+                                {:
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
+                                    Nodo variables  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo coma1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.COMA );
+                                    variables.agregarHijo(tipodato1);
+                                    variables.agregarHijo(coma1);
+                                    variables.agregarHijo(variable);
+                                    RESULT=variables;
+                                :}                                 
+                                |VARIABLE:identificador
+                                {:
+                                    Nodo variables  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
+                                    Nodo identificador1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, identificador.getLexema() );
+                                    variables.agregarHijo(identificador1);
+                                    RESULT=variables;
+                                :}                                
+                                | TIPO_DATO_CUP: tipodato 
+                                {:
+                                    Nodo variables  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_VAR");
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    variables.agregarHijo(tipodato1);
+                                    RESULT=variables;
+                                :}  ;                 
+VALOR_INICIAL_CUP ::=           IGUAL:igual DECREMENTO:dec VARIABLE:variable 
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);
+                                    Nodo menos2 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.DECREMENTO );
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(menos2);
+                                    valinicial.agregarHijo(identificador);
+                                    RESULT=valinicial;
+                                :}   
+                               |IGUAL:igual INCREMENTO:inc VARIABLE:variable
+                                
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);
+                                    Nodo mas2 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.INCREMENTO );
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(mas2);
+                                    valinicial.agregarHijo(identificador);
+                                    RESULT=valinicial;
+                                :}
+                                |IGUAL:igual VARIABLE:variable DECREMENTO:dec
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);
+                                    Nodo menos2 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.DECREMENTO );
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(identificador);                                
+                                    valinicial.agregarHijo(menos2);
+                                    RESULT=valinicial;
+                                :}     
+                                |IGUAL:igual VARIABLE:variable INCREMENTO:inc
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );                                
+                                    Nodo mas2 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.INCREMENTO );
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(identificador);                                
+                                    valinicial.agregarHijo(mas2);
+                                    RESULT=valinicial;
+                                :}                                
+                                |IGUAL:igual RESTA:menos VARIABLE:variable
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                               
+                                    Nodo menos2 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "-");
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );
+                                    valinicial.agregarHijo(igual1);                          
+                                    valinicial.agregarHijo(menos2);
+                                    valinicial.agregarHijo(identificador);  
+                                    RESULT=valinicial;
+                                :}     
+                                | IGUAL:igual RESTA:menos TIPO_DATO_CUP:tipodato
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                           
+                                    Nodo menos2 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "-");
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    valinicial.agregarHijo(igual1);                          
+                                    valinicial.agregarHijo(menos2);
+                                    valinicial.agregarHijo(tipodato1);  
+                                    RESULT=valinicial;
+                                :}                                  
+                                |IGUAL:igual RESTA:menos REALIZAR_OPERACION_CUP:realizar
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                           
+                                    Nodo menos2 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "-");
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(menos2);
+                                    valinicial.agregarHijo(realizar);  
+                                    RESULT=valinicial;
+                                :}   
+                                |IGUAL:igual VARIABLE:variable
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                               
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );                        
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(identificador);  
+                                    RESULT=valinicial;
+                                :}                                    
+                                |IGUAL:igual TIPO_DATO_CUP:tipodato 
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                              
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(tipodato1);  
+                                    RESULT=valinicial;
+                                :}                                 
+                                |IGUAL:igual REALIZAR_OPERACION_CUP:realizar
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                              
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(realizar);  
+                                    RESULT=valinicial;
+                                :}       
+                               |IGUAL:igual CONDICION_CUP:condicion
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                               
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(condicion);  
+                                    RESULT=valinicial;
+                                :} 
+                               |IGUAL:igual NUEVO:nuevo VARIABLE_CLASE:variablec PARENTESIS1:p1 PARENTESIS2:p2 
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                              
+                                    Nodo nuevo1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.NUEVO );                               
+                                    Nodo variablec1 = new Nodo(Nodo.TIPO_IDENTIFICADOR_CLASE,variablec.getLexema() );                               
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);                       
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(nuevo1);
+                                    valinicial.agregarHijo(variablec1);
+                                    valinicial.agregarHijo(p222);
+                                    valinicial.agregarHijo(p22) ;
+                                    RESULT=valinicial;
+                                :}  
+                                |IGUAL:igual FUNCIONES_PREDEFINIDAS_CUP:funciones
+                                {:
+                                    Nodo valinicial  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VAL_INI");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL);                          
+                                    valinicial.agregarHijo(igual1);
+                                    valinicial.agregarHijo(funciones) ;
+                                    RESULT=valinicial;
+                                :}
+;  
+
+OPERACIONES_CUP  ::=            SUMA :mas
+                                {:
+                                    Nodo operaciones  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo mas1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.SUMA );                               
+                                    operaciones.agregarHijo(mas1);
+                                    RESULT=operaciones;
+                                :} 
+                                |RESTA:resta 
+                                {:
+                                    Nodo operaciones  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo resta1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.RESTA );                               
+                                    operaciones.agregarHijo(resta1);
+                                    RESULT=operaciones;
+                                :}                                
+                                |MULTIPLICACION:mult
+                                {:
+                                    Nodo operaciones  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo mult1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.MULTIPLICACION );     
+                                    operaciones.agregarHijo(mult1);
+                                    RESULT=operaciones;
+                                :}                                 
+                                |DIVISION:div 
+                                {:
+                                    Nodo operaciones  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo div1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.DIVISION );                                
+                                    operaciones.agregarHijo(div1);
+                                    RESULT=operaciones;
+                                :}                                
+                                |MODULO:mod 
+                                {:
+                                    Nodo operaciones  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo mod1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.MODULO );                                
+                                    operaciones.agregarHijo(mod1);
+                                    RESULT=operaciones;
+                                :}                                
+                                |EXPONENCIACION:exp
+                                {:
+                                    Nodo operaciones  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo exp1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.EXPONENCIACION );                                
+                                    operaciones.agregarHijo(exp1);
+                                    RESULT=operaciones;
+                                :}                                 
+                                |AND:and 
+                                {:
+                                    Nodo operaciones  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo and1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.AND );                                
+                                    operaciones.agregarHijo(and1);
+                                    RESULT=operaciones;
+                                :}                                
+                                |OR:or
+                                {:
+                                    Nodo operaciones  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo or1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.OR );                                
+                                    operaciones.agregarHijo(or1);
+                                    RESULT=operaciones;
+                                :}; 
+REALIZAR_OPERACION_CUP ::=      VARIABLE:variable LISTA_OPERACIONES_CUP:lista 
+                                {:
+                                    Nodo realizar  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo identificador = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() );                             
+                                    realizar.agregarHijo(identificador);
+                                    realizar.agregarHijo(lista);
+                                    RESULT=realizar;
+                                :}
+                                |TIPO_DATO_CUP:tipodato LISTA_OPERACIONES_CUP:lista
+                                {:
+                                    Nodo realizar  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    realizar.agregarHijo(tipodato1);
+                                    realizar.agregarHijo(lista);
+                                    RESULT=realizar;
+                                :};     
+LISTA_OPERACIONES_CUP ::=       OPERACIONES_CUP:operaciones VARIABLE:variable LISTA_OPERACIONES_CUP:lista2
+                                {:
+                                    Nodo lista  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() ); 
+                                    lista.agregarHijo(operaciones);
+                                    lista.agregarHijo(variable1);
+                                    lista.agregarHijo(lista2);
+                                    RESULT=lista;
+                                :}    
+                                
+                                |OPERACIONES_CUP:operaciones TIPO_DATO_CUP:tipodato LISTA_OPERACIONES_CUP:lista2 
+                                {:
+                                    Nodo lista  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    lista.agregarHijo(operaciones);
+                                    lista.agregarHijo(tipodato1);
+                                    lista.agregarHijo(lista2);
+                                    RESULT=lista;
+                                :}                              
+                                |OPERACIONES_CUP:operaciones TIPO_DATO_CUP:tipodato 
+                                {:
+                                    Nodo lista  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    lista.agregarHijo(operaciones);
+                                    lista.agregarHijo(tipodato1);
+                                    RESULT=lista;
+                                :}                                  
+                                | OPERACIONES_CUP:operaciones VARIABLE:variable
+                                {:
+                                    Nodo lista  = new Nodo(Nodo.TIPO_EXPRESION, 0);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() ); 
+                                    lista.agregarHijo(operaciones);
+                                    lista.agregarHijo(variable1);
+                                    RESULT=lista;
+                                :}; 
+LECTURA_ESCRITURA_CUP ::=       LECTURA_CUP :lectura
+                                {:
+                                    Nodo lecturaescritura  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "READ");
+                                    RESULT=lecturaescritura;
+                                :}  
+                                |ESCRITURA_CUP: escritura
+                                {:
+                                    Nodo lecturaescritura  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "WRITE");
+                                    RESULT=lecturaescritura;
+                                :} ;
+LECTURA_CUP ::=                 LEER:leer VARIABLE:variable
+                                {:
+                                    Nodo lectura  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() ); 
+                                    lectura.agregarHijo(variable1);
+                                    RESULT=lectura;
+                                :} ;
+ESCRITURA_CUP ::=               ESCRIBIR:escribir VARIABLES_CUP:variable
+                                {:
+                                    Nodo escritura  = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE(S)");
+                                    escritura.agregarHijo(variable);
+                                    RESULT=escritura;
+                                :}; 
+
+//ESTRUCTURAS SELECTIVAS 
+OPERADORES_LOGICOS_CUP ::=      MENOR_QUE :menor1
+                                {:
+                                    Nodo logicos = new Nodo(Nodo.TIPO_IDENTIFICADOR, "MENOR_QUE");
+                                    Nodo menor = new Nodo(Nodo.TIPO_OPERADOR,Nodo.MENOR_QUE );
+                                    logicos.agregarHijo(menor);                                 
+                                    RESULT=logicos;
+                                :}
+                                |MAYOR_QUE: mayor1 
+                                {:
+                                    Nodo logicos = new Nodo(Nodo.TIPO_IDENTIFICADOR, "MAYOR_QUE");
+                                    Nodo mayor = new Nodo(Nodo.TIPO_OPERADOR,Nodo.MAYOR_QUE );
+                                    logicos.agregarHijo(mayor) ;                                
+                                    RESULT=logicos;
+                                :}   
+                                |IGUAL_QUE :igualq1
+                                {:
+                                    Nodo logicos = new Nodo(Nodo.TIPO_IDENTIFICADOR, "IGUAL_QUE");
+                                    Nodo igual1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.IGUAL_QUE);
+                                    logicos.agregarHijo(igual1);    ;                             
+                                    RESULT=logicos;
+                                :}                                
+                                |DISTINTO_QUE :distinto1
+                                {:
+                                    Nodo logicos = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DISTINTO_QUE");
+                                    Nodo distinto = new Nodo(Nodo.TIPO_OPERADOR,Nodo.DISTINTO_QUE );
+                                    logicos.agregarHijo(distinto)        ;                         
+                                    RESULT=logicos;
+                                :}
+                                |MODULO: modulo
+                                {:
+                                    Nodo logicos = new Nodo(Nodo.TIPO_IDENTIFICADOR, "MODULO");
+                                    Nodo modulo1 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.MODULO );
+                                    logicos.agregarHijo(modulo1);                                 
+                                    RESULT=logicos;
+                                :}; 
+CONDICION_CUP ::=               TIPOS_DATOS_CONDICIONES_CUP:tipodatocondiciones OPERADORES_LOGICOS_CUP:logicos TIPOS_DATOS_CONDICIONES_CUP:tipodatocondiciones1 
+                                {:
+                                    Nodo condicion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CONDICION");
+                                    condicion.agregarHijo(tipodatocondiciones);
+                                    condicion.agregarHijo(logicos);
+                                    condicion.agregarHijo(tipodatocondiciones1);                                    
+                                    RESULT=condicion;
+                                :}
+                                |LLAMADA_METODO_CLASE_CUP:llamada 
+                                {:
+                                    Nodo condicion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CONDICION");
+                                    condicion.agregarHijo(llamada);
+                                    RESULT=condicion;
+                                :};  
+
+TIPOS_DATOS_CONDICIONES_CUP ::= VARIABLE : variable
+                                {:
+                                    Nodo tipodatocondiciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE");
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema() ); 
+                                    tipodatocondiciones.agregarHijo(variable1) ;                                
+                                    RESULT=tipodatocondiciones;
+                                :}
+                                |TIPO_DATO_CUP:tipodato
+                                {:
+                                    Nodo tipodatocondiciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VALOR_VAR");
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    tipodatocondiciones.agregarHijo(tipodato1) ;                                
+                                    RESULT=tipodatocondiciones;
+                                :}  ; 
+ESTRUCTURA_SELECTIVA_CUP ::=    IF:if11 CONDICION_CUP:condicion ENTONCES:entonces CODIGO_METODOS_CUP:devolucion ELSE_CUP:else1 
+                                {:
+                                    Nodo estructuraselectiva = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SI_NO");
+                                    Nodo if1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.IF );
+                                    Nodo entonces1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.ENTONCES );
+                                    estructuraselectiva.agregarHijo(if1);
+                                    estructuraselectiva.agregarHijo(condicion);
+                                    estructuraselectiva.agregarHijo(entonces1);
+                                    estructuraselectiva.agregarHijo(devolucion);       
+                                    estructuraselectiva.agregarHijo(else1);                             
+                                    RESULT=estructuraselectiva;
+                                :}                  
+                                |IF:if11 CONDICION_CUP:condicion ENTONCES:entonces CODIGO_METODOS_CUP:devolucion
+                                {:
+                                    Nodo estructuraselectiva = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SI");
+                                    Nodo if1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.IF );
+                                    Nodo entonces1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.ENTONCES );
+                                    estructuraselectiva.agregarHijo(if1);
+                                    estructuraselectiva.agregarHijo(condicion);
+                                    estructuraselectiva.agregarHijo(entonces1);
+                                    estructuraselectiva.agregarHijo(devolucion) ;                                           
+                                    RESULT=estructuraselectiva;
+                                :};
+
+ELSE_CUP ::=                    SINO:sino CONDICION_CUP:condicion ENTONCES:entonces CODIGO_METODOS_CUP:devolucion ELSE_CUP:else1
+                                {:
+                                    Nodo else2 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "ELSE");
+                                    Nodo sino1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.SINO );
+                                    Nodo entonces1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.ENTONCES );
+                                    else2.agregarHijo(sino1)  ;
+                                    else2.agregarHijo(condicion);
+                                    else2.agregarHijo(entonces1);
+                                    else2.agregarHijo(devolucion);
+                                    else2.agregarHijo(else1)  ;      
+                                    RESULT=else2;
+                                :}   
+                                |SINO:sino CONDICION_CUP:condicion ENTONCES:entonces CODIGO_METODOS_CUP:devolucion
+                                {:
+                                    Nodo else1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "ELSE");
+                                    Nodo sino1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.SINO );
+                                    Nodo entonces1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.ENTONCES );
+                                    else1.agregarHijo(sino1)  ;
+                                    else1.agregarHijo(condicion);
+                                    else1.agregarHijo(entonces1);
+                                    else1.agregarHijo(devolucion)   ;   
+                                    RESULT=else1;
+                                :}                                   
+                                |SINO:sino CODIGO_METODOS_CUP:devolucion//IF CONDICION_CUP ENTONCES CODIGO_METODOS_CUP;
+                                {:
+                                    Nodo else1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "ELSE");
+                                    Nodo sino1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.SINO );
+                                    else1.agregarHijo(sino1);  
+                                    else1.agregarHijo(devolucion);      
+                                    RESULT=else1;
+                                :};  
+
+DEVOLUCION_CUP ::=              DEVOLVER:devolver TIPO_DATO_CUP:tipodato 
+                                {:
+                                    Nodo devolucion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEVOLVER");
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    devolucion.agregarHijo(tipodato1);   
+                                    RESULT=devolucion;
+                                :}
+                                |DEVOLVER:devolver VARIABLE:variable
+                                {:
+                                    Nodo devolucion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEVOLVER");
+                                    Nodo devolver1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.DEVOLVER );
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
+                                    devolucion.agregarHijo(devolver1) ;
+                                    devolucion.agregarHijo(variable1)  ;   
+                                    RESULT=devolucion;
+                                :}
+                                |DEVOLVER:devolver INC_DEC_VAR:variable
+                                {:
+                                    Nodo devolucion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEVOLVER");
+                                    Nodo devolver1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.DEVOLVER );
+                                    devolucion.agregarHijo(devolver1) ;
+                                    devolucion.agregarHijo(variable)  ;   
+                                    RESULT=devolucion;
+                                :}
+                                |DEVOLVER:devolver CONDICION_CUP:variable
+                                {:
+                                    Nodo devolucion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEVOLVER");
+                                    Nodo devolver1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.DEVOLVER );
+                                    devolucion.agregarHijo(devolver1) ;
+                                    devolucion.agregarHijo(variable)  ;   
+                                    RESULT=devolucion;
+                                :}
+                                |DEVOLVER:devolver REALIZAR_OPERACION_CUP:variable
+                                {:
+                                    Nodo devolucion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DEVOLVER");
+                                    Nodo devolver1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.DEVOLVER );
+                                    devolucion.agregarHijo(devolver1) ;
+                                    devolucion.agregarHijo(variable)  ;   
+                                    RESULT=devolucion;
+                                :}
+                                ; 
+
+//ESTRUCTURAS ITERATIVAS
+INC_DEC_VAR ::=                 INCREMENTAR:inc TIPO_DATO_CUP:tipodato 
+                                {:
+                                    Nodo incrementar = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INCREMENTAR");
+                                    Nodo inc1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.INCREMENTAR );
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    incrementar.agregarHijo(inc1) ;
+                                    incrementar.agregarHijo(tipodato1);     
+                                    RESULT=incrementar;
+                                :}
+                                |DECREMENTAR: dec TIPO_DATO_CUP:tipodato 
+                                {:
+                                    Nodo decrementar = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DECREMENTAR");
+                                    Nodo dec1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.DECREMENTAR );
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    decrementar.agregarHijo(dec1) ;
+                                    decrementar.agregarHijo(tipodato1);     
+                                    RESULT=decrementar;
+                                :};
+
+DESDE_CUP ::=                   DESDE:desde DECLARACION_VARIABLES_CUP:declaracion MIENTRAS:mientras CONDICION_CUP:condicion INC_DEC_VAR:incrementar HACER:hacer CODIGO_METODOS_CUP: codigo
+                                {:
+                                    Nodo desde2 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESDE");
+                                    Nodo desde1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.DESDE );
+                                    Nodo mientras1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.MIENTRAS );
+                                    Nodo hacer1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.HACER );
+                                    desde2.agregarHijo(desde1);
+                                    desde2.agregarHijo(declaracion);
+                                    desde2.agregarHijo(mientras1);
+                                    desde2.agregarHijo(condicion) ;
+                                    desde2.agregarHijo(incrementar); 
+                                    desde2.agregarHijo(hacer1);
+                                    desde2.agregarHijo(codigo) ;   
+                                    RESULT=desde2;
+                                :};   
+
+HACER_CUP ::=                   HACER:hacer1 CODIGO_METODOS_CUP:codigo MIENTRAS:mientras CONDICION_CUP:condicion
+                                {:
+                                    Nodo hacer = new Nodo(Nodo.TIPO_IDENTIFICADOR, "HACER");
+                                    Nodo hacer2 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.HACER );
+                                    Nodo mientras1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.MIENTRAS );
+                                    hacer.agregarHijo(hacer2);
+                                    hacer.agregarHijo(codigo);
+                                    hacer.agregarHijo(mientras1);
+                                    hacer.agregarHijo(condicion);  
+
+                                    RESULT=hacer;
+                                :};
+
+//FUNCIONES SUELTAS
+
+LISTA_VARIABLES_CUP ::=         COMA:coma LISTA_VARIABLES_CUP:lista1
+                                {:
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_1");
+                                    //lista.agregarHijo(lista1);
+                                    RESULT=lista;
+                                :}
+
+                                |PALABRA_RESERVADA_TIPO:tipodato VARIABLE:variable LISTA_VARIABLES_CUP:lista1 
+                                {:
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_2");
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
+                                    //lista.agregarHijo(variable1);
+                                    //lista.agregarHijo(lista1);
+                                    parametros.agregarHijo(variable1);
+                                    RESULT=lista;
+                                :}                                
+                                |PALABRA_RESERVADA_TIPO:tipodato VARIABLE:variable
+                                {:
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_3");
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
+                                    Nodo tipodato1 = new Nodo(Nodo.TIPO_DATO_CUP, 0);
+                                    //lista.agregarHijo(tipodato1);
+                                    //lista.agregarHijo(variable1);
+                                    parametros.agregarHijo(variable1);
+                                    RESULT=lista;
+                                :}
+                                |VARIABLE: variable
+                                {:
+                                    Nodo lista = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIABLE_4");
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema()  );
+                                    //lista.agregarHijo(variable1);
+                                    parametros.agregarHijo(variable1);
+                                    //RESULT=lista;
+                                :}  ;
+
+FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 LISTA_VARIABLES_CUP:lista PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
+                                {:
+                                    Nodo funcion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "FUNC");
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
+                                    funcion.agregarHijo(variable1);
+                                    funcion.agregarHijo(this.parametros);
+                                    funcion.agregarHijo(metodo);
+                                    funcion.agregarHijo(devolucion);
+                                    this.metodos.agregarHijo(funcion);
+                                    RESULT = funcion;
+                                    //
+                                :} 
+                                | PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
+                                {:
+                                    Nodo funcion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "FUNC");
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
+                                    funcion.agregarHijo(variable1);
+                                    funcion.agregarHijo(metodo);
+                                    funcion.agregarHijo(devolucion);
+                                    this.metodos.agregarHijo(funcion);
+                                    RESULT = funcion;
+                                :}; 
+//
+
+FUNCIONES_PREDEFINIDAS_CUP ::=  CADENA_A_ENTERO:ce PARENTESIS1:p1 VARIABLE:variable PARENTESIS2:p2
+                                {:
+                                    Nodo funciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CADENA_ENTERO");
+                                    Nodo ce1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.CADENA_A_ENTERO);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    funciones.agregarHijo(ce1);
+                                    funciones.agregarHijo(variable1);
+                                    RESULT=funciones;
+                                :} 
+                                |CADENA_A_REAL:ce PARENTESIS1:p1 VARIABLE:variable PARENTESIS2:p2
+                                {:
+                                    Nodo funciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CADENA_REAL");
+                                    Nodo ce1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.CADENA_A_REAL);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    funciones.agregarHijo(ce1);
+                                    funciones.agregarHijo(variable1);
+                                    RESULT=funciones;
+                                :}    
+                                |CADENA_A_BOOLEANO:ce PARENTESIS1:p1 VARIABLE:variable PARENTESIS2:p2
+                                {:
+                                    Nodo funciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CADENA_BOOLEANO");
+                                    Nodo ce1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.CADENA_A_BOOLEANO);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    funciones.agregarHijo(ce1);
+                                    funciones.agregarHijo(variable1);
+                                    RESULT=funciones;
+                                :}                                 
+                                |RAIZ:ce PARENTESIS1:p1 VARIABLE:variable PARENTESIS2:p2 
+                                {:
+                                    Nodo funciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "RAIZ");
+                                    Nodo ce1 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.RAIZ);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    funciones.agregarHijo(ce1);
+                                    funciones.agregarHijo(variable1);
+                                    RESULT=funciones;
+                                :}  
+                               |TANGENTE:ce PARENTESIS1:p1 VARIABLE:variable PARENTESIS2:p2
+                                {:
+                                    Nodo funciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "TANGENTE");
+                                    Nodo ce1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.TANGENTE);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    funciones.agregarHijo(ce1);
+                                    funciones.agregarHijo(variable1);
+                                    RESULT=funciones;
+                                :}  
+                                |COSENO:ce PARENTESIS1:p1 VARIABLE:variable PARENTESIS2:p2 
+                                {:
+                                    Nodo funciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "COSENO");
+                                    Nodo ce1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.COSENO);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    funciones.agregarHijo(ce1);
+                                    funciones.agregarHijo(variable1);
+                                    RESULT=funciones;
+                                :}    
+                                |SENO:ce PARENTESIS1:p1 VARIABLE:variable PARENTESIS2:p2 
+                                {:
+                                    Nodo funciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "SENO");
+                                    Nodo ce1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.SENO);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    funciones.agregarHijo(ce1);
+                                    funciones.agregarHijo(variable1);
+                                    RESULT=funciones;
+                                :} 
+                                |LOGARITMO:ce PARENTESIS1:p1 VARIABLE:variable PARENTESIS2:p2
+                                {:
+                                    Nodo funciones = new Nodo(Nodo.TIPO_IDENTIFICADOR, "LOGARITMO");
+                                    Nodo ce1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.LOGARITMO);
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    funciones.agregarHijo(ce1);
+                                    funciones.agregarHijo(variable1);
+                                    RESULT=funciones;
+                                :};
+//INSTANCIACIÓN CLASES
+
+INSTANCIACION_CUP ::=           VARIABLE_CLASE:variablec VARIABLE:variable IGUAL:igual INSTANCIAR:instanciar VARIABLE_CLASE:variablec1 PARENTESIS1:p1 PARENTESIS2:p2
+                                {:
+                                    Nodo instanciacion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACIÓN");
+                                    Nodo variablec2 = new Nodo(Nodo.TIPO_IDENTIFICADOR_CLASE,variablec.getLexema() );
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema() );
+                                    Nodo instanciar1 = new Nodo(Nodo.VARIABLE_CLASE, variablec.getLexema() );
+                                    Nodo variablec22 = new Nodo(Nodo.TIPO_IDENTIFICADOR_CLASE,variablec1.getLexema() );
+
+                                    instanciacion.agregarHijo(variablec2);
+                                    instanciacion.agregarHijo(variable1);
+                                    instanciacion.agregarHijo(instanciar1);
+                                    instanciacion.agregarHijo(variablec22);
+                                    RESULT=instanciacion;
+                                :} 
+                                |VARIABLE:variable IGUAL:igual INSTANCIAR:instanciar VARIABLE_CLASE:variablec PARENTESIS1:p1 PARENTESIS2:p2 
+                                {:
+                                    Nodo instanciacion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "INSTANCIACIÓN");
+
+                                    Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, variable.getLexema());
+                                    Nodo instanciar1 = new Nodo(Nodo.VARIABLE_CLASE, variablec.getLexema() );
+                                    Nodo variablec1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variablec.getLexema());
+
+                                    instanciacion.agregarHijo(variable1);
+                                    instanciacion.agregarHijo(instanciar1);
+                                    instanciacion.agregarHijo(variablec1);
+
+                                    RESULT=instanciacion;
+                                :};
+
+VARIAS_VARIABLES_CUP ::=        ELIMINAR:eliminar VARIAS_VARIABLES_CUP:varias
+                                {:
+                                    Nodo variasv = new Nodo(Nodo.TIPO_IDENTIFICADOR, "VARIAS_VARIABLES");
+                                    Nodo eliminar1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.ELIMINAR );
+                                    variasv.agregarHijo(eliminar1);
+                                    variasv.agregarHijo(varias);
+                                    RESULT=variasv;
+                                :} 
+                                |ELIMINAR:eliminar VARIABLE:var
+                                {:
+                                    Nodo variasv = new Nodo(Nodo.TIPO_IDENTIFICADOR, "ELIMINAR");
+                                    Nodo eliminar1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.ELIMINAR );
+                                    Nodo var1 = new Nodo(Nodo.VARIABLE, var.getLexema());
+                                    eliminar1.agregarHijo(var1);
+                                    variasv.agregarHijo(eliminar1);
+                                    RESULT=variasv;
+                                :};
+ 
+//CONSTRUCTORES Y DESTRUCTORES
+
+CONSTRUCTOR_CUP ::=             CONSTRUCTOR:constructor PARENTESIS1:p1 LISTA_VARIABLES_CUP:lista PARENTESIS2:p2 CODIGO_METODOS_CUP:codigos
+                                {:
+                                    Nodo const1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CONSTRUCTOR");
+                                    Nodo constructor1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.CONSTRUCTOR );
+                                    const1.agregarHijo(constructor1);
+                                    const1.agregarHijo(lista);
+                                    const1.agregarHijo(codigos);
+
+                                    RESULT=const1;
+                                :} 
+
+                                |CONSTRUCTOR:constructor PARENTESIS1:p1 PARENTESIS2:p2 CODIGO_METODOS_CUP:codigos
+                                {:
+                                    Nodo const1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "CONSTRUCTOR");
+                                    Nodo constructor1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.CONSTRUCTOR );
+                                    const1.agregarHijo(constructor1);
+                                    const1.agregarHijo(codigos);
+
+                                    RESULT=const1;
+                                :};
+
+DESTRUCTOR_CUP ::=              DESTRUCTOR:destructor PARENTESIS1:p1 PARENTESIS2:p2 VARIAS_VARIABLES_CUP:variasv
+                                {:
+                                    Nodo const1= new Nodo(Nodo.TIPO_IDENTIFICADOR, "DESTRUCTOR");
+                                    Nodo destructor1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.DESTRUCTOR);
+                                    const1.agregarHijo(destructor1);
+                                    const1.agregarHijo(variasv);
+                                    RESULT=const1;
+                                :} ;
+//PROGRAMA PRINCIPAL 
+
+PROGRAMA_PRINCIPAL_CUP ::=      PALABRA_RESERVADA_TIPO:palabra PRINCIPAL:principal PARENTESIS1:p1 LISTA_VARIABLES_CUP:lista PARENTESIS2:p2 CODIGO_METODOS_CUP :codigo DEVOLUCION_CUP:devolucion
+                                {:
+                                    Nodo const1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "MAIN");
+                                    //Nodo palabra1 = new Nodo(, palabra.getLexema());
+                                    Nodo principal1 = new Nodo(Nodo.TIPO_RESERVADA, Nodo.PRINCIPAL);
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    const1.agregarHijo(const1);
+                                    const1.agregarHijo(principal1);
+                                    const1.agregarHijo(p222);
+                                    const1.agregarHijo(lista);
+                                    const1.agregarHijo(p22);
+                                    const1.agregarHijo(codigo);
+                                    const1.agregarHijo(devolucion);
+
+                                    RESULT=const1;
+                                :} 
+
+
+                                | PALABRA_RESERVADA_TIPO:palabra PRINCIPAL:principal PARENTESIS1:p1 PARENTESIS2:p2 CODIGO_METODOS_CUP:codigos DEVOLUCION_CUP:devolucion
+                                {:
+                                    Nodo const1 = new Nodo(Nodo.TIPO_IDENTIFICADOR, "MAIN");
+                                    Nodo palabra1 = new Nodo(Nodo.TIPO_EXPRESION,0);
+                                    //Nodo palabra1 = new Nodo(Nodo.TIP, );
+                                    Nodo principal1 = new Nodo(Nodo.TIPO_RESERVADA,Nodo.PRINCIPAL );
+                                    Nodo p222 = new Nodo(Nodo.TIPO_OPERADOR, Nodo.PARENTESIS1);
+                                    Nodo p22 = new Nodo(Nodo.TIPO_OPERADOR,Nodo.PARENTESIS2);
+                                    const1.agregarHijo(palabra1);
+                                    const1.agregarHijo(principal1);
+                                    const1.agregarHijo(p222);
+                                    const1.agregarHijo(p22);
+                                    const1.agregarHijo(codigos);
+                                    const1.agregarHijo(devolucion);
+                                    RESULT=const1;
+                                :};    
