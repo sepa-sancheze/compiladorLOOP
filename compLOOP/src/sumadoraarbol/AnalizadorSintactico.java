@@ -847,7 +847,7 @@ class CUP$AnalizadorSintactico$actions {
 		int metodoright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo metodo = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    Nodo decclase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"MIEMBROS");                                
+                                    Nodo decclase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"MIEMBROS");
                                     decclase.agregarHijo(encabezado);
                                     decclase.agregarHijo(propiedades);
                                     decclase.agregarHijo(metodo);
@@ -3063,6 +3063,7 @@ class CUP$AnalizadorSintactico$actions {
                                     funcion.agregarHijo(devolucion);
                                     this.metodos.agregarHijo(funcion);
                                     RESULT = funcion;
+                                    //
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("FUNCIONES_SUELTAS_CUP",27, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-6)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }

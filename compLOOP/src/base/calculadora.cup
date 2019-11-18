@@ -122,7 +122,7 @@ CLASES_CUP ::=                  DECLARACION_CLASES_CUP: dec
 //COMPLETADO
 DECLARACION_CLASES_CUP ::=      ENCABEZADO_CUP:encabezado PROPIEDADES_CUP:propiedades METODOS_CUP:metodo
                                 {:
-                                    Nodo decclase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"MIEMBROS");                                
+                                    Nodo decclase = new Nodo(Nodo.TIPO_IDENTIFICADOR,"MIEMBROS");
                                     decclase.agregarHijo(encabezado);
                                     decclase.agregarHijo(propiedades);
                                     decclase.agregarHijo(metodo);
@@ -988,6 +988,7 @@ FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable
                                     funcion.agregarHijo(devolucion);
                                     this.metodos.agregarHijo(funcion);
                                     RESULT = funcion;
+                                    //
                                 :} 
                                 | PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
