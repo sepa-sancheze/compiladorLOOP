@@ -307,10 +307,7 @@ CODIGO_METODOS_CUP ::=          //TERMINADO
                                 //TERMINADO
                                 | FUNCIONES_SUELTAS_CUP:funciones
                                 {:
-                                    parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
-                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
-                                    codigo.agregarHijo(funciones);
-                                    RESULT=codigo;
+                                    //RESULT=codigo;
                                 :} 
                                 //TERMINADO
                                 | HACER_CUP:hacer
@@ -598,7 +595,8 @@ VALOR_INICIAL_CUP ::=           IGUAL:igual DECREMENTO:dec VARIABLE:variable
                                     valinicial.agregarHijo(igual1);
                                     valinicial.agregarHijo(funciones) ;
                                     RESULT=valinicial;
-                                :};  
+                                :}
+;  
 
 OPERACIONES_CUP  ::=            SUMA :mas
                                 {:
@@ -982,20 +980,24 @@ LISTA_VARIABLES_CUP ::=         COMA:coma LISTA_VARIABLES_CUP:lista1
 
 FUNCIONES_SUELTAS_CUP ::=       PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 LISTA_VARIABLES_CUP:lista PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
+                                    Nodo funcion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "FUNC");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
-                                    this.func.agregarHijo(variable1);
-                                    this.func.agregarHijo(this.parametros);
-                                    this.func.agregarHijo(metodo);
-                                    this.func.agregarHijo(devolucion);
-                                    RESULT = this.func;
+                                    funcion.agregarHijo(variable1);
+                                    funcion.agregarHijo(this.parametros);
+                                    funcion.agregarHijo(metodo);
+                                    funcion.agregarHijo(devolucion);
+                                    this.metodos.agregarHijo(funcion);
+                                    RESULT = funcion;
                                 :} 
                                 | PALABRA_RESERVADA_TIPO:palabra VARIABLE:variable PARENTESIS1:p1 PARENTESIS2:p2 CODIGO_METODOS_CUP:metodo DEVOLUCION_CUP:devolucion
                                 {:
+                                    Nodo funcion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "FUNC");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
-                                    this.func.agregarHijo(variable1);
-                                    this.func.agregarHijo(metodo);
-                                    this.func.agregarHijo(devolucion);
-                                    RESULT = this.func;
+                                    funcion.agregarHijo(variable1);
+                                    funcion.agregarHijo(metodo);
+                                    funcion.agregarHijo(devolucion);
+                                    this.metodos.agregarHijo(funcion);
+                                    RESULT = funcion;
                                 :}; 
 //
 

@@ -210,7 +210,7 @@ public void add(String nuevo) {
     {tipo_nulo}
         {   
             ////tokens.add(new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones, yyline, yycolumn));
-            //return new Symbol(sym.PALABRA_RESERVADA_TIPO, new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones, yyline, yycolumn));
+            return new Symbol(sym.PALABRA_RESERVADA_TIPO, new token("PALABRA_RESERVADA_TIPO", yytext(), this.tabulaciones, yyline, yycolumn));
         }
 
     {raiz}

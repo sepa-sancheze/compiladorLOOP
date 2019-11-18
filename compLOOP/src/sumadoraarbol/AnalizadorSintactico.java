@@ -1361,10 +1361,7 @@ class CUP$AnalizadorSintactico$actions {
 		int funcionesright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo funciones = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
-                                    parametros = new Nodo(Nodo.TIPO_IDENTIFICADOR,"PARAMETROS");
-                                    Nodo codigo = new Nodo(Nodo.TIPO_IDENTIFICADOR,"FUNCION");
-                                    codigo.agregarHijo(funciones);
-                                    RESULT=codigo;
+                                    //RESULT=codigo;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CODIGO_METODOS_CUP",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
@@ -3058,12 +3055,14 @@ class CUP$AnalizadorSintactico$actions {
 		int devolucionright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo devolucion = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
+                                    Nodo funcion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "FUNC");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
-                                    this.func.agregarHijo(variable1);
-                                    this.func.agregarHijo(this.parametros);
-                                    this.func.agregarHijo(metodo);
-                                    this.func.agregarHijo(devolucion);
-                                    RESULT = this.func;
+                                    funcion.agregarHijo(variable1);
+                                    funcion.agregarHijo(this.parametros);
+                                    funcion.agregarHijo(metodo);
+                                    funcion.agregarHijo(devolucion);
+                                    this.metodos.agregarHijo(funcion);
+                                    RESULT = funcion;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("FUNCIONES_SUELTAS_CUP",27, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-6)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
@@ -3092,11 +3091,13 @@ class CUP$AnalizadorSintactico$actions {
 		int devolucionright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
 		Nodo devolucion = (Nodo)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
 		
+                                    Nodo funcion = new Nodo(Nodo.TIPO_IDENTIFICADOR, "FUNC");
                                     Nodo variable1 = new Nodo(Nodo.TIPO_IDENTIFICADOR,variable.getLexema());
-                                    this.func.agregarHijo(variable1);
-                                    this.func.agregarHijo(metodo);
-                                    this.func.agregarHijo(devolucion);
-                                    RESULT = this.func;
+                                    funcion.agregarHijo(variable1);
+                                    funcion.agregarHijo(metodo);
+                                    funcion.agregarHijo(devolucion);
+                                    this.metodos.agregarHijo(funcion);
+                                    RESULT = funcion;
                                 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("FUNCIONES_SUELTAS_CUP",27, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
